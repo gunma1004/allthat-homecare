@@ -1,146 +1,199 @@
 import { Metadata } from "next";
 import Link from "next/link";
 
+const SITE_URL = "https://carezone-massage.netlify.app";
+
 export const metadata: Metadata = {
-  title: "수도권 힐링 여행지 & 드라이브 코스 가이드 | 케어존마사지",
+  title: "프리미엄 웰니스 바디케어 프로그램 안내 | 케어존마사지",
   description:
-    "서울, 경기, 인천 도심 근교 힐링 여행지와 야경 드라이브 코스 가이드. 맑은 공기와 자연 속에서 일상의 스트레스를 비워내는 추천 명소를 케어존마사지에서 확인하세요.",
+    "케어존마사지 맞춤형 바디 테라피 프로그램 안내. 타이 건식 릴렉스, 최고급 천연 아로마 오일 케어, 감성 스웨디시 등 체계적인 웰니스 서비스 코스를 확인하세요.",
   keywords: [
     "케어존마사지",
-    "수도권 힐링 여행",
-    "서울 드라이브 코스",
-    "경기 근교 나들이",
-    "인천 해안 드라이브",
-    "힐링 명소",
-    "야경 산책로"
+    "마사지프로그램",
+    "타이마사지코스",
+    "아로마오일케어",
+    "스웨디시테라피",
+    "바디릴렉싱",
+    "수도권마사지안내",
   ],
   alternates: {
-    canonical: "https://carezone-massage.netlify.app/travel",
+    canonical: `${SITE_URL}/services`,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
   },
   openGraph: {
-    title: "수도권 힐링 여행지 & 휴식 명소 가이드 | 케어존마사지",
-    description: "서울·경기·인천 추천 산책로, 드라이브 코스 및 도심 근교 웰니스 쉼터 안내.",
-    url: "https://carezone-massage.netlify.app/travel",
+    title: "프리미엄 웰니스 바디 테라피 코스 안내 | 케어존마사지",
+    description: "개인 맞춤형 릴렉싱 케어와 안락한 프라이빗 바디 테라피 상세 가이드.",
+    url: `${SITE_URL}/services`,
     siteName: "케어존마사지",
     locale: "ko_KR",
     type: "website",
+    images: [
+      {
+        url: `${SITE_URL}/banner.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "케어존마사지 바디 테라피 프로그램 가이드",
+      },
+    ],
   },
 };
 
-interface TravelSpot {
-  region: string;
-  regionLink: string;
-  title: string;
-  desc: string;
-  tag: string;
-}
-
-const travelSpots: TravelSpot[] = [
+const programs = [
   {
-    region: "서울 코스",
-    regionLink: "/seoul/서울특별시",
-    title: "남산 둘레길 & 한강 야경 드라이브",
-    desc: "도심 속 탁 트인 전망대와 시원한 강바람을 맞으며 하루의 긴장을 부드럽게 비워낼 수 있는 야경 코스입니다.",
-    tag: "#도심야경 #산책로 #기분전환",
+    step: "01",
+    name: "건식 / 타이 릴렉스",
+    desc: "전신의 뭉친 근육과 일상 긴장으로 굳은 관절을 부드럽게 풀어주는 스트레칭 중심의 전통 바디 케어 코스입니다.",
+    target: "운동 부족, 만성 뻐근함, 하체 부종",
   },
   {
-    region: "경기 코스",
-    regionLink: "/gyeonggi/경기도",
-    title: "가평 수목원 & 양평 두물머리 드라이브",
-    desc: "울창한 숲길 산림욕과 잔잔한 강변 풍경을 바라보며 깊은 휴식을 누릴 수 있는 자연 친화적 코스입니다.",
-    tag: "#자연속휴식 #산림욕 #물멍드라이브",
+    step: "02",
+    name: "아로마 오일 케어",
+    desc: "엄선된 식물성 에센셜 오일을 사용하여 피부 자극 없이 부드럽게 체내 순환과 피로 해소를 돕는 릴렉싱 코스입니다.",
+    target: "스트레스 완화, 피부 보습, 림프 순환",
   },
   {
-    region: "인천 코스",
-    regionLink: "/incheon/인천광역시",
-    title: "송도 센트럴파크 & 영종도 오션로드",
-    desc: "이국적인 도심 수변 공원 산책과 서해 낙조를 감상하며 차분히 마음을 정리하기 좋은 해안 힐링 코스입니다.",
-    tag: "#오션뷰 #일몰명소 #여유로운산책",
-  },
-  {
-    region: "수도권 근교",
-    regionLink: "/gyeonggi/경기도",
-    title: "파주 마장호수 출렁다리 & 숲길 산책",
-    desc: "넓은 호수를 따라 조성된 수변 데크길을 천천히 걸으며 신선한 공기를 마실 수 있는 쾌적한 쉼터입니다.",
-    tag: "#호수산책 #주말나들이 #힐링로드",
+    step: "03",
+    name: "VIP 감성 스웨디시",
+    desc: "섬세한 터칭 기법으로 림프 순환을 촉진하고 지친 몸과 마음에 깊은 평온을 선사하는 시그니처 감성 케어입니다.",
+    target: "극도의 피로, 수면 장애, 심신 안정",
   },
 ];
 
-export default function TravelPage() {
+export default function ServicesPage() {
+  // 🌟 Schema.org W3C 표준 규격을 100% 준수한 ItemList 구조화 데이터
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    itemListElement: travelSpots.map((spot, index) => ({
+    name: "케어존마사지 프리미엄 테라피 코스 리스트",
+    url: `${SITE_URL}/services`,
+    itemListElement: programs.map((prog, idx) => ({
       "@type": "ListItem",
-      position: index + 1,
-      name: spot.title,
-      description: spot.desc,
+      position: idx + 1,
+      item: {
+        "@type": "Service",
+        name: prog.name,
+        description: prog.desc,
+        provider: {
+          "@type": "Organization",
+          name: "케어존마사지",
+          url: SITE_URL,
+        },
+      },
     })),
   };
 
   return (
     <div className="bg-[#070709] text-gray-100 min-h-screen py-10 px-4 font-sans selection:bg-amber-500 selection:text-black">
-      {/* 구조화 데이터 */}
+      {/* 1. 구조화 데이터 주입 */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
       <div className="max-w-4xl mx-auto space-y-10">
-        
-        {/* 상단 타이틀 */}
-        <div className="text-center space-y-2">
+        {/* 상단 타이틀 (유일한 H1) */}
+        <header className="text-center space-y-2">
           <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">
-            LOCAL WELLNESS TRAVEL
+            PREMIUM CARE SERVICE
           </span>
           <h1 className="text-2xl md:text-3xl font-black text-white">
-            수도권 힐링 여행지 안내
+            케어존마사지 코스별 프로그램 안내
           </h1>
           <p className="text-xs md:text-sm text-gray-400">
-            피로와 긴장을 비워내기 좋은 서울·경기·인천 추천 명소
+            고객님의 컨디션과 취향에 맞춘 최상의 프라이빗 힐링 솔루션
           </p>
-        </div>
+        </header>
 
-        {/* 상단 소개 카드 */}
-        <div className="bg-[#111114] border border-amber-500/20 p-6 rounded-3xl text-center space-y-2 shadow-lg">
+        {/* 3대 핵심 프로그램 카드 (H2 위계) */}
+        <section className="space-y-4">
+          <h2 className="text-sm font-black text-amber-400 tracking-wider uppercase">
+            💎 시그니처 웰니스 프로그램 라인업
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {programs.map((prog) => (
+              <div
+                key={prog.step}
+                className="bg-[#111114] border border-amber-500/20 hover:border-amber-500/50 p-6 rounded-3xl space-y-3 transition-all shadow-md flex flex-col justify-between"
+              >
+                <div className="space-y-2">
+                  <div className="text-amber-400 text-2xl font-black">{prog.step}</div>
+                  <h3 className="font-bold text-lg text-white">{prog.name}</h3>
+                  <p className="text-xs text-gray-400 leading-relaxed">{prog.desc}</p>
+                </div>
+                <div className="pt-3 border-t border-white/5 text-[11px] text-amber-300/80 font-medium">
+                  추천 대상: {prog.target}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 📚 [네이버 C-Rank / D.I.A. 상위 노출용 프로그램 비교 & 생리학적 효과 전문 칼럼] */}
+        <article className="bg-[#0e0e12] border border-white/10 p-6 sm:p-8 rounded-3xl space-y-6 text-xs sm:text-sm text-gray-300 leading-relaxed">
+          <div className="border-b border-white/10 pb-4">
+            <span className="text-amber-400 font-extrabold text-xs tracking-widest block uppercase mb-1">
+              WELLNESS PROGRAM GUIDE
+            </span>
+            <h2 className="text-lg sm:text-xl font-black text-white">
+              나의 신체 피로 패턴에 맞는 올바른 관리 기법 선택 노하우
+            </h2>
+            <p className="text-gray-400 text-xs mt-1">
+              건식 스트레칭, 아로마 림프 케어, 감성 스웨디시의 작용 메커니즘 차이
+            </p>
+          </div>
+
+          <div className="space-y-2.5">
+            <h3 className="font-bold text-white text-sm flex items-center gap-1.5">
+              <span className="text-amber-400">●</span> 1. 수동적 스트레칭 중심의 전통 건식 타이 케어
+            </h3>
+            <p className="text-gray-400">
+              오일을 바르지 않고 편안한 복장 상태에서 진행되는 건식 관리는 압박 요법과 관절 신전(스트레칭)을 결합한 형태입니다. 바쁜 일상에서 전신 스트레칭을 하기 어려운 현대인들에게 이상적이며, 둔근과 햄스트링, 척추 기립근을 넓은 면적으로 견인하여 관절 가동 범위를 물리적으로 넓혀줍니다. 무겁고 뻐근한 몸을 시원하게 정돈하고자 할 때 권장됩니다.
+            </p>
+          </div>
+
+          <div className="space-y-2.5">
+            <h3 className="font-bold text-white text-sm flex items-center gap-1.5">
+              <span className="text-amber-400">●</span> 2. 천연 식물성 에센셜을 활용한 아로마 림프 케어
+            </h3>
+            <p className="text-gray-400">
+              피부에 식물성 베이스 오일을 도포하여 마찰 저항을 덜어낸 상태로 진행되는 부드러운 관리입니다. 후각을 통해 대뇌 변연계를 자극하는 아로마테라피 원리를 접목하여 만성적인 교감신경 흥분을 안정화시키며, 서혜부와 액와부 등 주요 림프절을 따라 피부층을 미세하게 자극하여 부종 완화와 혈액 순환을 촉진합니다.
+            </p>
+          </div>
+
+          <div className="space-y-2.5">
+            <h3 className="font-bold text-white text-sm flex items-center gap-1.5">
+              <span className="text-amber-400">●</span> 3. 심신의 깊은 이완과 힐링을 돕는 감성 스웨디시
+            </h3>
+            <p className="text-gray-400">
+              유러피언 정통 테크닉에서 발전한 스웨디시는 강한 통증성 지압을 지양하고, 혈류와 심장 방향으로 부드럽고 리드미컬하게 밀어 올리는 섬세한 수기 기법입니다. 통증 수용기를 자극하지 않으면서 피로 물질 배출을 유도하므로, 스트레스로 인한 수면 장애나 극심한 피로감을 겪는 분들에게 안정감 있는 휴식을 제공합니다.
+            </p>
+          </div>
+        </article>
+
+        {/* 안심 정찰제 안내 박스 */}
+        <section className="bg-[#0e0e12] border border-white/10 p-6 rounded-3xl text-center space-y-2 shadow-inner">
           <p className="text-xs md:text-sm text-gray-300 font-semibold">
-            🌿 바쁜 일상 속, 몸과 마음에 잠시 쉬어갈 틈을 선물해 보세요.
+            ✨ 모든 프로그램은 검증된 정찰제 가이드라인에 따라 투명하게 진행됩니다.
           </p>
           <p className="text-[11px] text-gray-500">
-            접근성이 뛰어난 수도권 내 힐링 명소에서 편안한 재충전의 시간을 가져보시기 바랍니다.
+            숙련된 전문 테라피스트의 정성 어린 1:1 맞춤형 케어로 일상의 활력을 되찾아보세요.
           </p>
-        </div>
-
-        {/* 여행지 카드 리스트 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {travelSpots.map((spot, idx) => (
-            <div
-              key={idx}
-              className="bg-[#111114] border border-white/10 hover:border-amber-500/40 p-6 rounded-2xl space-y-3 transition-all shadow-md group flex flex-col justify-between"
+          <div className="pt-2">
+            <Link
+              href="/prices"
+              className="text-xs text-amber-400 hover:text-amber-300 font-bold underline underline-offset-4"
             >
-              <div className="space-y-3">
-                <div className="flex justify-between items-center text-xs">
-                  <Link
-                    href={spot.regionLink}
-                    className="text-amber-400 font-black bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/20 hover:bg-amber-500/20 transition-colors"
-                  >
-                    {spot.region} 샵 보기 →
-                  </Link>
-                  <span className="text-gray-500 text-[11px]">{spot.tag}</span>
-                </div>
-                <h2 className="text-base font-extrabold text-white group-hover:text-amber-300 transition-colors">
-                  {spot.title}
-                </h2>
-                <p className="text-xs text-gray-400 leading-relaxed">
-                  {spot.desc}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
+              코스별 이용 요금표 확인하기 →
+            </Link>
+          </div>
+        </section>
 
-        {/* 하단 이동 버튼 */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-3 pt-4">
+        {/* 하단 CTA 버튼 */}
+        <footer className="flex flex-col sm:flex-row justify-center items-center gap-3 pt-2">
           <Link
             href="/"
             className="w-full sm:w-auto text-center inline-flex items-center justify-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 text-amber-400 font-bold text-xs px-5 py-3 rounded-2xl border border-amber-500/30 transition-all shadow-md"
@@ -151,10 +204,9 @@ export default function TravelPage() {
             href="tel:0507-1280-3344"
             className="w-full sm:w-auto text-center inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-black font-extrabold text-xs px-6 py-3 rounded-2xl shadow-md transition-all active:scale-95"
           >
-            📞 제휴 및 상담 문의
+            📞 프로그램 맞춤 상담
           </a>
-        </div>
-
+        </footer>
       </div>
     </div>
   );

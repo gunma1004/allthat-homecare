@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
 
+const SITE_URL = "https://carezone-massage.netlify.app";
+
 export const metadata: Metadata = {
   title: "수도권 미식 & 힐링 쉼터 가이드 | 케어존마사지",
   description:
@@ -15,15 +17,28 @@ export const metadata: Metadata = {
     "웰니스플레이스",
   ],
   alternates: {
-    canonical: "https://carezone-massage.netlify.app/places",
+    canonical: `${SITE_URL}/places`,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
   },
   openGraph: {
     title: "수도권 힐링 플레이스 & 편안한 휴식 공간 가이드 | 케어존마사지",
     description: "서울·경기·인천 도심 속 쾌적한 쉼터와 프라이빗 미식 공간 정보 안내.",
-    url: "https://carezone-massage.netlify.app/places",
+    url: `${SITE_URL}/places`,
     siteName: "케어존마사지",
     locale: "ko_KR",
     type: "website",
+    images: [
+      {
+        url: `${SITE_URL}/banner.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "케어존마사지 수도권 힐링 플레이스 가이드",
+      },
+    ],
   },
 };
 
@@ -72,9 +87,11 @@ const recommendedPlaces: PlaceItem[] = [
 ];
 
 export default function PlacesPage() {
+  // 🌟 네이버 서치어드바이저 및 구글 표준 ItemList 정형 데이터
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
+    name: "수도권 주요 힐링 플레이스 & 미식 쉼터 리스트",
     itemListElement: recommendedPlaces.map((place, idx) => ({
       "@type": "ListItem",
       position: idx + 1,
@@ -84,7 +101,7 @@ export default function PlacesPage() {
         description: place.desc,
         address: {
           "@type": "PostalAddress",
-          addressRegion: place.region,
+          addressLocality: place.region,
           addressCountry: "KR",
         },
       },
@@ -93,15 +110,15 @@ export default function PlacesPage() {
 
   return (
     <div className="bg-[#070709] text-gray-100 min-h-screen py-10 px-4 font-sans selection:bg-amber-500 selection:text-black">
-      {/* 구조화 데이터 스크립트 */}
+      {/* 1. 구조화 데이터 주입 */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
       <div className="max-w-4xl mx-auto space-y-10">
-        {/* 상단 타이틀 배너 */}
-        <div className="text-center space-y-3">
+        {/* 상단 타이틀 배너 (문서의 유일한 H1) */}
+        <header className="text-center space-y-3">
           <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">
             LOCAL WELLNESS PLACES & STAY
           </span>
@@ -111,52 +128,94 @@ export default function PlacesPage() {
           <p className="text-xs md:text-sm text-gray-400 max-w-lg mx-auto leading-relaxed">
             수도권 주요 도심 속에서 찾은 미식 명소와 일상의 긴장을 내려놓을 수 있는 안락한 쉼터 정보를 소개합니다.
           </p>
-        </div>
+        </header>
 
         {/* 상단 소개 박스 */}
-        <div className="bg-[#111114] border border-amber-500/20 p-6 rounded-3xl text-center space-y-2 shadow-lg">
+        <section className="bg-[#111114] border border-amber-500/20 p-6 rounded-3xl text-center space-y-2 shadow-lg">
           <p className="text-xs md:text-sm text-gray-300 font-medium">
             ✨ 서울, 경기, 인천 주요 거점의 쾌적한 휴식 공간과 프라이빗 핫플레이스를 엄선했습니다.
           </p>
           <p className="text-[11px] text-gray-500">
             복잡한 일상에서 벗어나 몸과 마음의 균형을 되찾는 여유로운 시간을 가져보세요.
           </p>
-        </div>
+        </section>
 
-        {/* 큐레이션 리스트 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {recommendedPlaces.map((place) => (
-            <div
-              key={place.id}
-              className="bg-[#111114] border border-white/10 hover:border-amber-500/40 p-5 rounded-2xl space-y-3 transition-all group flex flex-col justify-between"
-            >
-              <div className="space-y-2">
-                <div className="flex justify-between items-center text-xs">
-                  <span className="text-amber-400 font-bold bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/20">
-                    {place.region}
-                  </span>
-                  <span className="text-gray-400 text-[11px] font-semibold">
-                    {place.category}
-                  </span>
+        {/* 큐레이션 카드 그리드 */}
+        <section className="space-y-4">
+          <h2 className="text-sm font-black text-amber-400 tracking-wider uppercase">
+            🏆 추천 웰니스 핫플레이스 리스트
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {recommendedPlaces.map((place) => (
+              <div
+                key={place.id}
+                className="bg-[#111114] border border-white/10 hover:border-amber-500/40 p-5 rounded-2xl space-y-3 transition-all group flex flex-col justify-between shadow-md"
+              >
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="text-amber-400 font-bold bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/20">
+                      {place.region}
+                    </span>
+                    <span className="text-gray-400 text-[11px] font-semibold">
+                      {place.category}
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="text-base font-black text-white group-hover:text-amber-300 transition-colors">
+                      {place.name}
+                    </h3>
+                    <p className="text-xs text-gray-400 mt-1.5 leading-relaxed">
+                      {place.desc}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="text-base font-black text-white group-hover:text-amber-300 transition-colors">
-                    {place.name}
-                  </h2>
-                  <p className="text-xs text-gray-400 mt-1.5 leading-relaxed">
-                    {place.desc}
-                  </p>
+                <div className="pt-2 border-t border-white/5 text-[11px] text-gray-500 font-medium">
+                  {place.tag}
                 </div>
               </div>
-              <div className="pt-2 border-t border-white/5 text-[11px] text-gray-500">
-                {place.tag}
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 📚 [네이버 C-Rank / D.I.A. 상위 노출 및 씬 콘텐츠(Thin Content) 방지용 전문 칼럼] */}
+        <article className="bg-[#0e0e12] p-6 sm:p-8 rounded-3xl border border-white/10 space-y-6 text-gray-300 leading-relaxed text-xs sm:text-sm">
+          <div className="border-b border-white/10 pb-4">
+            <span className="text-amber-400 font-extrabold text-xs tracking-widest block uppercase mb-1">
+              URBAN WELLNESS ESSAY
+            </span>
+            <h2 className="text-lg sm:text-xl font-black text-white">
+              도심 속 미식과 안락한 스테이가 완성하는 온전한 심신 릴렉싱
+            </h2>
+            <p className="text-gray-400 text-xs mt-1">
+              건강한 식문화, 편안한 조도 환경, 그리고 프라이빗 바디 테라피의 연결성
+            </p>
+          </div>
+
+          <div className="space-y-2.5">
+            <h3 className="font-bold text-white text-sm flex items-center gap-1.5">
+              <span className="text-amber-400 font-bold">1.</span> 긴장 완화를 돕는 자율신경계 맞춤 미식 가이드
+            </h3>
+            <p>
+              과중한 업무와 스트레스에 노출된 현대인의 신체는 교감신경계가 과도하게 활성화되어 소화 효소 분비가 줄고 위장관 혈류가 감소하기 쉽습니다. 이러한 상태에서는 기름지거나 자극적인 음식 대신 제철 식재료를 활용한 따뜻하고 정갈한 한식 다이닝이나 프리미엄 허브 티를 섭취하는 것이 좋습니다. 따뜻한 음식이 위장을 편안하게 달래주면 부교감신경이 자연스럽게 활성화되어 몸 전체의 근육 긴장이 풀리는 생리적 이완 효과를 누릴 수 있습니다.
+            </p>
+          </div>
+
+          <div className="space-y-2.5">
+            <h3 className="font-bold text-white text-sm flex items-center gap-1.5">
+              <span className="text-amber-400 font-bold">2.</span> 쾌적한 스테이 환경과 홈케어 마사지의 시너지
+            </h3>
+            <p>
+              출장이나 여행, 혹은 주말 호캉스 중 머무는 부티크 호텔이나 프라이빗 숙소는 외부 소음과 시선이 완벽하게 차단되는 훌륭한 힐링 기지가 됩니다. 은은한 간접 조명과 24~25도의 쾌적한 실내 온도, 아늑한 침구가 갖추어진 공간에서 방문형 테라피를 받으실 경우, 관리 후 번거로운 외출 이동 없이 즉시 깊은 숙면으로 전환할 수 있어 피로 회복 효율이 극대화됩니다.
+            </p>
+          </div>
+
+          <div className="pt-3 border-t border-white/5 text-[11px] text-gray-500">
+            * 케어존마사지는 건전하고 건강한 라이프스타일을 지향하며, 수도권 전역의 검증된 힐링 공간과 웰니스 정보를 엄선하여 제공합니다.
+          </div>
+        </article>
 
         {/* 하단 이동 & CTA 버튼 */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-3 pt-4">
+        <footer className="flex flex-col sm:flex-row justify-center items-center gap-3 pt-2">
           <Link
             href="/"
             className="w-full sm:w-auto text-center inline-flex items-center justify-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 text-amber-400 font-bold text-xs px-5 py-3 rounded-2xl border border-amber-500/30 transition-all shadow-md"
@@ -169,7 +228,7 @@ export default function PlacesPage() {
           >
             📞 제휴 및 입점 문의
           </a>
-        </div>
+        </footer>
       </div>
     </div>
   );

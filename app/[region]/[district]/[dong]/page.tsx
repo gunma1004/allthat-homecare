@@ -34,7 +34,7 @@ function getRegionFullName(region: string): string {
   }
 }
 
-// 🎯 40가지 순환형 SEO 패턴 (수식어 분리 타이틀 + 동이름 밀착 결합 디스크립션)
+// 🎯 순환형 SEO 패턴 (수식어 분리 타이틀 + 동이름 밀착 결합 디스크립션)
 const SEO_PATTERNS = [
   { title: "출장 웰니스 마사지 & 프리미엄 힐링 케어", desc: (d: string) => `${d}출장마사지 안심 가이드. 나만의 편안한 공간에서 경험하는 1:1 맞춤 바디 테라피 코스와 정찰제 요금을 케어존마사지에서 확인하세요.` },
   { title: "출장 스웨디시 마사지 감성 바디 릴렉스", desc: (d: string) => `${d}출장마사지 추천 코스 안내. 섬세한 터치와 부드러운 오일 이완 프로그램으로 지친 피로를 풀어드립니다.` },
@@ -56,7 +56,6 @@ const SEO_PATTERNS = [
 // 🌿 동(Dong)마다 문장 구조와 내용이 통째로 바뀌는 1,800자 분량의 동적 정보성 글 생성기
 function getDynamicDongInsight(districtName: string, dongName: string, seed: number) {
   const dongInsightGroups = [
-    // [세트 A] 동네 생활권 직장인 피로 / 거북목·승모근 / 타이 vs 스웨디시 / 홈케어의 가치
     {
       subtitle: `${dongName} 거주자 및 직장인을 위한 1:1 맞춤 바디 테라피 인사이트`,
       sec1Title: `1. ${dongName} 일대 직장인들의 좌식 업무와 승모근 긴장 완화`,
@@ -80,8 +79,6 @@ function getDynamicDongInsight(districtName: string, dongName: string, seed: num
         `허리 디스크 등 특정 질환이 있거나 임신 중인 경우 세션 시작 전 담당 힐러에게 미리 전달하시면 세심한 맞춤 압 조절을 통해 가장 안전한 웰니스 케어를 경험하실 수 있습니다.`
       ]
     },
-
-    // [세트 B] 스트레스 호르몬 조절 / 림프 순환과 부종 / 아로마 시너지 / 숙면 유도
     {
       subtitle: `${dongName} 웰니스 라이프를 위한 전신 림프 순환 & 디톡스 솔루션`,
       sec1Title: `1. 만성 피로와 교감신경 흥분이 신체에 미치는 생리적 영향`,
@@ -91,7 +88,7 @@ function getDynamicDongInsight(districtName: string, dongName: string, seed: num
       ],
       sec2Title: "2. 부종 완화와 혈액 순환을 위한 림프 배농 테라피",
       sec2Text: [
-        `림프계는 신체의 자가 정화 시스템 역할을 수행하지만 혈관과 달리 심장과 같은 자체 박동 펌프가 없습니다. 장시간 앉아 있거나 서 있는 생활로 서혜부(사타구니)와 액와부(겨드랑이) 주변 림프절이 뭉치면 림프액 흐름이 정체되어 하체 부종과 신체 피로도가 급격히 상승합니다.`,
+        `림프계는 신체의 자가 정화 시스템 역할을 수행하지만 혈관과 달리 자체 박동 펌프가 없습니다. 장시간 앉아 있거나 서 있는 생활로 서혜부(사타구니)와 액와부(겨드랑이) 주변 림프절이 뭉치면 림프액 흐름이 정체되어 하체 부종과 신체 피로도가 급격히 상승합니다.`,
         `림프 순환 케어는 강한 지압을 피하고 림프의 자연스러운 흐름 방향에 맞추어 피부층을 섬세하게 밀어주는 기법을 사용합니다. 이를 통해 축적된 잉여 수분과 대사 폐기물이 림프관으로 원활히 흡수되어 둔탁했던 다리와 전신이 한결 가벼워지는 것을 체감할 수 있습니다.`
       ],
       sec3Title: "3. 식물성 에센셜 아로마 오일의 릴렉싱 메커니즘",
@@ -105,8 +102,6 @@ function getDynamicDongInsight(districtName: string, dongName: string, seed: num
         `세션 후에는 미온수를 충분히 마셔 체내로 방출된 노폐물이 땀과 소변으로 원활히 배출되도록 돕고, 관리 당일은 과음을 피하고 충분한 수면을 취하는 것이 릴렉싱 효과를 극대화하는 비결입니다.`
       ]
     },
-
-    // [세트 C] 보행 습관과 골반 지지근 / 딥티슈 속근육 / 시간 절약 방문 가치 / 에티켓
     {
       subtitle: `${dongName} 바디 컨디셔닝을 위한 체계적 근골격계 릴렉싱 가이드`,
       sec1Title: `1. 보행 패턴과 골반 주변 근육의 긴장 메커니즘`,
@@ -144,7 +139,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const charSum = (displayLocation + region).split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
   const pattern = SEO_PATTERNS[Math.abs(charSum) % SEO_PATTERNS.length];
 
-  const finalTitle = `${displayLocation} ${pattern.title} | 케어존마사지`;
+  const finalTitle = `${dongName} 출장 마사지 & 웰니스 케어 가이드 | 케어존마사지`;
   const finalDescription = pattern.desc(dongName);
   const canonicalUrl = `https://carezone-massage.netlify.app/${region}/${encodeURIComponent(districtName)}/${encodeURIComponent(dongName)}`;
 
@@ -161,20 +156,24 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       `${displayLocation} 출장 웰니스 마사지`,
       "케어존마사지"
     ],
-    robots: { index: true, follow: true },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true }
+    },
     openGraph: {
       title: finalTitle,
       description: finalDescription,
       url: canonicalUrl,
       siteName: "케어존마사지",
       locale: "ko_KR",
-      type: "website",
+      type: "article",
       images: [
         {
-          url: "https://carezone-massage.netlify.app/images/logo.png",
+          url: "https://carezone-massage.netlify.app/banner.jpg",
           width: 1200,
           height: 630,
-          alt: `${dongName}출장마사지 케어존마사지`,
+          alt: `${dongName} 출장 마사지 케어존마사지`,
         },
       ],
     },
@@ -190,52 +189,76 @@ export default async function Page({ params }: PageProps) {
   const displayLocation = `${districtName} ${dongName}`;
   const charSum = (displayLocation + resolved.region).split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
   const pattern = SEO_PATTERNS[Math.abs(charSum) % SEO_PATTERNS.length];
-
-  // 동의 고유 해시값으로 매핑되는 맞춤형 1,800자 칼럼 데이터 추출
   const article = getDynamicDongInsight(districtName, dongName, Math.abs(charSum));
+  const currentUrl = `https://carezone-massage.netlify.app/${resolved.region}/${encodeURIComponent(districtName)}/${encodeURIComponent(dongName)}`;
 
-  const jsonLd = [
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "홈", item: "https://carezone-massage.netlify.app" },
-        { "@type": "ListItem", position: 2, name: districtName, item: `https://carezone-massage.netlify.app/${resolved.region}/${encodeURIComponent(districtName)}` },
-        { "@type": "ListItem", position: 3, name: `${dongName} 마사지`, item: `https://carezone-massage.netlify.app/${resolved.region}/${encodeURIComponent(districtName)}/${encodeURIComponent(dongName)}` },
-      ],
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      name: `${dongName}출장마사지 제휴 안내 - 케어존마사지`,
-      description: pattern.desc(dongName),
-      url: `https://carezone-massage.netlify.app/${resolved.region}/${encodeURIComponent(districtName)}/${encodeURIComponent(dongName)}`,
-      telephone: "0507-1280-3344",
-      image: "https://carezone-massage.netlify.app/images/logo.png",
-      priceRange: "KRW",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: `${districtName} ${dongName}`,
-        addressRegion: regionFullName,
-        addressCountry: "KR",
+  // 🌟 네이버 서치어드바이저 최적화 복합 구조화 데이터 (Breadcrumb + LocalBusiness + FAQPage)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${currentUrl}/#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "홈", item: "https://carezone-massage.netlify.app" },
+          { "@type": "ListItem", position: 2, name: districtName, item: `https://carezone-massage.netlify.app/${resolved.region}/${encodeURIComponent(districtName)}` },
+          { "@type": "ListItem", position: 3, name: `${dongName} 마사지`, item: currentUrl },
+        ],
       },
-    },
-  ];
+      {
+        "@type": "LocalBusiness",
+        "@id": `${currentUrl}/#localbusiness`,
+        name: `${dongName} 출장 마사지 안내 - 케어존마사지`,
+        description: pattern.desc(dongName),
+        url: currentUrl,
+        telephone: "0507-1280-3344",
+        image: "https://carezone-massage.netlify.app/banner.jpg",
+        priceRange: "₩₩",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: `${districtName} ${dongName}`,
+          addressRegion: regionFullName,
+          addressCountry: "KR",
+        },
+        areaServed: {
+          "@type": "AdministrativeArea",
+          name: `${regionFullName} ${districtName} ${dongName}`,
+        },
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${currentUrl}/#faq`,
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: `${dongName} 당일 예약도 가능한가요?`,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "네, 대다수 제휴 샵에서 당일 예약이 가능하며, 원활한 일정 조율을 위해 1~2시간 전 사전 연락을 권장합니다.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: `${dongName}출장마사지 정찰제 요금인가요?`,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "케어존마사지에 등록된 매장들은 선입금 사기 없는 투명한 정찰제 요금을 준수합니다.",
+            },
+          },
+        ],
+      },
+    ],
+  };
 
   return (
     <div className="bg-[#070709] text-gray-100 min-h-screen flex flex-col font-sans selection:bg-amber-500 selection:text-black">
+      {/* 1. 구조화 데이터 주입 */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* 네이버 Yeti 크롤러 수집용 SSR 시맨틱 블록 */}
-      <div className="sr-only" aria-hidden="true">
-       <h1>{displayLocation} {pattern.title}</h1>
-        <p>{pattern.desc(dongName)}</p>
-      </div>
-
-      {/* 상단 네비게이션 헤더 */}
+      {/* 2. 네비게이션 헤더 */}
       <header className="sticky top-0 z-40 bg-[#070709]/90 backdrop-blur-md border-b border-white/10">
         <div className="max-w-4xl mx-auto h-16 px-4 flex items-center justify-between">
           <Link href="/" className="font-black text-lg text-white flex items-center gap-1.5">
@@ -259,17 +282,18 @@ export default async function Page({ params }: PageProps) {
         </div>
       </header>
 
+      {/* 3. 본문 영역 */}
       <main className="max-w-4xl mx-auto px-4 py-8 w-full flex-1 space-y-12">
-        {/* 상단 동별 대표 배너 (분리형 타이틀 사용) */}
+        {/* 상단 메인 히어로 배너: 문서 전체에서 단 1개의 H1만 할당 */}
         <section className="relative rounded-3xl overflow-hidden border border-amber-500/30 shadow-[0_0_40px_rgba(245,158,11,0.12)] bg-[#141418]">
-          <div className="p-6 md:p-10 space-y-2">
+          <div className="p-6 md:p-10 space-y-3">
             <span className="text-amber-400 text-xs font-black tracking-widest uppercase mb-1 block">
               {regionFullName.toUpperCase()} · {districtName.toUpperCase()} · {dongName.toUpperCase()}
             </span>
             <h1 className="text-2xl md:text-4xl font-black text-white drop-shadow-md">
-  {displayLocation} {pattern.title}
-</h1>
-            <p className="text-xs md:text-sm text-gray-300 mt-2 max-w-xl leading-relaxed">
+              {displayLocation} {pattern.title}
+            </h1>
+            <p className="text-xs md:text-sm text-gray-300 max-w-xl leading-relaxed">
               {pattern.desc(dongName)}
             </p>
           </div>
@@ -283,8 +307,8 @@ export default async function Page({ params }: PageProps) {
           regionFullName={regionFullName}
         />
 
-        {/* 📚 [동마다 완전히 다른 문단이 출력되는 약 1,800자 정보성 웰니스 섹션] */}
-        <section className="bg-[#0e0e12] p-6 sm:p-10 rounded-3xl border border-white/10 space-y-8 text-gray-300 leading-relaxed text-xs sm:text-sm">
+        {/* 📚 동마다 차별화된 1,800자 고품질 정보성 칼럼 (H2 태그) */}
+        <article className="bg-[#0e0e12] p-6 sm:p-10 rounded-3xl border border-white/10 space-y-8 text-gray-300 leading-relaxed text-xs sm:text-sm">
           <div className="border-b border-white/10 pb-4">
             <span className="text-amber-400 font-extrabold text-xs tracking-widest block uppercase mb-1">
               LOCAL WELLNESS & CARE GUIDE
@@ -297,52 +321,48 @@ export default async function Page({ params }: PageProps) {
             </p>
           </div>
 
-          {/* 단락 1 */}
-          <div className="space-y-3">
+          <section className="space-y-3">
             <h3 className="text-base font-bold text-white flex items-center gap-2">
               <span className="text-amber-400">●</span> {article.sec1Title}
             </h3>
             {article.sec1Text.map((p, idx) => (
               <p key={idx}>{p}</p>
             ))}
-          </div>
+          </section>
 
-          {/* 단락 2 */}
-          <div className="space-y-3">
+          <section className="space-y-3">
             <h3 className="text-base font-bold text-white flex items-center gap-2">
               <span className="text-amber-400">●</span> {article.sec2Title}
             </h3>
             {article.sec2Text.map((p, idx) => (
               <p key={idx}>{p}</p>
             ))}
-          </div>
+          </section>
 
-          {/* 단락 3 */}
-          <div className="space-y-3">
+          <section className="space-y-3">
             <h3 className="text-base font-bold text-white flex items-center gap-2">
               <span className="text-amber-400">●</span> {article.sec3Title}
             </h3>
             {article.sec3Text.map((p, idx) => (
               <p key={idx}>{p}</p>
             ))}
-          </div>
+          </section>
 
-          {/* 단락 4 */}
-          <div className="space-y-3">
+          <section className="space-y-3">
             <h3 className="text-base font-bold text-white flex items-center gap-2">
               <span className="text-amber-400">●</span> {article.sec4Title}
             </h3>
             {article.sec4Text.map((p, idx) => (
               <p key={idx}>{p}</p>
             ))}
-          </div>
+          </section>
 
           <div className="pt-4 border-t border-white/5 text-[11px] text-gray-500">
             * 본 콘텐츠는 {dongName}출장마사지 이용 고객 여러분의 건강한 라이프스타일과 안전한 힐링 테라피 정보 제공을 목적으로 작성되었습니다.
           </div>
-        </section>
+        </article>
 
-        {/* 이용 가이드 4단계 */}
+        {/* 서비스 이용 절차 4단계 */}
         <section className="bg-[#0f0f13] p-6 md:p-8 rounded-3xl border border-amber-500/20 space-y-6">
           <div className="text-center">
             <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">SERVICE PROCESS</span>
@@ -372,7 +392,7 @@ export default async function Page({ params }: PageProps) {
           </div>
         </section>
 
-        {/* 동 단위 FAQ */}
+        {/* FAQ 섹션 */}
         <section className="space-y-4">
           <div className="text-center">
             <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">FAQ</span>
@@ -399,11 +419,12 @@ export default async function Page({ params }: PageProps) {
         </section>
       </main>
 
+      {/* 푸터 */}
       <footer className="bg-[#040406] border-t border-white/10 py-10 text-center text-gray-500 text-xs mt-auto">
         <div className="max-w-4xl mx-auto px-4 space-y-4">
           <div>
-            <a 
-              href="tel:0507-1280-3344" 
+            <a
+              href="tel:0507-1280-3344"
               className="inline-flex items-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 text-amber-400 font-bold px-4 py-2 rounded-xl border border-amber-500/30 hover:border-amber-400 transition-all text-xs shadow-md"
             >
               <span>🤝</span> 케어존마사지 제휴 문의 (0507-1280-3344)

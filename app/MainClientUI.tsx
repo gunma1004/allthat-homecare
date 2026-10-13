@@ -96,7 +96,7 @@ export const regionData: Record<
       namdong: { name: "남동구", dongs: ["구월동", "간석동", "만수동", "장수서창동", "서창동", "남촌도림동", "논현동", "논현고잔동"] },
       bupyeong: { name: "부평구", dongs: ["부평동", "산곡동", "청천동", "갈산동", "삼산동", "부개동", "일신동", "십정동"] },
       gyeyang: { name: "계양구", dongs: ["효성동", "계산동", "작전동", "작전서운동", "계양동"] },
-      seohae: { name: "서해구 (서구)", dongs: ["검암경서동", "연희동", "청라1동", "청라2동", "청라3동", "가정동", "신현원창동", "석남동", "가좌동"] },
+      seohae: { name: "서구", dongs: ["검암경서동", "연희동", "청라1동", "청라2동", "청라3동", "가정동", "신현원창동", "석남동", "가좌동"] },
       geomdan: { name: "검단구", dongs: ["검단동", "불로대곡동", "원당동", "당하동", "오류왕길동", "마전동", "아라동", "금곡동"] },
       ganghwa: { name: "강화군", dongs: ["강화읍", "선원면", "불은면", "길상면", "화도면", "양도면", "내가면", "하점면", "양사면", "송해면", "교동면", "삼산면", "서도면"] },
       ongjin: { name: "옹진군", dongs: ["북도면", "연평면", "백령면", "대청면", "덕적면", "자월면", "영흥면"] },
@@ -176,6 +176,7 @@ export default function MainClientUI() {
   const [selectedRegion, setSelectedRegion] = useState("seoul");
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedDong, setSelectedDong] = useState("");
+  const [activeTab, setActiveTab] = useState("seoul");
   const [shops, setShops] = useState(initialShops);
 
   useEffect(() => {
@@ -198,19 +199,15 @@ export default function MainClientUI() {
     setSelectedDong("");
   };
 
-  const handleSearch = () => {
-    if (!selectedDistrict) {
-      alert("원하시는 지역(구/시/군)을 먼저 선택해주세요!");
-      return;
-    }
+  // URL 생성 함수 (Next.js Link와 Form 모두 활용 가능)
+  const getSearchUrl = () => {
+    if (!selectedDistrict) return "/";
     const districtObj = regionData[selectedRegion]?.districts[selectedDistrict];
     const districtName = districtObj ? districtObj.name : selectedDistrict;
 
-    const targetUrl = selectedDong
+    return selectedDong
       ? `/${selectedRegion}/${encodeURIComponent(districtName)}/${encodeURIComponent(selectedDong)}`
       : `/${selectedRegion}/${encodeURIComponent(districtName)}`;
-
-    window.location.href = targetUrl;
   };
 
   const currentDistricts = regionData[selectedRegion]?.districts || {};
@@ -221,14 +218,16 @@ export default function MainClientUI() {
 
   return (
     <div className="bg-[#070709] text-gray-100 min-h-screen flex flex-col font-sans selection:bg-amber-500 selection:text-black">
-      <main className="max-w-4xl mx-auto px-4 py-8 w-full flex-1 space-y-12">
-        {/* 상단 메인 배너 */}
+      <div className="max-w-4xl mx-auto px-4 py-8 w-full flex-1 space-y-12">
+        {/* 상단 메인 배너 (H2로 위계 정돈) */}
         <section className="text-center my-2">
           <div className="overflow-hidden rounded-3xl border border-amber-500/30 shadow-[0_0_40px_rgba(245,158,11,0.12)] relative h-60 md:h-72 flex items-center justify-center p-6 bg-gradient-to-b from-[#141418] to-[#0a0a0d]">
             <div className="absolute inset-0 z-0">
               <img
                 src="/banner.jpg"
-                alt="케어존마사지 메인 배너"
+                alt="케어존마사지 수도권 전 지역 출장 힐링 테라피 플랫폼 메인 배너"
+                width={1200}
+                height={630}
                 className="w-full h-full object-cover filter brightness-[0.4] scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
@@ -238,12 +237,12 @@ export default function MainClientUI() {
               <span className="inline-block px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold text-xs tracking-wider">
                 수도권 힐링 테라피 큐레이션 플랫폼
               </span>
-              <h1 className="text-2xl md:text-4xl font-black text-white tracking-tight drop-shadow-lg">
+              <h2 className="text-2xl md:text-4xl font-black text-white tracking-tight drop-shadow-lg">
                 서울·경기·인천{" "}
                 <span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">
-                  케어존마사지 프리미엄 바디 웰니스 가이드
+                  케어존 프리미엄 바디 웰니스 가이드
                 </span>
-              </h1>
+              </h2>
               <p className="text-gray-200 text-xs md:text-sm font-medium max-w-lg mx-auto leading-relaxed drop-shadow">
                 엄선된 전문 테라피스트들의 1:1 맞춤 바디 릴렉싱 프로그램을 케어존마사지에서 손쉽게 비교하고 확인하세요.
               </p>
@@ -270,7 +269,10 @@ export default function MainClientUI() {
               >
                 <img
                   src={lShop.image}
-                  alt={lShop.name}
+                  alt={`${lShop.name} - ${lShop.desc}`}
+                  width={96}
+                  height={96}
+                  loading="lazy"
                   className="w-20 h-20 md:w-24 md:h-24 rounded-xl object-cover border border-white/10 flex-shrink-0"
                 />
 
@@ -298,7 +300,7 @@ export default function MainClientUI() {
           </div>
         </section>
 
-        {/* 수도권 지역 검색 박스 */}
+        {/* 수도권 지역 검색 박스 (시맨틱 Link로 감싸 봇 수집 보장) */}
         <section className="pt-6 border-t border-white/10">
           <div className="bg-gradient-to-b from-[#16161b] to-[#0e0e12] border border-amber-500/30 p-6 rounded-3xl max-w-xl mx-auto shadow-2xl text-left relative overflow-hidden">
             <div className="flex items-center justify-between mb-4">
@@ -369,42 +371,82 @@ export default function MainClientUI() {
                 </select>
               </div>
 
-              <button
-                onClick={handleSearch}
-                className="w-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:to-yellow-300 text-black font-black py-4 rounded-2xl text-sm transition-all shadow-[0_0_25px_rgba(245,158,11,0.35)] mt-3 cursor-pointer transform active:scale-[0.98]"
-              >
-                🔍 선택한 지역 테라피 샵 정보 확인하기
-              </button>
+              {/* JS 미지원 환경/크롤러에서도 정상 탐색 가능한 Next.js Link 버튼 */}
+              {selectedDistrict ? (
+                <Link
+                  href={getSearchUrl()}
+                  className="w-full block text-center bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:to-yellow-300 text-black font-black py-4 rounded-2xl text-sm transition-all shadow-[0_0_25px_rgba(245,158,11,0.35)] mt-3 cursor-pointer transform active:scale-[0.98]"
+                >
+                  🔍 선택한 지역 테라피 샵 정보 확인하기
+                </Link>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => alert("원하시는 지역(구/시/군)을 먼저 선택해주세요!")}
+                  className="w-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 opacity-60 text-black font-black py-4 rounded-2xl text-sm mt-3 cursor-not-allowed"
+                >
+                  🔍 지역(구/시/군)을 선택해주세요
+                </button>
+              )}
             </div>
           </div>
         </section>
 
-        {/* 🌟 네이버 로봇 크롤링 누락 방지용 주요 지역 내부 링크 */}
-        <section className="bg-[#0b0b0e] border border-white/5 p-6 rounded-3xl space-y-4">
-          <div className="border-b border-white/10 pb-3">
-            <h3 className="text-sm font-bold text-amber-400 flex items-center gap-1.5">
-              <span>🗺️</span> 수도권 주요 지역별 바로가기
-            </h3>
-            <p className="text-[11px] text-gray-400 mt-1">
-              원하시는 지역을 선택하시면 해당 지역의 추천 샵 목록을 바로 확인하실 수 있습니다.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-2 pt-2">
-            {Object.entries(regionData).map(([rKey, rVal]) =>
-              Object.entries(rVal.districts).slice(0, 10).map(([dKey, dVal]) => (
-                <Link
-                  key={dKey}
-                  href={`/${rKey}/${encodeURIComponent(dVal.name)}`}
-                  className="text-xs bg-neutral-900/90 text-gray-300 hover:text-amber-400 hover:border-amber-500/40 px-3 py-1.5 rounded-lg border border-white/5 transition-colors"
+        {/* 🌟 [핵심 개선] 네이버 로봇 크롤링 누락 방지용 전체 권역 정적 링크 트리 (slice 제거) */}
+        <section className="bg-[#0b0b0e] border border-white/5 p-6 rounded-3xl space-y-5">
+          <div className="border-b border-white/10 pb-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div>
+              <h3 className="text-sm font-bold text-amber-400 flex items-center gap-1.5">
+                <span>🗺️</span> 수도권 전 지역 출장 케어 바로가기
+              </h3>
+              <p className="text-[11px] text-gray-400 mt-1">
+                원하시는 시·군·구를 클릭하시면 해당 지역의 전문 케어 목록으로 바로 이동합니다.
+              </p>
+            </div>
+
+            {/* 시도별 탭 UI */}
+            <div className="flex gap-1.5 bg-black/40 p-1 rounded-xl border border-white/10 self-start sm:self-auto">
+              {Object.keys(regionData).map((rKey) => (
+                <button
+                  key={rKey}
+                  type="button"
+                  onClick={() => setActiveTab(rKey)}
+                  className={`text-xs px-3 py-1.5 rounded-lg font-bold transition-all ${
+                    activeTab === rKey
+                      ? "bg-amber-500 text-black shadow"
+                      : "text-gray-400 hover:text-white"
+                  }`}
                 >
-                  {dVal.name} 마사지
-                </Link>
-              ))
-            )}
+                  {regionData[rKey].name.slice(0, 2)}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 전체 구/시/군을 봇이 모두 긁어갈 수 있도록 렌더링 (Orphan Page 원천 차단) */}
+          <div className="pt-1">
+            {Object.entries(regionData).map(([rKey, rVal]) => (
+              <div
+                key={rKey}
+                className={activeTab === rKey ? "block" : "hidden"}
+              >
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+                  {Object.entries(rVal.districts).map(([dKey, dVal]) => (
+                    <Link
+                      key={dKey}
+                      href={`/${rKey}/${encodeURIComponent(dVal.name)}`}
+                      className="text-xs bg-neutral-900/80 hover:bg-neutral-800 text-gray-300 hover:text-amber-400 hover:border-amber-500/40 px-3 py-2 rounded-xl border border-white/5 transition-all text-center truncate block"
+                    >
+                      {dVal.name} 마사지
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 
-        {/* 📚 [메인 페이지 전용: 네이버 C-Rank / D.I.A. 상위 노출용 3,000자 전문 웰니스 인사이트] */}
+        {/* 📚 네이버 C-Rank / D.I.A. 상위 노출용 전문 웰니스 가이드 */}
         <section className="bg-[#0e0e12] p-6 sm:p-10 rounded-3xl border border-white/10 space-y-10 text-gray-300 leading-relaxed text-xs sm:text-sm">
           <div className="border-b border-white/10 pb-5">
             <span className="text-amber-400 font-extrabold text-xs tracking-widest block uppercase mb-1">
@@ -462,25 +504,25 @@ export default function MainClientUI() {
               <div className="bg-black/50 p-4 rounded-2xl border border-white/5 space-y-1.5">
                 <h4 className="font-bold text-amber-400 text-xs sm:text-sm">클래식 건식 스트레칭 (타이 케어)</h4>
                 <p className="text-gray-400 text-[11px] sm:text-xs">
-                  오일을 사용하지 않고 매트 위에서 진행되는 정통 기법입니다. 수기 압박과 요가 형태의 수동적 관절 신전 운동이 결합되어 굳어있는 햄스트링, 고관절 굴곡근, 척추 기립근의 운동 가동 범위를 물리적으로 넓혀줍니다. 평소 활동량이 적어 몸이 뻣뻣하고 시원한 관절 이완을 원하는 분에게 적합합니다.
+                  오일을 사용하지 않고 매트 위에서 진행되는 정통 기법입니다. 수기 압박과 요가 형태의 수동적 관절 신전 운동이 결합되어 굳어있는 햄스트링, 고관절 굴곡근, 척추 기립근의 운동 가동 범위를 물리적으로 넓혀줍니다.
                 </p>
               </div>
               <div className="bg-black/50 p-4 rounded-2xl border border-white/5 space-y-1.5">
                 <h4 className="font-bold text-amber-400 text-xs sm:text-sm">스웨디시 감성 바디 테라피</h4>
                 <p className="text-gray-400 text-[11px] sm:text-xs">
-                  식물성 베이스 오일을 도포하여 마찰 저항을 최소화한 상태에서 심장 방향으로 부드럽게 밀어 올리는 유러피언 테크닉입니다. 피부 표층의 미세 순환을 촉진하고 통증 없이 림프절을 자극하여 부종 완화와 깊은 정신적 안도감을 선사합니다. 강한 압박에 거부감이 있는 분에게 추천됩니다.
+                  식물성 베이스 오일을 도포하여 마찰 저항을 최소화한 상태에서 심장 방향으로 부드럽게 밀어 올리는 유러피언 테크닉입니다. 피부 표층의 미세 순환을 촉진하고 통증 없이 림프절을 자극합니다.
                 </p>
               </div>
               <div className="bg-black/50 p-4 rounded-2xl border border-white/5 space-y-1.5">
                 <h4 className="font-bold text-amber-400 text-xs sm:text-sm">에센셜 아로마 림프 테라피</h4>
                 <p className="text-gray-400 text-[11px] sm:text-xs">
-                  라벤더, 유칼립투스, 베르가못 등 식물에서 추출한 순수 에센셜 오일의 후각적 아로마콜로지 효과를 접목한 기법입니다. 피부 보습 장벽을 보호하는 동시에 피하 지방층 주변 림프액의 배농을 유도하여 붓기를 개선하고 환절기 피부 건조증을 예방합니다.
+                  라벤더, 유칼립투스 등 순수 에센셜 오일의 후각적 아로마콜로지 효과를 접목한 기법입니다. 피부 보습 장벽을 보호하고 피하 림프 순환을 돕습니다.
                 </p>
               </div>
               <div className="bg-black/50 p-4 rounded-2xl border border-white/5 space-y-1.5">
                 <h4 className="font-bold text-amber-400 text-xs sm:text-sm">심부 근막 집중 딥티슈 케어</h4>
                 <p className="text-gray-400 text-[11px] sm:text-xs">
-                  표층 근육을 넘어 뼈와 관절에 맞닿아 있는 심부 근막의 단단한 매듭을 팔꿈치와 체중을 이용해 서서히 압박하는 기법입니다. 고질적인 목 결림이나 허리 통증을 유발하는 만성 유착 부위를 분리하여 깊은 속근육의 피로를 근본적으로 해소합니다.
+                  표층 근육을 넘어 뼈와 관절에 맞닿아 있는 심부 근막의 단단한 매듭을 체중을 실어 압박하는 기법입니다. 만성 유착 부위를 분리하여 깊은 속근육 피로를 해소합니다.
                 </p>
               </div>
             </div>
@@ -492,13 +534,10 @@ export default function MainClientUI() {
               <span className="text-amber-400 font-black">4.</span> 프라이빗 1인 케어 환경이 선사하는 심리·시간적 효율성
             </h3>
             <p>
-              전통적인 웰니스 서비스는 고객이 직접 매장을 방문하는 오프라인 중심이었으나, 현대 도시 생활에서는 이동 자체에 소모되는 물리적·정신적 비용이 상당합니다. 번화가의 교통 체증, 주차 공간 확보의 어려움, 대기 시간, 타인과의 대면 접촉은 휴식을 취하러 가는 과정 자체를 또 다른 피로 원인으로 만들 수 있습니다.
+              전통적인 웰니스 서비스는 고객이 직접 매장을 방문하는 오프라인 중심이었으나, 현대 도시 생활에서는 이동 자체에 소모되는 물리적·정신적 비용이 상당합니다. 번화가의 교통 체증, 주차 공간 확보의 어려움, 대기 시간은 휴식 과정 자체를 피로 요인으로 만들 수 있습니다.
             </p>
             <p>
-              개인 자택이나 호텔 객실 등 독립된 사적 공간에서 진행되는 프라이빗 케어는 외부의 소음과 자극을 원천 차단하여 부교감신경이 방해 없이 활성화될 수 있는 환경을 제공합니다. 관리사가 방문하여 세션을 진행함으로써 고객은 이동에 필요한 에너지를 보존할 수 있으며, 관리가 종료된 직후 환복이나 귀가 이동 없이 온전히 자신의 침상에서 깊은 숙면으로 전환할 수 있습니다.
-            </p>
-            <p>
-              이러한 환경적 연속성은 근육이 따뜻하게 이완된 상태에서 찬 바람이나 외부 온도 변화에 노출되어 다시 수축하는 현상을 예방합니다. 교대 근무, 야간 업무, 혹은 바쁜 주말 일정을 소화하는 현대인들에게 시간 절약과 완전한 휴식을 동시에 보장하는 스마트한 자기 관리 솔루션입니다.
+              개인 자택이나 호텔 객실 등 독립된 사적 공간에서 진행되는 프라이빗 케어는 외부 소음과 시선을 차단하여 부교감신경이 자연스럽게 활성화되도록 돕습니다. 세션 종료 직후 이동 없이 본인의 공간에서 즉시 숙면으로 전환할 수 있어 피로 해소 효율이 극대화됩니다.
             </p>
           </div>
 
@@ -507,18 +546,15 @@ export default function MainClientUI() {
             <h3 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
               <span className="text-amber-400 font-black">5.</span> 안전하고 신뢰할 수 있는 웰니스 플랫폼 이용 수칙
             </h3>
-            <p>
-              투명하고 건강한 힐링 문화를 지속하기 위해 케어존마사지는 모든 제휴 매장과 파트너 샵의 건전성과 운영 수칙을 주기적으로 모니터링합니다. 소비자의 권익 보호와 안전한 세션 진행을 위해 다음 가이드라인을 확인하시기 바랍니다.
-            </p>
             <ul className="list-disc list-inside space-y-1.5 text-gray-400 pl-2">
-              <li><strong className="text-gray-200">정찰제 요금 준수:</strong> 신뢰할 수 있는 공인 파트너는 불법적인 예약 선입금이나 불투명한 현장 추가금을 요구하지 않으며, 공시된 표준 요금표를 엄격히 준수합니다.</li>
-              <li><strong className="text-gray-200">기저 질환 사전 고지:</strong> 최근 관절 시술을 받았거나 골절 병력, 심혈관계 질환, 임신 중인 경우 세션 전 매니저 및 테라피스트에게 신체 상태를 고지하여 적절한 강도를 조율해야 합니다.</li>
-              <li><strong className="text-gray-200">사후 수분 섭취와 체온 유지:</strong> 관리를 마친 후에는 림프 순환을 통해 체내로 배출된 대사 부산물이 원활히 배설될 수 있도록 미온수를 500ml 이상 섭취하고, 급격한 체온 저하를 방지하기 위해 따뜻한 실내 환경을 유지하시기 바랍니다.</li>
+              <li><strong className="text-gray-200">정찰제 요금 준수:</strong> 공인 파트너 샵은 불법적인 예약 선입금이나 불투명한 현장 추가금을 요구하지 않으며 정찰제를 준수합니다.</li>
+              <li><strong className="text-gray-200">기저 질환 사전 고지:</strong> 관절 시술, 심혈관 질환, 임신 등의 상태는 세션 전 테라피스트에게 알려 강도를 조율해야 합니다.</li>
+              <li><strong className="text-gray-200">사후 수분 섭취와 체온 유지:</strong> 관리 후 미온수를 충분히 마셔 림프 순환 노폐물 배출을 돕고 따뜻한 온도를 유지하세요.</li>
             </ul>
           </div>
 
           <div className="pt-5 border-t border-white/5 text-[11px] text-gray-500">
-            * 본 콘텐츠는 수도권 전역의 건강한 라이프스타일 구축과 올바른 신체 생리학적 테라피 정보 제공을 목적으로 케어존마사지 리서치 팀에 의해 작성 및 검수되었습니다.
+            * 본 콘텐츠는 수도권 전역의 건강한 라이프스타일 구축과 올바른 신체 생리학적 테라피 정보 제공을 목적으로 케어존마사지 리서치 팀에 의해 작성되었습니다.
           </div>
         </section>
 
@@ -596,7 +632,7 @@ export default function MainClientUI() {
           </div>
         </section>
 
-        {/* 자주 묻는 질문 */}
+        {/* 자주 묻는 질문 (FAQ) */}
         <section className="space-y-4">
           <div className="text-center">
             <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">
@@ -615,7 +651,7 @@ export default function MainClientUI() {
             />
           </div>
         </section>
-      </main>
+      </div>
 
       {/* 푸터 */}
       <footer className="bg-[#040406] border-t border-white/10 py-10 text-center text-gray-500 text-xs mt-auto">

@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 
 export default function NavigationHeader() {
-  const [isRegionOpen, setIsRegionOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
@@ -26,8 +25,10 @@ export default function NavigationHeader() {
         </Link>
 
         {/* 데스크톱 카테고리 메뉴 목록 */}
-        <nav className="hidden md:flex items-center gap-6 text-xs font-bold text-gray-300">
-          {/* 1. 프로그램 안내 */}
+        <nav
+          aria-label="주요 메뉴"
+          className="hidden md:flex items-center gap-6 text-xs font-bold text-gray-300"
+        >
           <Link
             href="/services"
             className="hover:text-amber-400 transition-colors flex items-center gap-1"
@@ -35,7 +36,6 @@ export default function NavigationHeader() {
             프로그램
           </Link>
 
-          {/* 2. 코스비용 */}
           <Link
             href="/prices"
             className="hover:text-amber-400 transition-colors flex items-center gap-1"
@@ -43,7 +43,6 @@ export default function NavigationHeader() {
             코스비용
           </Link>
 
-          {/* 3. 지역여행 */}
           <Link
             href="/travel"
             className="hover:text-amber-400 transition-colors flex items-center gap-1"
@@ -51,7 +50,6 @@ export default function NavigationHeader() {
             지역여행
           </Link>
 
-          {/* 4. 맛집·숙소 */}
           <Link
             href="/places"
             className="hover:text-amber-400 transition-colors flex items-center gap-1"
@@ -59,45 +57,38 @@ export default function NavigationHeader() {
             맛집·숙소
           </Link>
 
-          {/* 5. 지역안내 (드롭다운) */}
-          <div
-            className="relative cursor-pointer py-2"
-            onMouseEnter={() => setIsRegionOpen(true)}
-            onMouseLeave={() => setIsRegionOpen(false)}
-          >
-            <button
-              type="button"
-              className="hover:text-amber-400 transition-colors flex items-center gap-1 text-xs font-bold text-gray-300 outline-none"
-            >
+          {/* 5. 지역안내 (순수 CSS 호버 드롭다운: 자바스크립트 없이도 네이버 봇이 링크 100% 수집) */}
+          <div className="relative group py-2">
+            <span className="hover:text-amber-400 transition-colors flex items-center gap-1 text-xs font-bold text-gray-300 cursor-pointer">
               지역안내
-              <span className="text-[10px] text-amber-400">▼</span>
-            </button>
+              <span className="text-[10px] text-amber-400 transition-transform group-hover:rotate-180">
+                ▼
+              </span>
+            </span>
 
-            {isRegionOpen && (
-              <div className="absolute top-full left-0 w-36 bg-[#121215] border border-amber-500/30 rounded-2xl shadow-2xl py-2 space-y-1 text-xs z-50">
-                <Link
-                  href="/seoul/서울특별시"
-                  className="block px-4 py-2 hover:bg-amber-500/10 hover:text-amber-400 transition-colors"
-                >
-                  📍 서울 권역
-                </Link>
-                <Link
-                  href="/gyeonggi/경기도"
-                  className="block px-4 py-2 hover:bg-amber-500/10 hover:text-amber-400 transition-colors"
-                >
-                  📍 경기 권역
-                </Link>
-                <Link
-                  href="/incheon/인천광역시"
-                  className="block px-4 py-2 hover:bg-amber-500/10 hover:text-amber-400 transition-colors"
-                >
-                  📍 인천 권역
-                </Link>
-              </div>
-            )}
+            {/* DOM 상에 상시 존재하되 화면에서만 호버 시 표시 (검색 로봇 수집 보장) */}
+            <div className="absolute top-full left-0 w-36 bg-[#121215] border border-amber-500/30 rounded-2xl shadow-2xl py-2 space-y-1 text-xs opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto transition-all duration-200 z-50">
+              <Link
+                href="/seoul/서울특별시"
+                className="block px-4 py-2 hover:bg-amber-500/10 hover:text-amber-400 transition-colors"
+              >
+                📍 서울 권역
+              </Link>
+              <Link
+                href="/gyeonggi/경기도"
+                className="block px-4 py-2 hover:bg-amber-500/10 hover:text-amber-400 transition-colors"
+              >
+                📍 경기 권역
+              </Link>
+              <Link
+                href="/incheon/인천광역시"
+                className="block px-4 py-2 hover:bg-amber-500/10 hover:text-amber-400 transition-colors"
+              >
+                📍 인천 권역
+              </Link>
+            </div>
           </div>
 
-          {/* 6. 이용후기 */}
           <Link
             href="/reviews"
             className="text-amber-400 font-extrabold hover:text-yellow-300 transition-colors flex items-center gap-1 bg-amber-500/10 px-3 py-1.5 rounded-xl border border-amber-500/30"
@@ -121,6 +112,7 @@ export default function NavigationHeader() {
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden p-2 text-gray-300 hover:text-amber-400 rounded-lg border border-white/10"
             aria-label="메뉴 열기"
+            aria-expanded={isMobileMenuOpen}
           >
             <svg
               className="w-5 h-5"
@@ -148,7 +140,7 @@ export default function NavigationHeader() {
         </div>
       </div>
 
-      {/* 모바일 슬라이드/드롭 메뉴 (검색엔진 크롤링 지원) */}
+      {/* 모바일 메뉴: JS 클릭 시 토글 표시 */}
       {isMobileMenuOpen && (
         <div className="md:hidden border-t border-white/10 mt-3 pt-3 space-y-2 text-xs font-bold text-gray-300">
           <Link

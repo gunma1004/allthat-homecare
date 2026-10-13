@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
 
+const SITE_URL = "https://carezone-massage.netlify.app";
+
 export const metadata: Metadata = {
   title: "프리미엄 웰니스 바디케어 프로그램 안내 | 케어존마사지",
   description:
@@ -15,15 +17,28 @@ export const metadata: Metadata = {
     "수도권마사지안내",
   ],
   alternates: {
-    canonical: "https://carezone-massage.netlify.app/services",
+    canonical: `${SITE_URL}/services`,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
   },
   openGraph: {
     title: "프리미엄 웰니스 바디 테라피 코스 안내 | 케어존마사지",
     description: "개인 맞춤형 릴렉싱 케어와 안락한 프라이빗 바디 테라피 상세 가이드.",
-    url: "https://carezone-massage.netlify.app/services",
+    url: `${SITE_URL}/services`,
     siteName: "케어존마사지",
     locale: "ko_KR",
     type: "website",
+    images: [
+      {
+        url: `${SITE_URL}/banner.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "케어존마사지 바디 테라피 프로그램 가이드",
+      },
+    ],
   },
 };
 
@@ -32,47 +47,56 @@ const programs = [
     step: "01",
     name: "건식 / 타이 릴렉스",
     desc: "전신의 뭉친 근육과 일상 긴장으로 굳은 관절을 부드럽게 풀어주는 스트레칭 중심의 전통 바디 케어 코스입니다.",
+    target: "운동 부족, 만성 뻐근함, 하체 부종",
   },
   {
     step: "02",
     name: "아로마 오일 케어",
     desc: "엄선된 식물성 에센셜 오일을 사용하여 피부 자극 없이 부드럽게 체내 순환과 피로 해소를 돕는 릴렉싱 코스입니다.",
+    target: "스트레스 완화, 피부 보습, 림프 순환",
   },
   {
     step: "03",
     name: "VIP 감성 스웨디시",
     desc: "섬세한 터칭 기법으로 림프 순환을 촉진하고 지친 몸과 마음에 깊은 평온을 선사하는 시그니처 감성 케어입니다.",
+    target: "극도의 피로, 수면 장애, 심신 안정",
   },
 ];
 
 export default function ServicesPage() {
+  // 🌟 Schema.org W3C 표준 규격을 100% 준수한 ItemList 구조화 데이터
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
+    name: "케어존마사지 프리미엄 테라피 코스 리스트",
+    url: `${SITE_URL}/services`,
     itemListElement: programs.map((prog, idx) => ({
-      "@type": "Service",
+      "@type": "ListItem",
       position: idx + 1,
-      name: prog.name,
-      description: prog.desc,
-      provider: {
-        "@type": "Organization",
-        name: "케어존마사지",
-        url: "https://carezone-massage.netlify.app",
+      item: {
+        "@type": "Service",
+        name: prog.name,
+        description: prog.desc,
+        provider: {
+          "@type": "Organization",
+          name: "케어존마사지",
+          url: SITE_URL,
+        },
       },
     })),
   };
 
   return (
     <div className="bg-[#070709] text-gray-100 min-h-screen py-10 px-4 font-sans selection:bg-amber-500 selection:text-black">
-      {/* 검색엔진 구조화 데이터 */}
+      {/* 1. 구조화 데이터 주입 */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
       <div className="max-w-4xl mx-auto space-y-10">
-        {/* 상단 타이틀 */}
-        <div className="text-center space-y-2">
+        {/* 상단 타이틀 (유일한 H1) */}
+        <header className="text-center space-y-2">
           <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">
             PREMIUM CARE SERVICE
           </span>
@@ -82,26 +106,76 @@ export default function ServicesPage() {
           <p className="text-xs md:text-sm text-gray-400">
             고객님의 컨디션과 취향에 맞춘 최상의 프라이빗 힐링 솔루션
           </p>
-        </div>
+        </header>
 
-        {/* 3대 핵심 프로그램 카드 */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {programs.map((prog) => (
-            <div
-              key={prog.step}
-              className="bg-[#111114] border border-amber-500/20 hover:border-amber-500/50 p-6 rounded-3xl space-y-3 transition-all shadow-md flex flex-col justify-between"
-            >
-              <div className="space-y-2">
-                <div className="text-amber-400 text-2xl font-black">{prog.step}</div>
-                <h2 className="font-bold text-lg text-white">{prog.name}</h2>
-                <p className="text-xs text-gray-400 leading-relaxed">{prog.desc}</p>
+        {/* 3대 핵심 프로그램 카드 (H2 위계) */}
+        <section className="space-y-4">
+          <h2 className="text-sm font-black text-amber-400 tracking-wider uppercase">
+            💎 시그니처 웰니스 프로그램 라인업
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {programs.map((prog) => (
+              <div
+                key={prog.step}
+                className="bg-[#111114] border border-amber-500/20 hover:border-amber-500/50 p-6 rounded-3xl space-y-3 transition-all shadow-md flex flex-col justify-between"
+              >
+                <div className="space-y-2">
+                  <div className="text-amber-400 text-2xl font-black">{prog.step}</div>
+                  <h3 className="font-bold text-lg text-white">{prog.name}</h3>
+                  <p className="text-xs text-gray-400 leading-relaxed">{prog.desc}</p>
+                </div>
+                <div className="pt-3 border-t border-white/5 text-[11px] text-amber-300/80 font-medium">
+                  추천 대상: {prog.target}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 📚 [네이버 C-Rank / D.I.A. 상위 노출용 프로그램 비교 & 생리학적 효과 전문 칼럼] */}
+        <article className="bg-[#0e0e12] border border-white/10 p-6 sm:p-8 rounded-3xl space-y-6 text-xs sm:text-sm text-gray-300 leading-relaxed">
+          <div className="border-b border-white/10 pb-4">
+            <span className="text-amber-400 font-extrabold text-xs tracking-widest block uppercase mb-1">
+              WELLNESS PROGRAM GUIDE
+            </span>
+            <h2 className="text-lg sm:text-xl font-black text-white">
+              나의 신체 피로 패턴에 맞는 올바른 관리 기법 선택 노하우
+            </h2>
+            <p className="text-gray-400 text-xs mt-1">
+              건식 스트레칭, 아로마 림프 케어, 감성 스웨디시의 작용 메커니즘 차이
+            </p>
+          </div>
+
+          <div className="space-y-2.5">
+            <h3 className="font-bold text-white text-sm flex items-center gap-1.5">
+              <span className="text-amber-400">●</span> 1. 수동적 스트레칭 중심의 전통 건식 타이 케어
+            </h3>
+            <p className="text-gray-400">
+              오일을 바르지 않고 편안한 복장 상태에서 진행되는 건식 관리는 압박 요법과 관절 신전(스트레칭)을 결합한 형태입니다. 바쁜 일상에서 전신 스트레칭을 하기 어려운 현대인들에게 이상적이며, 둔근과 햄스트링, 척추 기립근을 넓은 면적으로 견인하여 관절 가동 범위를 물리적으로 넓혀줍니다. 무겁고 뻐근한 몸을 시원하게 정돈하고자 할 때 권장됩니다.
+            </p>
+          </div>
+
+          <div className="space-y-2.5">
+            <h3 className="font-bold text-white text-sm flex items-center gap-1.5">
+              <span className="text-amber-400">●</span> 2. 천연 식물성 에센셜을 활용한 아로마 림프 케어
+            </h3>
+            <p className="text-gray-400">
+              피부에 식물성 베이스 오일을 도포하여 마찰 저항을 덜어낸 상태로 진행되는 부드러운 관리입니다. 후각을 통해 대뇌 변연계를 자극하는 아로마테라피 원리를 접목하여 만성적인 교감신경 흥분을 안정화시키며, 서혜부와 액와부 등 주요 림프절을 따라 피부층을 미세하게 자극하여 부종 완화와 혈액 순환을 촉진합니다.
+            </p>
+          </div>
+
+          <div className="space-y-2.5">
+            <h3 className="font-bold text-white text-sm flex items-center gap-1.5">
+              <span className="text-amber-400">●</span> 3. 심신의 깊은 이완과 힐링을 돕는 감성 스웨디시
+            </h3>
+            <p className="text-gray-400">
+              유러피언 정통 테크닉에서 발전한 스웨디시는 강한 통증성 지압을 지양하고, 혈류와 심장 방향으로 부드럽고 리드미컬하게 밀어 올리는 섬세한 수기 기법입니다. 통증 수용기를 자극하지 않으면서 피로 물질 배출을 유도하므로, 스트레스로 인한 수면 장애나 극심한 피로감을 겪는 분들에게 안정감 있는 휴식을 제공합니다.
+            </p>
+          </div>
+        </article>
 
         {/* 안심 정찰제 안내 박스 */}
-        <div className="bg-[#0e0e12] border border-white/10 p-6 rounded-3xl text-center space-y-2">
+        <section className="bg-[#0e0e12] border border-white/10 p-6 rounded-3xl text-center space-y-2 shadow-inner">
           <p className="text-xs md:text-sm text-gray-300 font-semibold">
             ✨ 모든 프로그램은 검증된 정찰제 가이드라인에 따라 투명하게 진행됩니다.
           </p>
@@ -116,10 +190,10 @@ export default function ServicesPage() {
               코스별 이용 요금표 확인하기 →
             </Link>
           </div>
-        </div>
+        </section>
 
         {/* 하단 CTA 버튼 */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-3 pt-2">
+        <footer className="flex flex-col sm:flex-row justify-center items-center gap-3 pt-2">
           <Link
             href="/"
             className="w-full sm:w-auto text-center inline-flex items-center justify-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 text-amber-400 font-bold text-xs px-5 py-3 rounded-2xl border border-amber-500/30 transition-all shadow-md"
@@ -132,7 +206,7 @@ export default function ServicesPage() {
           >
             📞 프로그램 맞춤 상담
           </a>
-        </div>
+        </footer>
       </div>
     </div>
   );
