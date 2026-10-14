@@ -76,16 +76,16 @@ export default function DongDetailClient({
 
   return (
     <div className="space-y-8">
-      {/* 1. 지역 디렉토리 안내 배너 (H1 대신 H2로 위계 정돈) */}
+      {/* 1. 지역 디렉토리 안내 배너 */}
       <section className="bg-[#141418] border border-amber-500/30 rounded-3xl p-6 md:p-8 shadow-lg">
         <span className="text-amber-400 text-xs font-black tracking-widest uppercase mb-1 block">
           {districtName} · {dongName} WELLNESS DIRECTORY
         </span>
         <h2 className="text-2xl md:text-3xl font-black text-white">
-          📍 {shortLocation} 마사지 안내
+          📍 {shortLocation} 출장 마사지 안내
         </h2>
         <p className="text-xs md:text-sm text-gray-300 mt-2 leading-relaxed">
-          {fullLocation} 고객님을 위한 힐링 바디케어 디렉토리입니다. 정직한 정찰제 요금표와 맞춤 코스를 확인하세요.
+          {fullLocation} 고객님을 위한 온쉼테라피 힐링 바디케어 디렉토리입니다. 정직한 정찰제 요금표와 맞춤 코스를 확인하세요.
         </p>
       </section>
 
@@ -106,7 +106,7 @@ export default function DongDetailClient({
             >
               <img
                 src={shop.image}
-                alt={`${shortLocation} 출장마사지 - ${shop.name}`}
+                alt={`${shortLocation} 출장 마사지 - ${shop.name}`}
                 width={96}
                 height={96}
                 loading="lazy"
@@ -137,7 +137,7 @@ export default function DongDetailClient({
         </div>
       </section>
 
-      {/* 3. 하단 네비게이션 복귀 링크 (크롤러의 이동 경로 유지) */}
+      {/* 3. 하단 네비게이션 복귀 링크 */}
       <nav aria-label="이전 지역 이동" className="pt-2 flex justify-center gap-3">
         <Link
           href="/"

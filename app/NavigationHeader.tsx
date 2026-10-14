@@ -12,14 +12,14 @@ export default function NavigationHeader() {
         {/* 로고 영역 */}
         <Link href="/" className="flex items-center gap-2.5 group">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center font-black text-black text-lg shadow-[0_0_12px_rgba(245,158,11,0.4)] group-hover:scale-105 transition-transform flex-shrink-0">
-            C
+            온
           </div>
           <div className="flex flex-col">
             <span className="text-lg font-black tracking-wider bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 bg-clip-text text-transparent">
-              케어존마사지
+              온쉼테라피
             </span>
             <span className="text-[9px] text-gray-400 tracking-tighter hidden sm:block">
-              CAREZONE MASSAGE
+              ONSHIM THERAPY
             </span>
           </div>
         </Link>
@@ -57,7 +57,7 @@ export default function NavigationHeader() {
             맛집·숙소
           </Link>
 
-          {/* 5. 지역안내 (순수 CSS 호버 드롭다운: 자바스크립트 없이도 네이버 봇이 링크 100% 수집) */}
+          {/* 지역안내 (순수 CSS 호버 드롭다운: 검색 로봇 100% 링크 수집 보장) */}
           <div className="relative group py-2">
             <span className="hover:text-amber-400 transition-colors flex items-center gap-1 text-xs font-bold text-gray-300 cursor-pointer">
               지역안내
@@ -66,7 +66,6 @@ export default function NavigationHeader() {
               </span>
             </span>
 
-            {/* DOM 상에 상시 존재하되 화면에서만 호버 시 표시 (검색 로봇 수집 보장) */}
             <div className="absolute top-full left-0 w-36 bg-[#121215] border border-amber-500/30 rounded-2xl shadow-2xl py-2 space-y-1 text-xs opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto transition-all duration-200 z-50">
               <Link
                 href="/seoul/서울특별시"
@@ -140,7 +139,7 @@ export default function NavigationHeader() {
         </div>
       </div>
 
-      {/* 모바일 메뉴: JS 클릭 시 토글 표시 */}
+      {/* 모바일 메뉴 */}
       {isMobileMenuOpen && (
         <div className="md:hidden border-t border-white/10 mt-3 pt-3 space-y-2 text-xs font-bold text-gray-300">
           <Link
@@ -173,7 +172,7 @@ export default function NavigationHeader() {
           </Link>
           <div className="px-3 py-2 bg-neutral-900/60 rounded-xl space-y-1">
             <span className="text-[11px] text-amber-400 block font-bold">
-              지역별 마사지
+              지역별 테라피
             </span>
             <div className="flex gap-2 pt-1">
               <Link

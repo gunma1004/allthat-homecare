@@ -19,6 +19,8 @@ interface ClientTextMixerProps {
   shops?: ShopItem[];
 }
 
+const SITE_URL = "https://onshim-therapy.netlify.app";
+
 const WELLNESS_PATTERNS = [
   "출장 웰니스 마사지 & 프리미엄 바디케어 안내",
   "출장 타이 마사지 & 전신 릴렉스 프로그램",
@@ -94,7 +96,7 @@ export default function ClientTextMixer({
     return `${locationText} ${WELLNESS_PATTERNS[index]}`;
   }, [locationText]);
 
-  // 🌟 네이버 수집 봇을 위한 ItemList 정형 데이터
+  // 🌟 네이버 수집 봇과 구글 검색엔진을 위한 ItemList + HealthAndBeautyBusiness 정형 데이터
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -102,12 +104,12 @@ export default function ClientTextMixer({
       "@type": "ListItem",
       position: idx + 1,
       item: {
-        "@type": "LocalBusiness",
+        "@type": "HealthAndBeautyBusiness",
         name: `${locationText} ${shop.name}`,
         description: shop.desc,
         telephone: shop.phone,
         priceRange: shop.price,
-        image: `https://carezone-massage.netlify.app${shop.image}`
+        image: `${SITE_URL}${shop.image}`
       }
     }))
   };
@@ -126,7 +128,7 @@ export default function ClientTextMixer({
           ✨ {introText}
         </p>
         <p className="text-[11px] text-gray-400 mt-1">
-          {locationText} 출장 홈 마사지 정찰제 추천 코스를 케어존마사지에서 편리하게 확인하세요.
+          {locationText} 출장 마사지 정찰제 추천 코스를 온쉼테라피에서 편리하게 확인하세요.
         </p>
       </div>
 
@@ -158,7 +160,7 @@ export default function ClientTextMixer({
                 >
                   <img
                     src={shop.image}
-                    alt={`${locationText} 출장마사지 - ${shop.name}`}
+                    alt={`${locationText} 출장 마사지 - ${shop.name}`}
                     width={96}
                     height={96}
                     loading="lazy"
@@ -166,7 +168,7 @@ export default function ClientTextMixer({
                   />
                 </Link>
 
-                {/* 텍스트 및 상세 링크 (중첩 Link 태그 오류 해결) */}
+                {/* 텍스트 및 상세 링크 */}
                 <div className="flex-1 min-w-0">
                   <Link href={shopDetailUrl} className="block">
                     <h3 className="font-extrabold text-sm md:text-base text-white truncate group-hover:text-amber-400 transition-colors">
@@ -181,7 +183,7 @@ export default function ClientTextMixer({
                   <div className="mt-2.5 flex items-center justify-between">
                     <span className="text-xs font-black text-amber-300">{shop.price}</span>
 
-                    {/* 유선 연결 버튼 (독립된 a 태그) */}
+                    {/* 유선 연결 버튼 */}
                     <a
                       href={`tel:${shop.phone.replace(/-/g, "")}`}
                       className="bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-black font-black text-xs px-3.5 py-1.5 rounded-xl shadow transition-all active:scale-95"

@@ -1,20 +1,20 @@
 import { Metadata } from "next";
 import Link from "next/link";
 
-const SITE_URL = "https://carezone-massage.netlify.app";
+const SITE_URL = "https://onshim-therapy.netlify.app";
 
 export const metadata: Metadata = {
-  title: "프리미엄 웰니스 바디케어 프로그램 안내 | 케어존마사지",
+  title: "온쉼테라피 바디 케어 프로그램 안내 | 스웨디시 & 아로마",
   description:
-    "케어존마사지 맞춤형 바디 테라피 프로그램 안내. 타이 건식 릴렉스, 최고급 천연 아로마 오일 케어, 감성 스웨디시 등 체계적인 웰니스 서비스 코스를 확인하세요.",
+    "온쉼테라피 맞춤형 바디 케어 프로그램 안내. 스트레칭 건식 릴렉스, 최고급 식물성 아로마 오일 케어, 섬세한 감성 스웨디시 등 체계적인 힐링 테라피 코스를 확인하세요.",
   keywords: [
-    "케어존마사지",
-    "마사지프로그램",
-    "타이마사지코스",
-    "아로마오일케어",
-    "스웨디시테라피",
-    "바디릴렉싱",
-    "수도권마사지안내",
+    "온쉼테라피",
+    "테라피프로그램",
+    "스웨디시코스",
+    "아로마테라피",
+    "바디케어코스",
+    "힐링테라피",
+    "수도권테라피안내",
   ],
   alternates: {
     canonical: `${SITE_URL}/services`,
@@ -25,10 +25,10 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true },
   },
   openGraph: {
-    title: "프리미엄 웰니스 바디 테라피 코스 안내 | 케어존마사지",
-    description: "개인 맞춤형 릴렉싱 케어와 안락한 프라이빗 바디 테라피 상세 가이드.",
+    title: "온쉼테라피 바디 케어 프로그램 안내 | 스웨디시 & 아로마",
+    description: "개인 맞춤형 릴렉싱 케어와 안락한 프라이빗 바디 테라피 상세 코스 가이드.",
     url: `${SITE_URL}/services`,
-    siteName: "케어존마사지",
+    siteName: "온쉼테라피",
     locale: "ko_KR",
     type: "website",
     images: [
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
         url: `${SITE_URL}/banner.jpg`,
         width: 1200,
         height: 630,
-        alt: "케어존마사지 바디 테라피 프로그램 가이드",
+        alt: "온쉼테라피 바디 케어 프로그램 가이드",
       },
     ],
   },
@@ -45,30 +45,30 @@ export const metadata: Metadata = {
 const programs = [
   {
     step: "01",
-    name: "건식 / 타이 릴렉스",
+    name: "건식 릴렉스 스트레칭",
     desc: "전신의 뭉친 근육과 일상 긴장으로 굳은 관절을 부드럽게 풀어주는 스트레칭 중심의 전통 바디 케어 코스입니다.",
-    target: "운동 부족, 만성 뻐근함, 하체 부종",
+    target: "운동 부족, 만성 뻐근함, 하체 부종 완화",
   },
   {
     step: "02",
-    name: "아로마 오일 케어",
+    name: "천연 아로마 오일 케어",
     desc: "엄선된 식물성 에센셜 오일을 사용하여 피부 자극 없이 부드럽게 체내 순환과 피로 해소를 돕는 릴렉싱 코스입니다.",
     target: "스트레스 완화, 피부 보습, 림프 순환",
   },
   {
     step: "03",
     name: "VIP 감성 스웨디시",
-    desc: "섬세한 터칭 기법으로 림프 순환을 촉진하고 지친 몸과 마음에 깊은 평온을 선사하는 시그니처 감성 케어입니다.",
+    desc: "섬세한 유러피언 터칭 기법으로 림프 순환을 촉진하고 지친 몸과 마음에 깊은 평온을 선사하는 시그니처 감성 케어입니다.",
     target: "극도의 피로, 수면 장애, 심신 안정",
   },
 ];
 
 export default function ServicesPage() {
-  // 🌟 Schema.org W3C 표준 규격을 100% 준수한 ItemList 구조화 데이터
+  // Schema.org W3C 표준 규격 ItemList 구조화 데이터 (네이버 및 구글 파싱 지원)
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "케어존마사지 프리미엄 테라피 코스 리스트",
+    name: "온쉼테라피 프리미엄 바디 테라피 코스 리스트",
     url: `${SITE_URL}/services`,
     itemListElement: programs.map((prog, idx) => ({
       "@type": "ListItem",
@@ -79,7 +79,7 @@ export default function ServicesPage() {
         description: prog.desc,
         provider: {
           "@type": "Organization",
-          name: "케어존마사지",
+          name: "온쉼테라피",
           url: SITE_URL,
         },
       },
@@ -95,20 +95,20 @@ export default function ServicesPage() {
       />
 
       <div className="max-w-4xl mx-auto space-y-10">
-        {/* 상단 타이틀 (유일한 H1) */}
+        {/* 상단 타이틀 (단일 H1) */}
         <header className="text-center space-y-2">
           <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">
             PREMIUM CARE SERVICE
           </span>
           <h1 className="text-2xl md:text-3xl font-black text-white">
-            케어존마사지 코스별 프로그램 안내
+            온쉼테라피 코스별 프로그램 안내
           </h1>
           <p className="text-xs md:text-sm text-gray-400">
             고객님의 컨디션과 취향에 맞춘 최상의 프라이빗 힐링 솔루션
           </p>
         </header>
 
-        {/* 3대 핵심 프로그램 카드 (H2 위계) */}
+        {/* 3대 핵심 프로그램 카드 (H2) */}
         <section className="space-y-4">
           <h2 className="text-sm font-black text-amber-400 tracking-wider uppercase">
             💎 시그니처 웰니스 프로그램 라인업
@@ -132,7 +132,7 @@ export default function ServicesPage() {
           </div>
         </section>
 
-        {/* 📚 [네이버 C-Rank / D.I.A. 상위 노출용 프로그램 비교 & 생리학적 효과 전문 칼럼] */}
+        {/* 네이버 C-Rank / D.I.A. 상위 노출용 전문 칼럼 */}
         <article className="bg-[#0e0e12] border border-white/10 p-6 sm:p-8 rounded-3xl space-y-6 text-xs sm:text-sm text-gray-300 leading-relaxed">
           <div className="border-b border-white/10 pb-4">
             <span className="text-amber-400 font-extrabold text-xs tracking-widest block uppercase mb-1">
@@ -148,7 +148,7 @@ export default function ServicesPage() {
 
           <div className="space-y-2.5">
             <h3 className="font-bold text-white text-sm flex items-center gap-1.5">
-              <span className="text-amber-400">●</span> 1. 수동적 스트레칭 중심의 전통 건식 타이 케어
+              <span className="text-amber-400">●</span> 1. 수동적 스트레칭 중심의 전통 건식 릴렉스 케어
             </h3>
             <p className="text-gray-400">
               오일을 바르지 않고 편안한 복장 상태에서 진행되는 건식 관리는 압박 요법과 관절 신전(스트레칭)을 결합한 형태입니다. 바쁜 일상에서 전신 스트레칭을 하기 어려운 현대인들에게 이상적이며, 둔근과 햄스트링, 척추 기립근을 넓은 면적으로 견인하여 관절 가동 범위를 물리적으로 넓혀줍니다. 무겁고 뻐근한 몸을 시원하게 정돈하고자 할 때 권장됩니다.
@@ -198,7 +198,7 @@ export default function ServicesPage() {
             href="/"
             className="w-full sm:w-auto text-center inline-flex items-center justify-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 text-amber-400 font-bold text-xs px-5 py-3 rounded-2xl border border-amber-500/30 transition-all shadow-md"
           >
-            <span>🏠</span> 케어존마사지 메인으로
+            <span>🏠</span> 온쉼테라피 메인으로
           </Link>
           <a
             href="tel:0507-1280-3344"

@@ -1,11 +1,11 @@
 // app/sitemap.ts
 import { MetadataRoute } from 'next';
 
-const BASE_URL = 'https://carezone-massage.netlify.app';
+const BASE_URL = 'https://onshim-therapy.netlify.app';
 
 // 사이트맵의 lastModified는 매 요청마다 new Date()를 찍지 않고,
-// 사이트 배포 또는 실제 콘텐츠 업데이트 시점의 날짜로 고정해야 네이버 봇이 신뢰합니다.
-const LAST_MODIFIED_DATE = new Date('2026-10-13T00:00:00+09:00');
+// 배포 또는 실제 콘텐츠 업데이트 시점의 날짜로 고정해야 네이버 봇이 신뢰합니다.
+const LAST_MODIFIED_DATE = new Date('2026-10-14T00:00:00+09:00');
 
 const regionData: Record<
   string,
@@ -109,7 +109,7 @@ const regionData: Record<
 };
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // 1. 메인 홈
+  // 1. 메인 홈 (가장 높은 우선순위)
   const mainRoute: MetadataRoute.Sitemap = [
     {
       url: BASE_URL,
@@ -119,7 +119,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // 2. 상단 카테고리
+  // 2. 상단 고정 카테고리 페이지
   const categoryRoutes: MetadataRoute.Sitemap = [
     'services',
     'prices',
@@ -133,13 +133,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  // 3. 지역(시/도 및 구/시/군) 라우트
+  // 3. 지역(시/도 메인, 구/시/군, 세부 동) 라우트
   const regionRoutes: MetadataRoute.Sitemap = [];
 
   for (const [regionKey, regionVal] of Object.entries(regionData)) {
-    // 시/도 메인 (예: /seoul, /gyeonggi, /incheon)
+    // 시/도 메인 경로 (예: /seoul/서울특별시)
     regionRoutes.push({
-      url: `${BASE_URL}/${regionKey}`,
+      url: `${BASE_URL}/${regionKey}/${encodeURIComponent(regionVal.name)}`,
       lastModified: LAST_MODIFIED_DATE,
       changeFrequency: 'weekly',
       priority: 0.9,
@@ -148,7 +148,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     for (const districtVal of Object.values(regionVal.districts)) {
       const districtName = districtVal.name;
 
-      // 구/시/군 단위 (네이버 서치어드바이저는 한글 URL 자체 또는 깔끔한 인코딩을 인식합니다)
+      // 구/시/군 단위 경로 (예: /seoul/강남구)
       regionRoutes.push({
         url: `${BASE_URL}/${regionKey}/${encodeURIComponent(districtName)}`,
         lastModified: LAST_MODIFIED_DATE,
@@ -156,10 +156,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.8,
       });
 
-      // 💡 [중요 조언]
-      // 만약 동 단위 페이지마다 고유한 제휴점/리뷰/텍스트 콘텐츠가 아직 없고
-      // 껍데기 레이아웃만 동일한 상태라면, 아래 동 단위 루프는 초기 색인이 안정될 때까지
-      // 주석 처리하는 것이 네이버의 '유사문서/스팸 판정'에 의한 사이트 누락을 확실히 방지합니다.
+      // 세부 동 단위 경로 (예: /seoul/강남구/역삼1동)
       for (const dongName of districtVal.dongs) {
         regionRoutes.push({
           url: `${BASE_URL}/${regionKey}/${encodeURIComponent(districtName)}/${encodeURIComponent(dongName)}`,

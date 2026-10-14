@@ -1,14 +1,14 @@
 import { Metadata } from "next";
 import Link from "next/link";
 
-const SITE_URL = "https://carezone-massage.netlify.app";
+const SITE_URL = "https://onshim-therapy.netlify.app";
 
 export const metadata: Metadata = {
-  title: "수도권 미식 & 힐링 쉼터 가이드 | 케어존마사지",
+  title: "온쉼테라피 수도권 미식 & 힐링 쉼터 가이드",
   description:
-    "서울, 경기, 인천 주요 도심 내 엄선된 미식 명소와 안락한 휴식 공간 가이드. 하루의 피로를 풀고 여유를 더하는 웰니스 플레이스를 케어존마사지에서 확인하세요.",
+    "서울, 경기, 인천 주요 도심 내 엄선된 미식 명소와 안락한 휴식 공간 가이드. 하루의 피로를 풀고 여유를 더하는 웰니스 플레이스를 온쉼테라피에서 확인하세요.",
   keywords: [
-    "케어존마사지",
+    "온쉼테라피",
     "수도권힐링플레이스",
     "서울휴식공간",
     "경기힐링카페",
@@ -25,10 +25,10 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true },
   },
   openGraph: {
-    title: "수도권 힐링 플레이스 & 편안한 휴식 공간 가이드 | 케어존마사지",
+    title: "온쉼테라피 수도권 미식 & 힐링 쉼터 가이드",
     description: "서울·경기·인천 도심 속 쾌적한 쉼터와 프라이빗 미식 공간 정보 안내.",
     url: `${SITE_URL}/places`,
-    siteName: "케어존마사지",
+    siteName: "온쉼테라피",
     locale: "ko_KR",
     type: "website",
     images: [
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
         url: `${SITE_URL}/banner.jpg`,
         width: 1200,
         height: 630,
-        alt: "케어존마사지 수도권 힐링 플레이스 가이드",
+        alt: "온쉼테라피 수도권 힐링 플레이스 가이드",
       },
     ],
   },
@@ -92,6 +92,7 @@ export default function PlacesPage() {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: "수도권 주요 힐링 플레이스 & 미식 쉼터 리스트",
+    url: `${SITE_URL}/places`,
     itemListElement: recommendedPlaces.map((place, idx) => ({
       "@type": "ListItem",
       position: idx + 1,
@@ -177,7 +178,7 @@ export default function PlacesPage() {
           </div>
         </section>
 
-        {/* 📚 [네이버 C-Rank / D.I.A. 상위 노출 및 씬 콘텐츠(Thin Content) 방지용 전문 칼럼] */}
+        {/* 📚 네이버 C-Rank / D.I.A. 상위 노출용 칼럼 */}
         <article className="bg-[#0e0e12] p-6 sm:p-8 rounded-3xl border border-white/10 space-y-6 text-gray-300 leading-relaxed text-xs sm:text-sm">
           <div className="border-b border-white/10 pb-4">
             <span className="text-amber-400 font-extrabold text-xs tracking-widest block uppercase mb-1">
@@ -210,7 +211,7 @@ export default function PlacesPage() {
           </div>
 
           <div className="pt-3 border-t border-white/5 text-[11px] text-gray-500">
-            * 케어존마사지는 건전하고 건강한 라이프스타일을 지향하며, 수도권 전역의 검증된 힐링 공간과 웰니스 정보를 엄선하여 제공합니다.
+            * 온쉼테라피는 건전하고 건강한 라이프스타일을 지향하며, 수도권 전역의 검증된 힐링 공간과 웰니스 정보를 엄선하여 제공합니다.
           </div>
         </article>
 
@@ -220,7 +221,7 @@ export default function PlacesPage() {
             href="/"
             className="w-full sm:w-auto text-center inline-flex items-center justify-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 text-amber-400 font-bold text-xs px-5 py-3 rounded-2xl border border-amber-500/30 transition-all shadow-md"
           >
-            <span>🏠</span> 케어존마사지 메인으로
+            <span>🏠</span> 온쉼테라피 메인으로
           </Link>
           <a
             href="tel:0507-1280-3344"

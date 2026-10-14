@@ -1,20 +1,20 @@
 import { Metadata } from "next";
 import Link from "next/link";
 
-const SITE_URL = "https://carezone-massage.netlify.app";
+const SITE_URL = "https://onshim-therapy.netlify.app";
 
 export const metadata: Metadata = {
-  title: "투명한 코스별 웰니스 테라피 요금 안내 | 케어존마사지",
+  title: "온쉼테라피 코스별 정찰제 이용 요금 안내",
   description:
-    "케어존마사지 정찰제 기반 프로그램별 이용 요금 안내. 타이 건식 릴렉스, 아로마 케어, 감성 스웨디시 등 투명하고 정직한 테라피 코스 비용을 확인하세요.",
+    "온쉼테라피 정찰제 기반 프로그램별 이용 요금 안내. 건식 릴렉스 스트레칭, 천연 아로마 케어, 감성 스웨디시 등 투명하고 정직한 테라피 코스 비용을 확인하세요.",
   keywords: [
-    "케어존마사지가격",
-    "마사지가격",
+    "온쉼테라피가격",
+    "테라피가격",
     "스웨디시가격",
-    "타이마사지가격",
-    "아로마마사지가격",
-    "마사지할인요금",
-    "수도권정찰제마사지",
+    "아로마테라피가격",
+    "바디케어비용",
+    "정찰제테라피",
+    "수도권테라피요금",
   ],
   alternates: {
     canonical: `${SITE_URL}/prices`,
@@ -25,11 +25,11 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true },
   },
   openGraph: {
-    title: "투명한 코스별 웰니스 테라피 요금 가이드 | 케어존마사지",
+    title: "온쉼테라피 코스별 정찰제 이용 요금 안내",
     description:
       "수도권 전지역 엄선된 제휴 네트워크! 투명하고 합리적인 힐링 바디 테라피 정찰 요금 안내.",
     url: `${SITE_URL}/prices`,
-    siteName: "케어존마사지",
+    siteName: "온쉼테라피",
     locale: "ko_KR",
     type: "website",
     images: [
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
         url: `${SITE_URL}/banner.jpg`,
         width: 1200,
         height: 630,
-        alt: "케어존마사지 코스별 이용 요금표",
+        alt: "온쉼테라피 코스별 이용 요금표",
       },
     ],
   },
@@ -53,14 +53,14 @@ interface PriceItem {
 
 const priceList: PriceItem[] = [
   {
-    title: "타이 건식 릴렉스 케어 (60분)",
+    title: "건식 릴렉스 스트레칭 (60분)",
     price: "60,000원부터",
     priceNumber: 60000,
     desc: "굳은 근육을 부드럽게 이완하고 전신 유연성을 회복시켜 주는 기본 스트레칭 프로그램",
     tag: "기본 피로회복",
   },
   {
-    title: "아로마 오일 힐링 케어 (60분)",
+    title: "천연 아로마 오일 힐링 케어 (60분)",
     price: "70,000원부터",
     priceNumber: 70000,
     desc: "식물성 천연 에센셜 오일을 활용하여 심신 안정과 전신 순환을 돕는 부드러운 릴렉싱 코스",
@@ -83,11 +83,11 @@ const priceList: PriceItem[] = [
 ];
 
 export default function PricesPage() {
-  // 🌟 Schema.org 표준 유효성을 100% 충족하는 OfferCatalog + Service 구조화 데이터
+  // 🌟 Schema.org 표준 유효성을 충족하는 OfferCatalog + Service 구조화 데이터
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "OfferCatalog",
-    name: "케어존마사지 코스별 이용 요금표",
+    name: "온쉼테라피 코스별 이용 요금표",
     url: `${SITE_URL}/prices`,
     itemListElement: priceList.map((item) => ({
       "@type": "Offer",
@@ -101,7 +101,7 @@ export default function PricesPage() {
       availability: "https://schema.org/InStock",
       seller: {
         "@type": "Organization",
-        name: "케어존마사지",
+        name: "온쉼테라피",
         url: SITE_URL,
       },
     })),
@@ -116,7 +116,7 @@ export default function PricesPage() {
       />
 
       <div className="max-w-3xl mx-auto space-y-8">
-        {/* 상단 타이틀 헤더 (유일한 H1) */}
+        {/* 상단 타이틀 헤더 (단일 H1) */}
         <header className="text-center space-y-2">
           <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">
             TRANSPARENT PRICE SYSTEM
@@ -132,7 +132,7 @@ export default function PricesPage() {
         {/* 정찰제 안심 약속 공지 배너 */}
         <section className="bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border-l-4 border-amber-500 p-4 rounded-2xl shadow-inner">
           <p className="text-xs md:text-sm font-bold text-amber-300">
-            🔒 케어존마사지 안심 약속: 투명하고 정직한 정찰제 요금 체계를 지향합니다.
+            🔒 온쉼테라피 안심 약속: 투명하고 정직한 정찰제 요금 체계를 지향합니다.
           </p>
           <p className="text-[11px] text-gray-400 mt-1">
             모든 제휴 업체는 명시된 표준 코스 가이드라인을 준수하며 불법적인 선입금이나 부당한 추가 요금을 요구하지 않습니다.
@@ -171,7 +171,7 @@ export default function PricesPage() {
           </div>
         </section>
 
-        {/* 📚 [네이버 C-Rank / D.I.A. 상위 노출용 가격 & 코스 선택 가이드 칼럼] */}
+        {/* 네이버 C-Rank / D.I.A. 상위 노출용 가격 & 코스 선택 가이드 칼럼 */}
         <article className="bg-[#0e0e12] border border-white/10 p-6 rounded-3xl space-y-5 text-xs sm:text-sm text-gray-300 leading-relaxed">
           <div className="border-b border-white/10 pb-3">
             <span className="text-amber-400 font-bold text-xs tracking-wider uppercase block mb-0.5">
@@ -196,7 +196,7 @@ export default function PricesPage() {
               <span className="text-amber-400">●</span> 100% 현장 후불제 확인이 필수인 이유
             </h3>
             <p className="text-gray-400">
-              방문형 웰니스 서비스를 이용하실 때 가장 중요한 안전 수칙은 <strong>선입금이나 예약금을 요구하지 않는 제휴점</strong>을 이용하는 것입니다. 케어존마사지는 검증된 공식 파트너 네트워크를 통해 관리사가 도착한 후 프로그램을 확인하고 결제하는 정찰제 원칙을 엄격하게 준수합니다.
+              방문형 웰니스 서비스를 이용하실 때 가장 중요한 안전 수칙은 <strong>선입금이나 예약금을 요구하지 않는 제휴점</strong>을 이용하는 것입니다. 온쉼테라피는 검증된 공식 파트너 네트워크를 통해 관리사가 도착한 후 프로그램을 확인하고 결제하는 정찰제 원칙을 엄격하게 준수합니다.
             </p>
           </div>
 
@@ -217,7 +217,7 @@ export default function PricesPage() {
             href="/"
             className="w-full sm:w-auto text-center inline-flex items-center justify-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 text-amber-400 font-bold text-xs px-5 py-3 rounded-2xl border border-amber-500/30 transition-all shadow-md"
           >
-            <span>🏠</span> 케어존마사지 메인으로
+            <span>🏠</span> 온쉼테라피 메인으로
           </Link>
           <a
             href="tel:0507-1280-3344"

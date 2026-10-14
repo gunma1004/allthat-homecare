@@ -1,19 +1,19 @@
 import { Metadata } from "next";
 import Link from "next/link";
 
-const SITE_URL = "https://carezone-massage.netlify.app";
+const SITE_URL = "https://onshim-therapy.netlify.app";
 
 export const metadata: Metadata = {
-  title: "실제 이용 고객 생생 이용후기 | 케어존마사지",
+  title: "온쉼테라피 실제 이용 고객 솔직 후기 및 만족도",
   description:
-    "케어존마사지 서울·경기·인천 실제 이용 고객님들의 솔직한 이용후기 모음. 전문 테라피스트의 수준 높은 바디 테라피와 힐링 케어 만족도를 직접 확인하세요.",
+    "온쉼테라피 서울·경기·인천 실제 이용 고객님들의 솔직한 이용후기 모음. 전문 테라피스트의 수준 높은 바디 테라피와 힐링 케어 만족도를 직접 확인하세요.",
   keywords: [
-    "케어존마사지후기",
-    "마사지이용후기",
+    "온쉼테라피후기",
+    "테라피이용후기",
     "스웨디시후기",
-    "타이마사지후기",
     "아로마테라피후기",
-    "수도권마사지리뷰",
+    "바디케어리뷰",
+    "수도권테라피후기",
   ],
   alternates: {
     canonical: `${SITE_URL}/reviews`,
@@ -24,11 +24,11 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true },
   },
   openGraph: {
-    title: "실제 이용 고객 솔직 후기 모음 | 케어존마사지",
+    title: "온쉼테라피 실제 이용 고객 솔직 후기 및 만족도",
     description:
       "수도권 실이용 고객들의 생생한 리뷰! 검증된 프리미엄 바디 웰니스 케어 만족도를 확인하세요.",
     url: `${SITE_URL}/reviews`,
-    siteName: "케어존마사지",
+    siteName: "온쉼테라피",
     locale: "ko_KR",
     type: "website",
     images: [
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
         url: `${SITE_URL}/banner.jpg`,
         width: 1200,
         height: 630,
-        alt: "케어존마사지 실제 이용 고객 솔직 후기",
+        alt: "온쉼테라피 실제 이용 고객 솔직 후기",
       },
     ],
   },
@@ -66,7 +66,7 @@ const reviews: ReviewItem[] = [
     name: "경기 수원시 고객님",
     ratingValue: 5,
     rate: "★★★★★ 5.0",
-    course: "타이 건식 릴렉스",
+    course: "건식 릴렉스 스트레칭",
     date: "2026.10.08",
     isoDate: "2026-10-08",
     text: "안내받은 정찰제 코스 그대로 투명하게 진행되어 믿음이 갔습니다. 테라피스트 분의 친절한 매너와 숙련된 압 조절 기술도 인상 깊었습니다.",
@@ -101,12 +101,12 @@ const reviews: ReviewItem[] = [
 ];
 
 export default function ReviewsPage() {
-  // 🌟 네이버 서치어드바이저 및 구글 리치 스니펫 규격을 100% 만족하는 Product 스키마
+  // 🌟 네이버 서치어드바이저 및 구글 리치 스니펫 규격을 만족하는 Product 스키마
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: "케어존마사지 웰니스 테라피 제휴 프로그램",
-    description: "서울, 경기, 인천 전지역 프리미엄 힐링 마사지 및 바디 테라피 제휴 안내",
+    name: "온쉼테라피 웰니스 테라피 제휴 프로그램",
+    description: "서울, 경기, 인천 전지역 프리미엄 힐링 테라피 및 바디 케어 제휴 안내",
     image: `${SITE_URL}/banner.jpg`,
     offers: {
       "@type": "AggregateOffer",
@@ -117,7 +117,7 @@ export default function ReviewsPage() {
       availability: "https://schema.org/InStock",
       seller: {
         "@type": "Organization",
-        name: "케어존마사지",
+        name: "온쉼테라피",
         url: SITE_URL,
       },
     },
@@ -154,7 +154,7 @@ export default function ReviewsPage() {
       />
 
       <div className="max-w-3xl mx-auto space-y-8">
-        {/* 상단 타이틀 (유일한 H1) */}
+        {/* 상단 타이틀 (단일 H1) */}
         <header className="text-center space-y-2">
           <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">
             REAL CUSTOMER REVIEWS
@@ -163,7 +163,7 @@ export default function ReviewsPage() {
             실제 이용 고객 생생 이용후기
           </h1>
           <p className="text-xs md:text-sm text-gray-400">
-            케어존마사지 제휴 샵을 경험한 고객님들의 진솔하고 투명한 평가입니다.
+            온쉼테라피 제휴 샵을 경험한 고객님들의 진솔하고 투명한 평가입니다.
           </p>
         </header>
 
@@ -223,20 +223,20 @@ export default function ReviewsPage() {
           </div>
         </section>
 
-        {/* 📚 [네이버 C-Rank / D.I.A. 상위 노출용 리뷰 정책 및 안심 관리 가이드] */}
+        {/* 📚 네이버 C-Rank / D.I.A. 상위 노출용 리뷰 정책 칼럼 */}
         <article className="bg-[#0e0e12] border border-white/10 p-6 rounded-3xl space-y-4 text-xs sm:text-sm text-gray-300 leading-relaxed">
           <div className="border-b border-white/10 pb-3">
             <span className="text-amber-400 font-bold text-xs tracking-wider uppercase block mb-0.5">
               REVIEW POLICY & INTEGRITY
             </span>
             <h2 className="text-base sm:text-lg font-black text-white">
-              케어존마사지의 투명한 리뷰 검증 시스템
+              온쉼테라피의 투명한 리뷰 검증 시스템
             </h2>
           </div>
 
           <div className="space-y-2 text-gray-400">
             <p>
-              케어존마사지는 무분별한 허위 리뷰 작성을 지양하며, 실제 제휴 업체를 이용한 고객님들의 건전한 피드백만을 수집·반영합니다. 관리사의 숙련도, 방문 시간 준수 여부, 코스 정찰제 이행 상태 등을 종합적으로 모니터링하여 평점이 일정 기준 미만으로 하락하는 제휴점은 즉시 등록 상태를 재검토합니다.
+              온쉼테라피는 무분별한 허위 리뷰 작성을 지양하며, 실제 제휴 업체를 이용한 고객님들의 건전한 피드백만을 수집·반영합니다. 관리사의 숙련도, 방문 시간 준수 여부, 코스 정찰제 이행 상태 등을 종합적으로 모니터링하여 평점이 일정 기준 미만으로 하락하는 제휴점은 즉시 등록 상태를 재검토합니다.
             </p>
             <p>
               쾌적하고 투명한 힐링 테라피 문화를 위해 앞으로도 솔직한 평가와 철저한 위생 관리를 약속드립니다.
@@ -250,7 +250,7 @@ export default function ReviewsPage() {
             href="/"
             className="w-full sm:w-auto text-center inline-flex items-center justify-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 text-amber-400 font-bold text-xs px-5 py-3 rounded-2xl border border-amber-500/30 transition-all shadow-md"
           >
-            <span>🏠</span> 케어존마사지 메인으로
+            <span>🏠</span> 온쉼테라피 메인으로
           </Link>
           <a
             href="tel:0507-1280-3344"
