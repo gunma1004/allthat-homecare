@@ -71,7 +71,7 @@ export const metadata: Metadata = {
   // 네이버 서치어드바이저 신규 등록 시 발급받은 사이트 소유확인 키
   verification: {
     other: {
-      'naver-site-verification': '새로운_네이버_인증키_입력',
+      'naver-site-verification': '88faad0958579b65c5703320ee4590ccb4dafa39',
     },
   },
   alternates: {
@@ -153,14 +153,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko">
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      </head>
-      <body className="bg-[#070709] text-gray-100 antialiased">{children}</body>
+    <html lang="ko" suppressHydrationWarning>
+      <body className="bg-[#070709] text-gray-100 antialiased" suppressHydrationWarning>
+        {children}
+      </body>
     </html>
   );
 }

@@ -1,4 +1,3 @@
-// app/layout.tsx
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
@@ -153,14 +152,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko">
+    // 🌟 suppressHydrationWarning 추가로 브라우저 확장프로그램 및 SSR-CSR 불일치 충돌 방지
+    <html lang="ko" suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="bg-[#070709] text-gray-100 antialiased">{children}</body>
+      <body className="bg-[#070709] text-gray-100 antialiased" suppressHydrationWarning>
+        {children}
+      </body>
     </html>
   );
 }
