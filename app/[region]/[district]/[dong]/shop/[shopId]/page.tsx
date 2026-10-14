@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import ClientTextMixer from "./ClientTextMixer";
+
 
 const SITE_URL = "https://onshim-therapy.netlify.app";
 
