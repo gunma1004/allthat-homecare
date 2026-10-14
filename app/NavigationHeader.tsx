@@ -12,14 +12,14 @@ export default function NavigationHeader() {
         {/* 로고 영역 */}
         <Link href="/" className="flex items-center gap-2.5 group">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center font-black text-black text-lg shadow-[0_0_12px_rgba(245,158,11,0.4)] group-hover:scale-105 transition-transform flex-shrink-0">
-            온
+            바
           </div>
           <div className="flex flex-col">
             <span className="text-lg font-black tracking-wider bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 bg-clip-text text-transparent">
-              온쉼테라피
+              바른케어
             </span>
             <span className="text-[9px] text-gray-400 tracking-tighter hidden sm:block">
-              ONSHIM THERAPY
+              BARUNCARE
             </span>
           </div>
         </Link>
@@ -172,7 +172,7 @@ export default function NavigationHeader() {
           </Link>
           <div className="px-3 py-2 bg-neutral-900/60 rounded-xl space-y-1">
             <span className="text-[11px] text-amber-400 block font-bold">
-              지역별 테라피
+              지역별 안심 출장케어
             </span>
             <div className="flex gap-2 pt-1">
               <Link

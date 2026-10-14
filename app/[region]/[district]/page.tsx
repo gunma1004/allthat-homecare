@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import ClientTextMixer from "./ClientTextMixer";
 
-const SITE_URL = "https://onshim-therapy.netlify.app";
+const SITE_URL = "https://baruncare-seoul.netlify.app";
 
 interface PageProps {
   params: Promise<{
@@ -28,38 +28,42 @@ function safeDecode(str: string): string {
 
 function getRegionFullName(region: string): string {
   switch (region?.toLowerCase()) {
-    case "seoul": return "서울특별시";
-    case "gyeonggi": return "경기도";
-    case "incheon": return "인천광역시";
-    default: return region || "";
+    case "seoul":
+      return "서울특별시";
+    case "gyeonggi":
+      return "경기도";
+    case "incheon":
+      return "인천광역시";
+    default:
+      return region || "";
   }
 }
 
-// 🌟 네이버 C-Rank / D.I.A. 중복 수집 누락 방지용 30종 순환 패턴 (타이틀 & 구 다음 출장 마사지 배치 디스크립션)
+// 🌟 네이버 C-Rank / D.I.A. 중복 수집 누락 방지용 30종 순환 패턴 (바른케어 후불 정찰제 특화)
 const SEO_PATTERNS = [
   {
-    titleSuffix: "출장 웰니스 마사지",
-    desc: (d: string) => `${d} 출장 마사지 안심 정찰제 안내. 나만의 편안한 공간에서 경험하는 1:1 맞춤 바디 테라피 코스와 투명한 요금을 온쉼테라피에서 확인하세요.`
+    titleSuffix: "선입금 없는 출장 안심 마사지",
+    desc: (d: string) => `${d} 출장 마사지 100% 현장 후불제 안내. 예약 선입금 사기 걱정 없는 투명한 정찰제 요금표와 전문 테라피스트 방문 코스를 바른케어에서 확인하세요.`
   },
   {
-    titleSuffix: "출장 아로마마사지 케어",
-    desc: (d: string) => `${d} 출장 마사지 추천 코스 안내. 최고급 천연 에센셜 오일과 섬세한 이완 테라피로 누적된 일상 피로를 온쉼테라피에서 부드럽게 비워보세요.`
+    titleSuffix: "출장 안심 아로마마사지 케어",
+    desc: (d: string) => `${d} 출장 마사지 추천 코스 안내. 최고급 천연 에센셜 오일과 부드러운 릴렉싱 케어를 선입금 0원 정찰제로 바른케어에서 편안하게 경험하세요.`
   },
   {
-    titleSuffix: "출장 안심 마사지 가이드",
-    desc: (d: string) => `${d} 출장 마사지 100% 안심 가이드. 선입금 없는 현장 후불 정찰제와 검증된 전문 테라피스트의 프리미엄 바디 릴렉싱을 안내합니다.`
+    titleSuffix: "출장 안심 마사지 후불제 가이드",
+    desc: (d: string) => `${d} 출장 마사지 100% 안심 가이드. 관리사 현장 도착 후 결제하는 안전한 시스템과 검증된 1:1 맞춤 바디 릴렉싱을 안내합니다.`
   },
   {
     titleSuffix: "출장 웰니스 마사지 힐링 안내",
-    desc: (d: string) => `${d} 출장 마사지 큐레이션 플랫폼. 지친 신체 밸런스를 되찾아주는 프라이빗 테라피 프로그램과 실시간 연결을 온쉼테라피에서 만나보세요.`
+    desc: (d: string) => `${d} 출장 마사지 큐레이션 플랫폼. 지친 신체 밸런스를 되찾아주는 프라이빗 테라피 프로그램과 실시간 연결을 바른케어에서 만나보세요.`
   },
   {
     titleSuffix: "출장 스웨디시 & 아로마마사지",
-    desc: (d: string) => `${d} 출장 마사지 VIP 스웨디시 안내. 림프 순환을 돕는 섬세한 터칭 기법과 쾌적한 힐링 케어 정보를 한눈에 비교해 보세요.`
+    desc: (d: string) => `${d} 출장 마사지 VIP 스웨디시 안내. 림프 순환을 돕는 섬세한 터칭 기법과 쾌적한 힐링 케어 정찰제 요금을 한눈에 비교해 보세요.`
   },
   {
     titleSuffix: "출장 안심 마사지 정찰제 플랫폼",
-    desc: (d: string) => `${d} 출장 마사지 투명한 표준 요금 안내. 번거로운 이동 없이 편안한 프라이빗 공간에서 만나는 고품격 맞춤 바디 테라피입니다.`
+    desc: (d: string) => `${d} 출장 마사지 투명한 표준 요금 안내. 번거로운 이동 없이 편안한 프라이빗 공간에서 만나는 선입금 없는 고품격 맞춤 바디 케어입니다.`
   },
   {
     titleSuffix: "출장 웰니스 마사지 피로회복",
@@ -67,11 +71,11 @@ const SEO_PATTERNS = [
   },
   {
     titleSuffix: "출장 아로마마사지 릴렉싱",
-    desc: (d: string) => `${d} 출장 마사지 힐링 솔루션. 심신 안정에 도움을 주는 천연 아로마 향과 편안한 1:1 맞춤 관리를 온쉼테라피에서 경험하세요.`
+    desc: (d: string) => `${d} 출장 마사지 힐링 솔루션. 심신 안정에 도움을 주는 천연 아로마 향과 편안한 1:1 맞춤 관리를 바른케어에서 경험하세요.`
   },
   {
     titleSuffix: "출장 안심 마사지 바디 밸런스",
-    desc: (d: string) => `${d} 출장 마사지 전문 비교 플랫폼. 위생 관리와 고객 만족도가 검증된 파트너 샵 정보만을 정직하게 제공합니다.`
+    desc: (d: string) => `${d} 출장 마사지 전문 비교 플랫폼. 위생 관리와 고객 만족도가 검증된 선입금 없는 공식 파트너 샵 정보만을 정직하게 제공합니다.`
   },
   {
     titleSuffix: "출장 웰니스 마사지 감성 케어",
@@ -151,7 +155,7 @@ const SEO_PATTERNS = [
   },
   {
     titleSuffix: "출장 아로마마사지 감성 릴렉스",
-    desc: (d: string) => `${d} 출장 마사지 평온한 휴식의 완성. 차분한 분위기 속에서 누리는 전문 테라피스트의 손길을 온쉼테라피에서 확인하세요.`
+    desc: (d: string) => `${d} 출장 마사지 평온한 휴식의 완성. 차분한 분위기 속에서 누리는 전문 테라피스트의 손길을 바른케어에서 확인하세요.`
   },
   {
     titleSuffix: "출장 안심 마사지 종합 큐레이션",
@@ -204,7 +208,7 @@ function getDynamicDistrictInsight(districtName: string, seed: number) {
       sec4Title: "4. 올바른 테라피 이용 및 사후 관리 팁",
       sec4Text: [
         `관리를 마친 후에는 체내 노폐물 배출이 활발해지므로 미온수를 충분히 섭취해 주는 것이 바람직합니다. 관리 당일에는 무리한 고강도 운동이나 과도한 음주를 삼가고 따뜻한 휴식을 취해야 근육의 미세 이완 효과가 오래 보존됩니다.`,
-        `${districtName} 온쉼테라피는 고객 여러분께서 믿고 선택하실 수 있도록 위생 수칙과 에티켓을 준수하는 검증된 매장 정보만을 엄선하여 실시간 제공합니다.`
+        `${districtName} 바른케어는 고객 여러분께서 믿고 선택하실 수 있도록 선입금 없는 100% 현장 후불 정찰제를 준수하는 검증된 매장 정보만을 엄선하여 실시간 제공합니다.`
       ]
     }
   ];
@@ -216,16 +220,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { region, district } = await params;
   const districtName = safeDecode(district);
 
-  // 🌟 지역명 + 시도명의 고유 유니코드 합으로 30개 패턴 중 하나를 고유하게 결정 (중복 방지)
   const charSum = (districtName + region).split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
   const patternIndex = Math.abs(charSum) % SEO_PATTERNS.length;
   const pattern = SEO_PATTERNS[patternIndex];
 
-  // 타이틀 예시: "강남구 출장 웰니스 마사지 | 온쉼테라피" (네이버 30자 내외)
-  const finalTitle = `${districtName} ${pattern.titleSuffix} | 온쉼테라피`;
-  // 디스크립션 예시: "강남구 출장 마사지 안심 정찰제 안내..."
+  // 🌟 '바른케어'가 뒤쪽에 배치된 최종 타이틀
+  const finalTitle = `${districtName} ${pattern.titleSuffix} | 바른케어`;
   const finalDescription = pattern.desc(districtName);
-
   const canonicalUrl = `${SITE_URL}/${region}/${encodeURIComponent(districtName)}`;
 
   return {
@@ -235,11 +236,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     keywords: [
       `${districtName} 출장 마사지`,
       `${districtName}출장마사지`,
-      `${districtName} 출장 웰니스 마사지`,
-      `${districtName} 출장 아로마마사지`,
+      `${districtName} 선입금 없는 출장 마사지`,
       `${districtName} 출장 안심 마사지`,
       `${districtName} 스웨디시`,
-      "온쉼테라피"
+      `${districtName} 아로마마사지`,
+      "바른케어"
     ],
     robots: {
       index: true,
@@ -250,7 +251,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: finalTitle,
       description: finalDescription,
       url: canonicalUrl,
-      siteName: "온쉼테라피",
+      siteName: "바른케어",
       locale: "ko_KR",
       type: "article",
       images: [
@@ -258,7 +259,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
           url: `${SITE_URL}/banner.jpg`,
           width: 1200,
           height: 630,
-          alt: `${districtName} ${pattern.titleSuffix} 온쉼테라피`,
+          alt: `${districtName} ${pattern.titleSuffix} 바른케어`,
         },
       ],
     },
@@ -276,19 +277,59 @@ export default async function RegionalDetailPage({ params }: PageProps) {
   const article = getDynamicDistrictInsight(districtName, Math.abs(charSum));
   const currentUrl = `${SITE_URL}/${region}/${encodeURIComponent(districtName)}`;
 
-  // 🌟 네이버 서치어드바이저 및 구글 공용 고도화 JSON-LD (HealthAndBeautyBusiness + FAQPage 결합)
+  // 🌟 네이버 서치어드바이저 및 구글 공용 고도화 JSON-LD (4대 복합 스키마)
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "HealthAndBeautyBusiness",
+        "@type": "WebPage",
+        "@id": `${currentUrl}/#webpage`,
+        url: currentUrl,
+        name: `${districtName} ${pattern.titleSuffix} | 바른케어`,
+        description: pattern.desc(districtName),
+        inLanguage: "ko-KR",
+        isPartOf: {
+          "@type": "WebSite",
+          "@id": `${SITE_URL}/#website`,
+          url: SITE_URL,
+          name: "바른케어"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${currentUrl}/#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "홈",
+            item: SITE_URL
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: regionFullName,
+            item: `${SITE_URL}/${region}/${encodeURIComponent(regionFullName)}`
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: districtName,
+            item: currentUrl
+          }
+        ]
+      },
+      {
+        "@type": ["HealthAndBeautyBusiness", "LocalBusiness"],
         "@id": `${currentUrl}/#localbusiness`,
-        name: `${districtName} ${pattern.titleSuffix} - 온쉼테라피`,
+        name: `${districtName} ${pattern.titleSuffix} | 바른케어`,
         description: pattern.desc(districtName),
         url: currentUrl,
         telephone: "0507-1280-3344",
         image: `${SITE_URL}/banner.jpg`,
-        priceRange: "₩₩",
+        priceRange: "60,000원~180,000원",
+        currenciesAccepted: "KRW",
+        paymentAccepted: "Cash, Credit Card",
         address: {
           "@type": "PostalAddress",
           addressLocality: districtName,
@@ -306,18 +347,26 @@ export default async function RegionalDetailPage({ params }: PageProps) {
         mainEntity: [
           {
             "@type": "Question",
-            name: `${districtName} 출장 마사지 예약 및 이용 방법은 어떻게 되나요?`,
+            name: `${districtName} 출장 마사지 예약 시 선입금이 필요한가요?`,
             acceptedAnswer: {
               "@type": "Answer",
-              text: "리스트에서 원하시는 샵 카드의 전화연결 버튼을 누르시면 해당 업체 매니저와 직접 프로그램 및 시간을 조율하실 수 있습니다.",
+              text: "아닙니다. 바른케어는 100% 현장 후불 정찰제로 운영됩니다. 테라피스트가 고객님의 위치에 도착한 후 결제를 진행하므로 어떠한 선입금이나 예약금도 요구하지 않습니다.",
             },
           },
           {
             "@type": "Question",
-            name: "온쉼테라피 플랫폼 이용 시 별도 중개 수수료가 있나요?",
+            name: `${districtName} 출장 마사지 예약 및 이용 방법은 어떻게 되나요?`,
             acceptedAnswer: {
               "@type": "Answer",
-              text: "온쉼테라피는 순수 웰니스 정보 안내 플랫폼으로 이용자에게 어떠한 중개 수수료도 부과하지 않습니다.",
+              text: "리스트에서 원하시는 샵 카드의 전화연결 버튼을 누르시면 해당 업체 매니저와 직접 프로그램 및 방문 시간을 즉시 조율하실 수 있습니다.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "바른케어 플랫폼 이용 시 별도 중개 수수료가 있나요?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "바른케어는 투명한 웰니스 정보 안내 플랫폼으로 이용자에게 어떠한 중개 수수료나 추가 요금도 청구하지 않습니다.",
             },
           },
         ],
@@ -338,7 +387,7 @@ export default async function RegionalDetailPage({ params }: PageProps) {
         <div className="max-w-4xl mx-auto h-16 px-4 flex items-center justify-between">
           <Link href="/" className="font-black text-lg text-white flex items-center gap-1.5">
             <span className="w-2.5 h-5 bg-amber-400 rounded-full inline-block"></span>
-            온쉼테라피
+            바른케어
           </Link>
           <div className="flex items-center gap-2">
             <Link
@@ -351,7 +400,7 @@ export default async function RegionalDetailPage({ params }: PageProps) {
               href="tel:0507-1280-3344"
               className="px-3.5 py-1.5 rounded-full bg-amber-400 text-black font-black text-xs hover:scale-105 transition-transform"
             >
-              📞 제휴 문의
+              📞 안심 문의
             </a>
           </div>
         </div>
@@ -359,11 +408,22 @@ export default async function RegionalDetailPage({ params }: PageProps) {
 
       {/* 3. 본문 영역 */}
       <main className="max-w-4xl mx-auto px-4 py-8 w-full flex-1 space-y-12">
+        {/* 네이버 Yeti 봇용 브레드크럼 시맨틱 HTML (탐색 누락 방지) */}
+        <nav aria-label="Breadcrumb" className="text-xs text-gray-400 flex items-center gap-1.5">
+          <Link href="/" className="hover:text-amber-400 transition-colors">홈</Link>
+          <span>&gt;</span>
+          <Link href={`/${region}/${encodeURIComponent(regionFullName)}`} className="hover:text-amber-400 transition-colors">
+            {regionFullName}
+          </Link>
+          <span>&gt;</span>
+          <span className="text-amber-400 font-bold">{districtName}</span>
+        </nav>
+
         {/* 상단 메인 히어로 배너 */}
         <section className="relative rounded-3xl overflow-hidden border border-amber-500/30 shadow-[0_0_40px_rgba(245,158,11,0.12)] bg-[#141418]">
           <div className="p-6 md:p-10 space-y-3">
             <span className="text-amber-400 text-xs font-black tracking-widest uppercase mb-1 block">
-              {regionFullName.toUpperCase()} · DISTRICT WELLNESS HUB
+              {regionFullName.toUpperCase()} · 100% 현장 후불 정찰제
             </span>
             <h1 className="text-2xl md:text-4xl font-black text-white drop-shadow-md">
               {districtName} {pattern.titleSuffix}
@@ -456,8 +516,8 @@ export default async function RegionalDetailPage({ params }: PageProps) {
             </div>
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 text-center">
               <span className="text-xs text-amber-400 font-bold">STEP 4</span>
-              <h3 className="font-bold text-white mt-1">맞춤 힐링</h3>
-              <p className="text-xs text-gray-400 mt-1">정찰제 요금으로 편안한 관리를 경험합니다.</p>
+              <h3 className="font-bold text-white mt-1">현장 결제</h3>
+              <p className="text-xs text-gray-400 mt-1">선입금 없이 관리사 도착 후 안심 결제합니다.</p>
             </div>
           </div>
         </section>
@@ -471,6 +531,14 @@ export default async function RegionalDetailPage({ params }: PageProps) {
           <div className="space-y-3">
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 space-y-1.5">
               <div className="font-bold text-sm text-gray-200 flex items-center gap-2">
+                <span className="text-amber-400">Q.</span> {districtName} 출장 마사지 예약 시 선입금이 필요한가요?
+              </div>
+              <p className="text-xs text-gray-400 pl-6 leading-relaxed">
+                <span className="text-amber-400 font-bold">A.</span> 아닙니다. 바른케어는 100% 현장 후불 정찰제로 운영됩니다. 어떠한 형태의 사전 예약금이나 선입금도 요구하지 않습니다.
+              </p>
+            </div>
+            <div className="bg-black/60 p-4 rounded-2xl border border-white/5 space-y-1.5">
+              <div className="font-bold text-sm text-gray-200 flex items-center gap-2">
                 <span className="text-amber-400">Q.</span> {districtName} 출장 마사지 예약 및 이용 방법은 어떻게 되나요?
               </div>
               <p className="text-xs text-gray-400 pl-6 leading-relaxed">
@@ -479,10 +547,10 @@ export default async function RegionalDetailPage({ params }: PageProps) {
             </div>
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 space-y-1.5">
               <div className="font-bold text-sm text-gray-200 flex items-center gap-2">
-                <span className="text-amber-400">Q.</span> 온쉼테라피 플랫폼 이용 시 별도 수수료가 있나요?
+                <span className="text-amber-400">Q.</span> 바른케어 플랫폼 이용 시 별도 수수료가 있나요?
               </div>
               <p className="text-xs text-gray-400 pl-6 leading-relaxed">
-                <span className="text-amber-400 font-bold">A.</span> 온쉼테라피는 순수 정보 안내 플랫폼으로 이용자에게 어떠한 중개 수수료도 부과하지 않습니다.
+                <span className="text-amber-400 font-bold">A.</span> 바른케어는 순수 정보 안내 플랫폼으로 이용자에게 어떠한 중개 수수료도 부과하지 않습니다.
               </p>
             </div>
           </div>
@@ -497,11 +565,11 @@ export default async function RegionalDetailPage({ params }: PageProps) {
               href="tel:0507-1280-3344"
               className="inline-flex items-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 text-amber-400 font-bold px-4 py-2 rounded-xl border border-amber-500/30 hover:border-amber-400 transition-all text-xs shadow-md"
             >
-              <span>🤝</span> 온쉼테라피 제휴 문의 (0507-1280-3344)
+              <span>🤝</span> 바른케어 제휴 문의 (0507-1280-3344)
             </a>
           </div>
-          <p className="text-gray-400 font-medium">온쉼테라피는 쾌적하고 건전한 프리미엄 바디 웰니스 제휴 정보를 제공합니다.</p>
-          <p className="text-[11px] text-gray-600">COPYRIGHT &copy; ONSHIM THERAPY ALL RIGHTS RESERVED.</p>
+          <p className="text-gray-400 font-medium">바른케어는 선입금 없는 건전하고 안전한 프리미엄 바디 웰니스 제휴 정보를 제공합니다.</p>
+          <p className="text-[11px] text-gray-600">COPYRIGHT &copy; BARUNCARE ALL RIGHTS RESERVED.</p>
         </div>
       </footer>
     </div>

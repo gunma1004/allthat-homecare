@@ -1,20 +1,22 @@
 import { Metadata } from "next";
 import Link from "next/link";
 
-const SITE_URL = "https://onshim-therapy.netlify.app";
+const SITE_URL = "https://baruncare-seoul.netlify.app";
 
 export const metadata: Metadata = {
-  title: "온쉼테라피 코스별 정찰제 이용 요금 안내",
+  // 🌟 '바른케어' 브랜드명이 항상 뒤쪽에 결합
+  title: "선입금 없는 출장 안심 마사지 코스별 정찰제 이용 요금표 | 바른케어",
   description:
-    "온쉼테라피 정찰제 기반 프로그램별 이용 요금 안내. 건식 릴렉스 스트레칭, 천연 아로마 케어, 감성 스웨디시 등 투명하고 정직한 테라피 코스 비용을 확인하세요.",
+    "100% 현장 후불제 바른케어 코스별 정찰제 이용 요금 안내. 건식 릴렉스 스트레칭, 천연 아로마 케어, 감성 스웨디시 등 선입금 없는 투명한 테라피 코스 비용을 확인하세요.",
   keywords: [
-    "온쉼테라피가격",
-    "테라피가격",
+    "출장마사지가격",
+    "선입금없는출장마사지가격",
+    "출장안심마사지요금",
     "스웨디시가격",
     "아로마테라피가격",
+    "홈타이가격",
     "바디케어비용",
-    "정찰제테라피",
-    "수도권테라피요금",
+    "바른케어",
   ],
   alternates: {
     canonical: `${SITE_URL}/prices`,
@@ -25,11 +27,11 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true },
   },
   openGraph: {
-    title: "온쉼테라피 코스별 정찰제 이용 요금 안내",
+    title: "선입금 없는 출장 안심 마사지 코스별 정찰제 이용 요금표 | 바른케어",
     description:
-      "수도권 전지역 엄선된 제휴 네트워크! 투명하고 합리적인 힐링 바디 테라피 정찰 요금 안내.",
+      "수도권 전 지역 엄선된 안심 네트워크! 선입금 0원, 투명하고 합리적인 힐링 바디 테라피 정찰 요금 안내.",
     url: `${SITE_URL}/prices`,
-    siteName: "온쉼테라피",
+    siteName: "바른케어",
     locale: "ko_KR",
     type: "website",
     images: [
@@ -37,7 +39,7 @@ export const metadata: Metadata = {
         url: `${SITE_URL}/banner.jpg`,
         width: 1200,
         height: 630,
-        alt: "온쉼테라피 코스별 이용 요금표",
+        alt: "바른케어 코스별 이용 요금표",
       },
     ],
   },
@@ -87,7 +89,7 @@ export default function PricesPage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "OfferCatalog",
-    name: "온쉼테라피 코스별 이용 요금표",
+    name: "바른케어 코스별 이용 요금표",
     url: `${SITE_URL}/prices`,
     itemListElement: priceList.map((item) => ({
       "@type": "Offer",
@@ -101,7 +103,7 @@ export default function PricesPage() {
       availability: "https://schema.org/InStock",
       seller: {
         "@type": "Organization",
-        name: "온쉼테라피",
+        name: "바른케어",
         url: SITE_URL,
       },
     })),
@@ -122,20 +124,20 @@ export default function PricesPage() {
             TRANSPARENT PRICE SYSTEM
           </span>
           <h1 className="text-2xl md:text-3xl font-black text-white">
-            투명한 코스별 이용 요금 안내
+            선입금 0원 투명 요금표 | 바른케어
           </h1>
           <p className="text-xs md:text-sm text-gray-400">
-            투명한 정찰제 가격 안내 / 안심 제휴 네트워크 가이드
+            100% 현장 후불 정찰제 가격 안내 / 안심 제휴 네트워크 가이드
           </p>
         </header>
 
         {/* 정찰제 안심 약속 공지 배너 */}
         <section className="bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border-l-4 border-amber-500 p-4 rounded-2xl shadow-inner">
           <p className="text-xs md:text-sm font-bold text-amber-300">
-            🔒 온쉼테라피 안심 약속: 투명하고 정직한 정찰제 요금 체계를 지향합니다.
+            🔒 바른케어 안심 약속: 선입금 일절 없는 100% 현장 후불 정찰제를 엄격히 준수합니다.
           </p>
           <p className="text-[11px] text-gray-400 mt-1">
-            모든 제휴 업체는 명시된 표준 코스 가이드라인을 준수하며 불법적인 선입금이나 부당한 추가 요금을 요구하지 않습니다.
+            모든 제휴 샵은 명시된 표준 코스 가이드라인을 준수하며, 예약금 선입금 요구나 현장 부당 추가금을 절대 요구하지 않습니다.
           </p>
         </section>
 
@@ -175,16 +177,16 @@ export default function PricesPage() {
         <article className="bg-[#0e0e12] border border-white/10 p-6 rounded-3xl space-y-5 text-xs sm:text-sm text-gray-300 leading-relaxed">
           <div className="border-b border-white/10 pb-3">
             <span className="text-amber-400 font-bold text-xs tracking-wider uppercase block mb-0.5">
-              PRICE GUIDE & TIPS
+              PRICE GUIDE & SAFETY TIPS
             </span>
             <h2 className="text-base sm:text-lg font-black text-white">
-              합리적인 웰니스 케어를 위한 코스 및 시간 선택 요령
+              합리적이고 안전한 웰니스 케어를 위한 코스 선택 요령
             </h2>
           </div>
 
           <div className="space-y-2">
             <h3 className="font-bold text-white text-xs sm:text-sm flex items-center gap-1.5">
-              <span className="text-amber-400">●</span> 60분 vs 90분 코스, 나에게 맞는 시간대는?
+              <span className="text-amber-400 font-bold">1.</span> 60분 vs 90분 코스, 나에게 맞는 시간대는?
             </h3>
             <p className="text-gray-400">
               특정 부위(목, 어깨 등)의 가벼운 피로 회복이 목적이라면 60분 기본 코스로도 충분한 순환 효과를 얻을 수 있습니다. 반면, 오랜 좌식 생활로 골반 지지근과 전신 림프 순환이 굳어있는 만성 피로 상태라면 후두하근부터 둔근, 하체까지 넓은 면적을 차분하게 이완시키는 90분 이상의 집중 프로그램을 선택하시는 것이 생리학적 회복 효과가 훨씬 높습니다.
@@ -193,10 +195,10 @@ export default function PricesPage() {
 
           <div className="space-y-2">
             <h3 className="font-bold text-white text-xs sm:text-sm flex items-center gap-1.5">
-              <span className="text-amber-400">●</span> 100% 현장 후불제 확인이 필수인 이유
+              <span className="text-amber-400 font-bold">2.</span> 100% 현장 후불제 확인이 필수인 이유
             </h3>
             <p className="text-gray-400">
-              방문형 웰니스 서비스를 이용하실 때 가장 중요한 안전 수칙은 <strong>선입금이나 예약금을 요구하지 않는 제휴점</strong>을 이용하는 것입니다. 온쉼테라피는 검증된 공식 파트너 네트워크를 통해 관리사가 도착한 후 프로그램을 확인하고 결제하는 정찰제 원칙을 엄격하게 준수합니다.
+              방문형 웰니스 서비스를 이용하실 때 가장 중요한 안전 수칙은 <strong>선입금이나 예약금을 요구하지 않는 제휴점</strong>을 이용하는 것입니다. 바른케어는 검증된 공식 파트너 네트워크를 통해 관리사가 도착한 후 프로그램을 확인하고 결제하는 정찰제 원칙을 엄격하게 준수합니다.
             </p>
           </div>
 
@@ -207,7 +209,7 @@ export default function PricesPage() {
             >
               프로그램별 상세 특징 비교하기 →
             </Link>
-            <span className="text-[11px] text-gray-500">표준 가이드라인 준수</span>
+            <span className="text-[11px] text-gray-500">표준 정찰제 가이드라인 준수</span>
           </div>
         </article>
 
@@ -217,7 +219,7 @@ export default function PricesPage() {
             href="/"
             className="w-full sm:w-auto text-center inline-flex items-center justify-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 text-amber-400 font-bold text-xs px-5 py-3 rounded-2xl border border-amber-500/30 transition-all shadow-md"
           >
-            <span>🏠</span> 온쉼테라피 메인으로
+            <span>🏠</span> 바른케어 메인으로
           </Link>
           <a
             href="tel:0507-1280-3344"

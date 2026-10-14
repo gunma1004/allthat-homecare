@@ -108,15 +108,15 @@ export const regionData: Record<
 const initialShops = [
   {
     id: 1,
-    name: "한국미인테라피",
-    desc: "서울·경기·인천 전지역 신속 안내, 정성 가득한 프리미엄 감성 바디 테라피 & 1:1 맞춤 케어",
+    name: "바른안심테라피",
+    desc: "서울·경기·인천 전지역 신속 안내! 선입금 없는 100% 현장 후불제 & 프리미엄 안심 바디 케어",
     phone: "0507-1280-3140",
     price: "90,000원부터~",
     image: "/shop1.jpg",
   },
   {
     id: 2,
-    name: "오늘밤테라피",
+    name: "오늘밤바른케어",
     desc: "최고급 천연 아로마 오일 블렌딩, 지친 일상을 깨우는 고품격 프라이빗 힐링 바디 테라피 전문",
     phone: "0507-1280-3199",
     price: "60,000원부터~",
@@ -124,7 +124,7 @@ const initialShops = [
   },
   {
     id: 3,
-    name: "주주홈타이",
+    name: "주주안심홈타이",
     desc: "재방문율 1위, 철저한 위생 관리와 숙련된 테라피스트의 정통 바디 릴렉싱 프로그램",
     phone: "0507-1280-3197",
     price: "60,000원부터~",
@@ -132,7 +132,7 @@ const initialShops = [
   },
   {
     id: 4,
-    name: "한국골든테라피",
+    name: "골든바른테라피",
     desc: "전문 테라피스트의 VIP 집중 피로회복 솔루션, 수도권 어디서나 편안하게 만나는 맞춤 힐링",
     phone: "0507-1280-3360",
     price: "60,000원부터~",
@@ -140,7 +140,7 @@ const initialShops = [
   },
   {
     id: 5,
-    name: "퀸즈홈테라피",
+    name: "퀸즈바른홈케어",
     desc: "수도권 전역 빠른 안내, 검증된 전문 매니저의 힐링 테라피 & 프리미엄 바디 밸런스 프로그램",
     phone: "0507-1280-3296",
     price: "60,000원부터~",
@@ -182,7 +182,6 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // 마운트 직후 브라우저에서만 안전하게 셔플 실행 (Hydration 에러 418 원천 차단)
     setMounted(true);
     const shuffled = [...initialShops];
     for (let i = shuffled.length - 1; i > 0; i--) {
@@ -219,7 +218,6 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
       ? currentDistricts[selectedDistrict].dongs
       : [];
 
-  // SSR 시점에는 항상 정적 initialShops를 렌더링하도록 일치 보장
   const displayShops = mounted ? shops : initialShops;
 
   return (
@@ -232,7 +230,7 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
             <div className="absolute inset-0 z-0">
               <img
                 src="/banner.jpg"
-                alt="온쉼테라피 수도권 전 지역 출장 웰니스 마사지 플랫폼 메인 배너"
+                alt="선입금 없는 서울·경기·인천 출장 안심 마사지 디렉토리 바른케어 메인 배너"
                 width={1200}
                 height={630}
                 className="w-full h-full object-cover filter brightness-[0.4] scale-105"
@@ -242,16 +240,16 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
 
             <div className="relative z-10 space-y-3">
               <span className="inline-block px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold text-xs tracking-wider">
-                도심 속 프라이빗 웰니스 큐레이션
+                100% 현장 후불 정찰제 보장
               </span>
               <h1 className="text-2xl md:text-4xl font-black text-white tracking-tight drop-shadow-lg">
-                서울·경기·인천{" "}
+                선입금 없는 서울·경기·인천{" "}
                 <span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">
-                  출장 웰니스 마사지 & 바디케어 가이드
+                  출장 안심 마사지 | 바른케어
                 </span>
               </h1>
               <p className="text-gray-200 text-xs md:text-sm font-medium max-w-lg mx-auto leading-relaxed drop-shadow">
-                엄선된 전문 테라피스트들의 1:1 맞춤 출장 마사지 프로그램을 온쉼테라피에서 손쉽게 비교하고 투명한 정찰제로 확인하세요.
+                예약 선입금 사기 걱정 없는 100% 후불 정찰제! 검증된 전문 관리사의 1:1 맞춤 출장 마사지 정보를 바른케어에서 투명하게 확인하세요.
               </p>
             </div>
           </div>
@@ -261,10 +259,10 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
         <section className="space-y-6">
           <div className="text-center mb-4">
             <p className="text-xs text-amber-400 font-bold tracking-widest uppercase">
-              RECOMMENDED PARTNERS
+              CERTIFIED PARTNERS
             </p>
             <h2 className="text-xl md:text-2xl font-black text-white mt-1">
-              🏆 온쉼테라피 베스트 추천 제휴 샵
+              🏆 선입금 없는 안심 후불제 추천 샵 | 바른케어
             </h2>
           </div>
 
@@ -312,7 +310,7 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
           <div className="bg-gradient-to-b from-[#16161b] to-[#0e0e12] border border-amber-500/30 p-6 rounded-3xl max-w-xl mx-auto shadow-2xl text-left relative overflow-hidden">
             <div className="flex items-center justify-between mb-4">
               <label className="text-xs text-amber-400 font-black uppercase tracking-wider flex items-center gap-1.5">
-                📍 내 주변 맞춤 출장 마사지 찾기
+                📍 내 주변 안심 출장 마사지 찾기
               </label>
               <span className="text-[11px] text-gray-400 bg-black/40 px-2.5 py-1 rounded-lg border border-white/5">
                 서울·경기·인천 전역
@@ -383,7 +381,7 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
                   href={getSearchUrl()}
                   className="w-full block text-center bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:to-yellow-300 text-black font-black py-4 rounded-2xl text-sm transition-all shadow-[0_0_25px_rgba(245,158,11,0.35)] mt-3 cursor-pointer transform active:scale-[0.98]"
                 >
-                  🔍 선택한 지역 출장 마사지 정보 확인하기
+                  🔍 선택한 지역 안심 후불제 샵 확인하기
                 </Link>
               ) : (
                 <button
@@ -398,15 +396,15 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
           </div>
         </section>
 
-        {/* 네이버 로봇 인덱싱 최적화 전체 권역 링크 트리 */}
+        {/* 수도권 전 지역 출장 마사지 바로가기 링크 트리 */}
         <section className="bg-[#0b0b0e] border border-white/5 p-6 rounded-3xl space-y-5">
           <div className="border-b border-white/10 pb-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
               <h3 className="text-sm font-bold text-amber-400 flex items-center gap-1.5">
-                <span>🗺️</span> 수도권 전 지역 출장 마사지 바로가기
+                <span>🗺️</span> 수도권 전 지역 안심 출장 마사지 바로가기
               </h3>
               <p className="text-[11px] text-gray-400 mt-1">
-                원하시는 시·군·구를 클릭하시면 해당 지역의 전문 출장 마사지 목록으로 바로 이동합니다.
+                원하시는 시·군·구를 클릭하시면 해당 지역의 후불 정찰제 출장 마사지 목록으로 바로 이동합니다.
               </p>
             </div>
 
@@ -454,43 +452,37 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
         <section className="bg-[#0e0e12] p-6 sm:p-10 rounded-3xl border border-white/10 space-y-10 text-gray-300 leading-relaxed text-xs sm:text-sm">
           <div className="border-b border-white/10 pb-5">
             <span className="text-amber-400 font-extrabold text-xs tracking-widest block uppercase mb-1">
-              ONSHIM WELLNESS ESSENTIALS & THEORY
+              BARUNCARE SAFETY & WELLNESS THEORY
             </span>
             <h2 className="text-xl sm:text-2xl font-black text-white">
-              도심 생활 속 신체 밸런스 회복과 지속 가능한 바디 테라피 가이드
+              선입금 없는 안전한 바디 테라피 이용과 신체 밸런스 회복 가이드 | 바른케어
             </h2>
             <p className="text-gray-400 text-xs mt-1.5">
-              자율신경계 균형, 근막 이완의 과학적 원리, 라이프스타일 맞춤 프로그램 선택 및 프라이빗 케어 환경 분석
+              후불 정찰제의 필요성, 자율신경계 이완 원리, 프로그램별 차이점 및 안전 이용 수칙
             </p>
           </div>
 
           <div className="space-y-3.5">
             <h3 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-              <span className="text-amber-400 font-black">1.</span> 현대인의 고정 좌식 생활과 만성 근막 긴장의 병리학적 기전
+              <span className="text-amber-400 font-black">1.</span> 선입금 없는 후불 정찰제가 필수적인 이유
             </h3>
             <p>
-              현대 사회의 근로 환경은 디지털 디바이스의 보급과 함께 급격한 정적 고정화를 겪고 있습니다. 서울과 수도권의 수많은 직장인들은 하루 평균 8시간 이상 모니터 앞에 앉아 생활하며, 이 과정에서 경추 굴곡과 흉추 후만이 결합된 전방 두부 자세를 취하게 됩니다. 머리의 하중이 1인치 앞으로 기울어질 때마다 목덜미 후두하근과 상부 승모근, 견갑거근에 가해지는 역학적 부하는 체중 대비 최대 4배까지 증가합니다.
+              출장형 홈 바디케어 서비스를 이용할 때 가장 주의해야 할 요소는 비정상적인 예약금이나 선입금 요구입니다. 정상적인 제휴 네트워크는 고객의 자택이나 숙소에 관리사가 실제로 도착한 후 정해진 정찰제 요금에 따라 결제를 진행합니다.
             </p>
             <p>
-              이러한 만성적 부하는 근섬유 내 미세 모세혈관의 혈류 흐름을 압박하여 허혈성 상태를 유발합니다. 혈액 공급이 원활하지 못한 근육 조직 내에는 대사 노폐물이 축적되며, 이는 근막 통증 유발점(Trigger Point)의 형성을 가속화합니다. 결과적으로 어깨 윗선의 지속적인 뻐근함, 견갑골 내측의 결림, 긴장성 두통과 만성 피로로 이어지는 악순환이 고착화됩니다.
-            </p>
-            <p>
-              정기적인 바디 컨디셔닝은 단순한 표면 마찰을 넘어 근육의 기시부와 정지부를 따라 경직된 근막을 넓은 면적으로 스트레칭하고 연부 조직의 온도를 높여 혈류량을 증가시키는 데 목적이 있습니다. 정상적인 혈액 순환이 회복되면 굳어있던 근섬유가 이완되고 자율신경계의 과도한 흥분이 진정되어 신체 본래의 유연성과 가동 범위를 되찾게 됩니다.
+              바른케어는 사칭 사기나 불투명한 추가 요금 피해를 방지하기 위해 100% 현장 후불 결제 원칙을 엄격하게 준수하는 공인 제휴점만을 엄선하여 안내합니다.
             </p>
           </div>
 
           <div className="space-y-3.5">
             <h3 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-              <span className="text-amber-400 font-black">2.</span> 자율신경계 불균형과 심신 릴렉싱의 상호작용
+              <span className="text-amber-400 font-black">2.</span> 현대인의 고정 좌식 생활과 만성 근막 긴장 메커니즘
             </h3>
             <p>
-              과중한 업무 스트레스와 불규칙한 생활 리듬은 인체의 교감신경계를 만성 흥분 상태로 몰아넣습니다. 교감신경의 지속적인 과활성화는 스트레스 호르몬 분비를 촉진하고 말초 혈관 수축을 야기하여 신체를 긴장 상태로 유지시킵니다. 이러한 상태가 장기화되면 야간 숙면을 방해하는 수면 장애, 소화 흡수 장애, 만성 무기력증이 동반됩니다.
+              장시간 앉아서 컴퓨터나 스마트폰을 사용하는 현대인들은 목, 어깨의 승모근과 척추 기립근이 지속적인 긴장 상태에 놓입니다. 혈액 순환이 제한되고 피로 부산물이 축적되면 만성 두통과 피로감으로 발전하기 쉽습니다.
             </p>
             <p>
-              숙련된 테라피스트에 의한 균일하고 차분한 압력 자극은 피부 감각 수용기를 안정화하여 뇌로 전달되는 과도한 자극 신호를 완화합니다. 이는 부교감신경계를 활성화하여 심장 박동을 안정시키고 혈관을 확장시키며, 체내 행복 호르몬의 분비를 돕습니다.
-            </p>
-            <p>
-              신체가 진정한 이완 상태에 도달하면 뇌파는 각성 상태인 베타파에서 깊은 안정 상태인 알파파 및 세타파로 전환됩니다. 이는 단순한 신체적 편안함을 넘어 뇌의 인지적 피로를 리셋하고 면역계 세포의 재생 활동을 촉진하는 근본적인 힐링 환경을 조성합니다.
+              전문 수기 요법은 경직된 근막을 부드럽게 이완시키고 체온을 높여 혈류량을 증가시킴으로써 신체 본래의 유연성과 가동 범위를 되찾아 줍니다.
             </p>
           </div>
 
@@ -498,32 +490,29 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
             <h3 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
               <span className="text-amber-400 font-black">3.</span> 프로그램별 물리적 기전 비교와 맞춤형 선택 가이드
             </h3>
-            <p>
-              전문 바디 웰니스 프로그램은 사용하는 매개체와 물리적 자극의 깊이에 따라 뚜렷한 기능적 특성을 가집니다. 이용자의 당일 체력 상태와 피로 원인에 맞추어 올바른 코스를 선택하는 것이 중요합니다.
-            </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 my-3">
               <div className="bg-black/50 p-4 rounded-2xl border border-white/5 space-y-1.5">
-                <h4 className="font-bold text-amber-400 text-xs sm:text-sm">클래식 건식 스트레칭 (타이 케어)</h4>
+                <h4 className="font-bold text-amber-400 text-xs sm:text-sm">클래식 건식 스트레칭</h4>
                 <p className="text-gray-400 text-[11px] sm:text-xs">
-                  오일을 사용하지 않고 매트 위에서 진행되는 정통 기법입니다. 수기 압박과 요가 형태의 수동적 관절 신전 운동이 결합되어 굳어있는 햄스트링, 고관절 굴곡근, 척추 기립근의 운동 가동 범위를 물리적으로 넓혀줍니다.
+                  오일 없이 관절의 가동 범위를 넓히는 수동적 신전 스트레칭 중심의 개운한 케어입니다.
                 </p>
               </div>
               <div className="bg-black/50 p-4 rounded-2xl border border-white/5 space-y-1.5">
-                <h4 className="font-bold text-amber-400 text-xs sm:text-sm">스웨디시 감성 바디 테라피</h4>
+                <h4 className="font-bold text-amber-400 text-xs sm:text-sm">스웨디시 감성 테라피</h4>
                 <p className="text-gray-400 text-[11px] sm:text-xs">
-                  식물성 베이스 오일을 도포하여 마찰 저항을 최소화한 상태에서 심장 방향으로 부드럽게 밀어 올리는 유러피언 테크닉입니다. 피부 표층의 미세 순환을 촉진하고 통증 없이 림프 순환을 돕습니다.
+                  식물성 오일로 피부 마찰을 줄이고 심장 방향으로 밀어 올리는 부드러운 림프 순환 케어입니다.
                 </p>
               </div>
               <div className="bg-black/50 p-4 rounded-2xl border border-white/5 space-y-1.5">
-                <h4 className="font-bold text-amber-400 text-xs sm:text-sm">에센셜 아로마 림프 테라피</h4>
+                <h4 className="font-bold text-amber-400 text-xs sm:text-sm">에센셜 아로마 테라피</h4>
                 <p className="text-gray-400 text-[11px] sm:text-xs">
-                  라벤더, 유칼립투스 등 순수 에센셜 오일의 후각적 아로마콜로지 효과를 접목한 기법입니다. 피부 보습 장벽을 보호하고 피하 림프 순환을 도와 전신의 부종을 가라앉힙니다.
+                  천연 에센셜 오일의 향기와 부드러운 터칭으로 심신 안정과 피부 보습을 돕습니다.
                 </p>
               </div>
               <div className="bg-black/50 p-4 rounded-2xl border border-white/5 space-y-1.5">
-                <h4 className="font-bold text-amber-400 text-xs sm:text-sm">심부 근막 집중 딥티슈 케어</h4>
+                <h4 className="font-bold text-amber-400 text-xs sm:text-sm">심부 근막 딥티슈 케어</h4>
                 <p className="text-gray-400 text-[11px] sm:text-xs">
-                  표층 근육을 넘어 뼈와 관절에 맞닿아 있는 심부 근막의 단단한 매듭을 체중을 실어 압박하는 기법입니다. 만성 유착 부위를 분리하여 깊은 속근육 피로를 해소합니다.
+                  깊은 속근육의 유착된 트리거 포인트를 정확한 압력으로 풀어내는 집중 피로회복 코스입니다.
                 </p>
               </div>
             </div>
@@ -531,29 +520,15 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
 
           <div className="space-y-3.5">
             <h3 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-              <span className="text-amber-400 font-black">4.</span> 프라이빗 1인 케어 환경이 선사하는 심리·시간적 효율성
+              <span className="text-amber-400 font-black">4.</span> 프라이빗 공간이 주는 회복의 이점
             </h3>
             <p>
-              전통적인 웰니스 서비스는 고객이 직접 매장을 방문하는 오프라인 중심이었으나, 현대 도시 생활에서는 이동 자체에 소모되는 물리적·정신적 비용이 상당합니다. 번화가의 교통 체증, 주차 공간 확보의 어려움, 대기 시간은 휴식 과정 자체를 피로 요인으로 만들 수 있습니다.
+              외부 매장을 오가는 번거로운 이동과 주차 스트레스 없이, 가장 익숙하고 안락한 내 공간에서 관리를 받을 때 부교감신경이 극대화되어 깊은 숙면과 피로 회복으로 이어집니다.
             </p>
-            <p>
-              개인 자택이나 호텔 객실 등 독립된 사적 공간에서 진행되는 프라이빗 케어는 외부 소음과 시선을 차단하여 부교감신경이 자연스럽게 활성화되도록 돕습니다. 세션 종료 직후 이동 없이 본인의 공간에서 즉시 숙면으로 전환할 수 있어 피로 해소 효율이 극대화됩니다.
-            </p>
-          </div>
-
-          <div className="space-y-3.5">
-            <h3 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-              <span className="text-amber-400 font-black">5.</span> 안전하고 신뢰할 수 있는 웰니스 플랫폼 이용 수칙
-            </h3>
-            <ul className="list-disc list-inside space-y-1.5 text-gray-400 pl-2">
-              <li><strong className="text-gray-200">정찰제 요금 준수:</strong> 공인 파트너 샵은 불법적인 예약 선입금이나 불투명한 현장 추가금을 요구하지 않으며 정찰제를 준수합니다.</li>
-              <li><strong className="text-gray-200">기저 질환 사전 고지:</strong> 관절 시술, 심혈관 질환, 임신 등의 상태는 세션 전 테라피스트에게 알려 강도를 조율해야 합니다.</li>
-              <li><strong className="text-gray-200">사후 수분 섭취와 체온 유지:</strong> 관리 후 미온수를 충분히 마셔 림프 순환 노폐물 배출을 돕고 따뜻한 온도를 유지하세요.</li>
-            </ul>
           </div>
 
           <div className="pt-5 border-t border-white/5 text-[11px] text-gray-500">
-            * 본 콘텐츠는 수도권 전역의 건강한 라이프스타일 구축과 올바른 신체 생리학적 테라피 정보 제공을 목적으로 온쉼테라피 리서치 팀에 의해 작성되었습니다.
+            * 본 가이드는 서울·경기·인천 시민 여러분의 안전한 테라피 이용과 건강한 라이프스타일을 지원하기 위해 바른케어 리서치 팀에 의해 작성되었습니다.
           </div>
         </section>
 
@@ -564,37 +539,29 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
               SERVICE GUIDE
             </span>
             <h3 className="text-xl font-black text-white mt-1">
-              온쉼테라피 안심 이용 가이드
+              선입금 0원 안심 이용 절차 | 바른케어
             </h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 text-center">
               <span className="text-xs text-amber-400 font-bold">STEP 1</span>
               <h4 className="font-bold text-white mt-1">지역 확인</h4>
-              <p className="text-xs text-gray-400 mt-1">
-                원하시는 수도권 주요 지역을 선택합니다.
-              </p>
+              <p className="text-xs text-gray-400 mt-1">수도권 주요 시·군·구 제휴 목록을 확인합니다.</p>
             </div>
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 text-center">
               <span className="text-xs text-amber-400 font-bold">STEP 2</span>
-              <h4 className="font-bold text-white mt-1">프로그램 비교</h4>
-              <p className="text-xs text-gray-400 mt-1">
-                타이, 아로마, 스웨디시 코스를 확인합니다.
-              </p>
+              <h4 className="font-bold text-white mt-1">코스 선택</h4>
+              <p className="text-xs text-gray-400 mt-1">타이, 아로마, 스웨디시 정찰제 코스를 비교합니다.</p>
             </div>
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 text-center">
               <span className="text-xs text-amber-400 font-bold">STEP 3</span>
-              <h4 className="font-bold text-white mt-1">직접 상담</h4>
-              <p className="text-xs text-gray-400 mt-1">
-                전화 버튼으로 샵과 직접 일정을 소통합니다.
-              </p>
+              <h4 className="font-bold text-white mt-1">직접 소통</h4>
+              <p className="text-xs text-gray-400 mt-1">전화 버튼으로 샵 담당자와 방문 일정을 조율합니다.</p>
             </div>
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 text-center">
               <span className="text-xs text-amber-400 font-bold">STEP 4</span>
-              <h4 className="font-bold text-white mt-1">맞춤 케어</h4>
-              <p className="text-xs text-gray-400 mt-1">
-                전문 테라피스트의 프라이빗 힐링을 누립니다.
-              </p>
+              <h4 className="font-bold text-white mt-1">현장 결제</h4>
+              <p className="text-xs text-gray-400 mt-1">선입금 없이 관리사 도착 후 안심 결제합니다.</p>
             </div>
           </div>
         </section>
@@ -606,7 +573,7 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
               USER REVIEWS
             </span>
             <h3 className="text-xl font-black text-white mt-1">
-              실제 이용 고객 솔직 후기
+              실제 이용 고객 솔직 후기 | 바른케어
             </h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -616,37 +583,37 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
                 <span className="text-[11px] text-gray-500">서울 강남 이용자</span>
               </div>
               <p className="text-xs text-gray-300 leading-relaxed">
-                &quot;시간에 맞춰 꼼꼼하게 진행해주셨고 관리사분이 매우 정성스럽게 케어해 주셨습니다. 뭉친 피로가 싹 풀렸네요.&quot;
+                &quot;선입금 없이 관리사분이 직접 오신 뒤 결제하는 방식이라 안심하고 이용했습니다. 실력도 정말 훌륭하시네요.&quot;
               </p>
             </div>
             <div className="bg-[#101014] p-5 rounded-2xl border border-white/5 space-y-2">
               <div className="flex justify-between items-center">
                 <span className="text-amber-400 font-black text-sm">★★★★★ 5.0</span>
-                <span className="text-[11px] text-gray-500">인천 송도 이용자</span>
+                <span className="text-[11px] text-gray-500">경기 수원 이용자</span>
               </div>
               <p className="text-xs text-gray-300 leading-relaxed">
-                &quot;온쉼테라피에 등록된 정보가 투명해서 좋았고 상담도 친절했습니다. 번거롭게 찾아다닐 필요 없이 편리하게 이용했습니다.&quot;
+                &quot;바른케어에 안내된 요금 그대로 추가금 없이 투명하게 진행되어 만족스러웠습니다. 다음에도 꼭 이용할 예정입니다.&quot;
               </p>
             </div>
           </div>
         </section>
 
-        {/* FAQ 아코디언 */}
+        {/* 자주 묻는 질문 (FAQ) */}
         <section className="space-y-4">
           <div className="text-center">
             <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">
               FAQ
             </span>
-            <h3 className="text-xl font-black text-white mt-1">자주 묻는 질문</h3>
+            <h3 className="text-xl font-black text-white mt-1">자주 묻는 질문 | 바른케어</h3>
           </div>
           <div className="space-y-3">
             <FaqItem
-              question="예약 및 상담은 어떻게 진행되나요?"
-              answer="온쉼테라피에 등록된 각 제휴 업체의 전화연결 버튼을 통해 샵으로 직접 연결되며, 코스 및 시간을 바로 조율하실 수 있습니다."
+              question="예약금이나 선입금을 요구하는 경우가 있나요?"
+              answer="바른케어의 제휴점은 100% 현장 후불 정찰제로 운영됩니다. 어떠한 형태의 사전 선입금이나 예약금도 일절 요구하지 않으니 안심하세요."
             />
             <FaqItem
-              question="수도권 전 지역 이용이 가능한가요?"
-              answer="서울 25개 구, 경기도 31개 시·군, 인천 전역의 주요 권역별로 등록된 제휴 샵 정보를 편리하게 확인하실 수 있습니다."
+              question="수도권 전 지역 출장 이용이 가능한가요?"
+              answer="서울 25개 구, 경기도 31개 시·군, 인천 전역의 주요 권역별 제휴 매장 네트워크가 갖추어져 있어 신속한 안내가 가능합니다."
             />
           </div>
         </section>
@@ -660,15 +627,15 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
               href="tel:0507-1280-3344"
               className="inline-flex items-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 text-amber-400 font-bold px-4 py-2 rounded-xl border border-amber-500/30 hover:border-amber-400 transition-all text-xs shadow-md"
             >
-              <span>🤝</span> 온쉼테라피 제휴 문의 (0507-1280-3344)
+              <span>🤝</span> 바른케어 제휴 문의 (0507-1280-3344)
             </a>
           </div>
 
           <p className="text-gray-400 font-medium">
-            온쉼테라피는 건전하고 쾌적한 프리미엄 바디 테라피 제휴 정보를 제공하는 웰니스 안내 플랫폼입니다.
+            바른케어는 선입금 없는 건전하고 안전한 프리미엄 바디 테라피 제휴 정보를 제공하는 웰니스 안내 플랫폼입니다.
           </p>
           <p className="text-[11px] text-gray-600">
-            COPYRIGHT &copy; ONSHIM THERAPY ALL RIGHTS RESERVED.
+            COPYRIGHT &copy; BARUNCARE ALL RIGHTS RESERVED.
           </p>
         </div>
       </footer>

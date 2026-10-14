@@ -1,7 +1,7 @@
 // app/robots.ts
 import { MetadataRoute } from 'next';
 
-const BASE_URL = 'https://onshim-therapy.netlify.app';
+const BASE_URL = 'https://baruncare-seoul.netlify.app';
 
 export default function robots(): MetadataRoute.Robots {
   return {

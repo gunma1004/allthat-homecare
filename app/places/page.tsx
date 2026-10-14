@@ -1,20 +1,22 @@
 import { Metadata } from "next";
 import Link from "next/link";
 
-const SITE_URL = "https://onshim-therapy.netlify.app";
+const SITE_URL = "https://baruncare-seoul.netlify.app";
 
 export const metadata: Metadata = {
-  title: "온쉼테라피 수도권 미식 & 힐링 쉼터 가이드",
+  // 🌟 '바른케어' 브랜드명이 항상 뒤쪽에 결합
+  title: "수도권 미식 & 안심 힐링 쉼터 가이드 | 바른케어",
   description:
-    "서울, 경기, 인천 주요 도심 내 엄선된 미식 명소와 안락한 휴식 공간 가이드. 하루의 피로를 풀고 여유를 더하는 웰니스 플레이스를 온쉼테라피에서 확인하세요.",
+    "서울, 경기, 인천 주요 도심 내 엄선된 미식 명소와 안락한 휴식 공간 가이드. 하루의 피로를 풀고 여유를 더하는 웰니스 플레이스를 바른케어에서 확인하세요.",
   keywords: [
-    "온쉼테라피",
     "수도권힐링플레이스",
     "서울휴식공간",
     "경기힐링카페",
     "인천미식명소",
     "도심속쉼터",
     "웰니스플레이스",
+    "선입금없는출장마사지",
+    "바른케어",
   ],
   alternates: {
     canonical: `${SITE_URL}/places`,
@@ -25,10 +27,10 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true },
   },
   openGraph: {
-    title: "온쉼테라피 수도권 미식 & 힐링 쉼터 가이드",
+    title: "수도권 미식 & 안심 힐링 쉼터 가이드 | 바른케어",
     description: "서울·경기·인천 도심 속 쾌적한 쉼터와 프라이빗 미식 공간 정보 안내.",
     url: `${SITE_URL}/places`,
-    siteName: "온쉼테라피",
+    siteName: "바른케어",
     locale: "ko_KR",
     type: "website",
     images: [
@@ -36,7 +38,7 @@ export const metadata: Metadata = {
         url: `${SITE_URL}/banner.jpg`,
         width: 1200,
         height: 630,
-        alt: "온쉼테라피 수도권 힐링 플레이스 가이드",
+        alt: "바른케어 수도권 힐링 플레이스 가이드",
       },
     ],
   },
@@ -91,7 +93,7 @@ export default function PlacesPage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "수도권 주요 힐링 플레이스 & 미식 쉼터 리스트",
+    name: "바른케어 추천 수도권 주요 힐링 플레이스 & 미식 쉼터 리스트",
     url: `${SITE_URL}/places`,
     itemListElement: recommendedPlaces.map((place, idx) => ({
       "@type": "ListItem",
@@ -118,13 +120,13 @@ export default function PlacesPage() {
       />
 
       <div className="max-w-4xl mx-auto space-y-10">
-        {/* 상단 타이틀 배너 (문서의 유일한 H1) */}
+        {/* 상단 타이틀 배너 (단일 H1) */}
         <header className="text-center space-y-3">
           <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">
             LOCAL WELLNESS PLACES & STAY
           </span>
           <h1 className="text-2xl md:text-3xl font-black text-white">
-            내 주변 맛집 & 편안한 휴식 공간
+            내 주변 맛집 & 편안한 휴식 공간 | 바른케어
           </h1>
           <p className="text-xs md:text-sm text-gray-400 max-w-lg mx-auto leading-relaxed">
             수도권 주요 도심 속에서 찾은 미식 명소와 일상의 긴장을 내려놓을 수 있는 안락한 쉼터 정보를 소개합니다.
@@ -185,7 +187,7 @@ export default function PlacesPage() {
               URBAN WELLNESS ESSAY
             </span>
             <h2 className="text-lg sm:text-xl font-black text-white">
-              도심 속 미식과 안락한 스테이가 완성하는 온전한 심신 릴렉싱
+              도심 속 미식과 안락한 스테이가 완성하는 온전한 심신 릴렉싱 | 바른케어
             </h2>
             <p className="text-gray-400 text-xs mt-1">
               건강한 식문화, 편안한 조도 환경, 그리고 프라이빗 바디 테라피의 연결성
@@ -211,7 +213,7 @@ export default function PlacesPage() {
           </div>
 
           <div className="pt-3 border-t border-white/5 text-[11px] text-gray-500">
-            * 온쉼테라피는 건전하고 건강한 라이프스타일을 지향하며, 수도권 전역의 검증된 힐링 공간과 웰니스 정보를 엄선하여 제공합니다.
+            * 바른케어는 선입금 없는 건전하고 안전한 라이프스타일을 지향하며, 수도권 전역의 검증된 힐링 공간과 웰니스 정보를 엄선하여 제공합니다.
           </div>
         </article>
 
@@ -221,7 +223,7 @@ export default function PlacesPage() {
             href="/"
             className="w-full sm:w-auto text-center inline-flex items-center justify-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 text-amber-400 font-bold text-xs px-5 py-3 rounded-2xl border border-amber-500/30 transition-all shadow-md"
           >
-            <span>🏠</span> 온쉼테라피 메인으로
+            <span>🏠</span> 바른케어 메인으로
           </Link>
           <a
             href="tel:0507-1280-3344"

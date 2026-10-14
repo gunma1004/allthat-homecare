@@ -1,10 +1,10 @@
 // app/sitemap.ts
 import { MetadataRoute } from 'next';
 
-const BASE_URL = 'https://onshim-therapy.netlify.app';
+const BASE_URL = 'https://baruncare-seoul.netlify.app';
 
 // 사이트맵의 lastModified는 매 요청마다 new Date()를 찍지 않고,
-// 배포 또는 실제 콘텐츠 업데이트 시점의 날짜로 고정해야 네이버 봇이 신뢰합니다.
+// 사이트 배포 또는 실제 콘텐츠 업데이트 시점의 날짜로 고정해야 네이버 봇이 신뢰합니다.
 const LAST_MODIFIED_DATE = new Date('2026-10-14T00:00:00+09:00');
 
 const regionData: Record<
@@ -109,7 +109,7 @@ const regionData: Record<
 };
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // 1. 메인 홈 (가장 높은 우선순위)
+  // 1. 메인 홈 (가장 높은 수집 우선순위)
   const mainRoute: MetadataRoute.Sitemap = [
     {
       url: BASE_URL,

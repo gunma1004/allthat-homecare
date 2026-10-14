@@ -12,19 +12,21 @@ interface PageProps {
   }>;
 }
 
-const SITE_URL = "https://onshim-therapy.netlify.app";
+const SITE_URL = "https://baruncare-seoul.netlify.app";
 
-// 🌐 영문 시/도 코드를 한글명으로 변환
 function getRegionFullName(region?: string): string {
   switch (region?.toLowerCase()) {
-    case "seoul": return "서울";
-    case "gyeonggi": return "경기";
-    case "incheon": return "인천";
-    default: return region || "";
+    case "seoul":
+      return "서울";
+    case "gyeonggi":
+      return "경기";
+    case "incheon":
+      return "인천";
+    default:
+      return region || "";
   }
 }
 
-// 🛠️ 이중 디코딩 방어 함수
 function safeDecode(str?: string): string {
   if (!str) return "";
   let decoded = str;
@@ -58,12 +60,12 @@ const shopData: Record<string, {
   features: string[];
 }> = {
   "1": {
-    name: "한국미녀테라피",
-    cleanName: "한국미녀테라피",
+    name: "바른안심테라피",
+    cleanName: "바른안심테라피",
     phone: "0507-1280-3140",
-    badge: "실시간 만족도 1위",
+    badge: "100% 후불 정찰제",
     image: "/shop1.jpg",
-    desc: "수도권 전지역 신속 방문 케어! 출장 타이 마사지, 출장 아로마 마사지, 출장 릴렉스 마사지 전문 제휴처입니다. 숙련된 테라피스트가 계신 곳으로 직접 찾아가 굳은 근육과 묵은 피로를 시원하게 풀어드립니다.",
+    desc: "수도권 전지역 선입금 없는 신속 방문 케어! 출장 타이 마사지, 출장 아로마 마사지, 출장 릴렉스 마사지 전문 제휴처입니다. 숙련된 테라피스트가 계신 곳으로 직접 찾아가 굳은 근육과 묵은 피로를 안전하게 풀어드립니다.",
     courses: [
       { name: "출장 릴렉스 마사지 (기본)", time: "60분", price: "110,000원", desc: "뭉친 어깨와 등 근육을 부드럽게 이완시키는 맞춤형 출장 릴렉스 마사지 코스" },
       { name: "출장 아로마 마사지 (순환)", time: "90분", price: "130,000원", desc: "천연 에센셜 오일을 사용하여 전신 혈액순환과 피로 해소를 돕는 프리미엄 출장 아로마 마사지" },
@@ -73,12 +75,12 @@ const shopData: Record<string, {
     features: ["100% 후불제 안심결제", "24시간 365일 연중무휴", "수도권 전지역 신속 도착", "철저한 위생 및 소독 관리"]
   },
   "2": {
-    name: "오늘밤테라피",
-    cleanName: "오늘밤테라피",
+    name: "오늘밤바른케어",
+    cleanName: "오늘밤바른케어",
     phone: "0507-1280-3199",
     badge: "재방문율 최우수",
     image: "/shop2.jpg",
-    desc: "지친 하루의 피로를 말끔히 풀어드리는 1:1 방문 홈케어! 출장 타이 마사지부터 출장 아로마 마사지까지 원하는 장소에서 편안하게 정통 힐링을 누려보세요.",
+    desc: "지친 하루의 피로를 말끔히 풀어드리는 1:1 방문 홈케어! 출장 타이 마사지부터 출장 아로마 마사지까지 원하는 장소에서 선입금 없이 편안하게 정통 힐링을 누려보세요.",
     courses: [
       { name: "출장 타이 마사지 (베이직)", time: "60분", price: "60,000원", desc: "전신 근육을 시원하게 스트레칭하여 가볍고 개운한 몸을 만드는 출장 타이 마사지" },
       { name: "출장 아로마 마사지 (소프트)", time: "60분", price: "80,000원", desc: "향기로운 천연 오일과 부드러운 압으로 신체 긴장을 완화하는 출장 아로마 마사지" },
@@ -88,10 +90,10 @@ const shopData: Record<string, {
     features: ["선입금 없는 100% 후불제", "친절 마인드 전문 힐러 상주", "간편 결제 지원"]
   },
   "3": {
-    name: "주주홈타이",
-    cleanName: "주주홈타이",
+    name: "주주안심홈타이",
+    cleanName: "주주안심홈타이",
     phone: "0507-1280-3197",
-    badge: "24시 상시 할인",
+    badge: "24시 정찰제 매칭",
     image: "/shop3.jpg",
     desc: "재방문율 1위 만족도! 정통 출장 타이 마사지와 림프 순환을 돕는 출장 아로마 마사지로 굳어있던 몸을 유연하고 활력 넘치게 회복시켜 드립니다.",
     courses: [
@@ -102,10 +104,10 @@ const shopData: Record<string, {
     features: ["선입금 0원 100% 후불제", "평균 25분 방문 보장", "개인정보 완벽 보호"]
   },
   "4": {
-    name: "한국골든테라피",
-    cleanName: "한국골든테라피",
+    name: "골든바른테라피",
+    cleanName: "골든바른테라피",
     phone: "0507-1280-3360",
-    badge: "젊은 감성 베테랑",
+    badge: "베테랑 힐러진",
     image: "/shop4.jpg",
     desc: "베테랑 테라피스트들의 1:1 방문 케어! 출장 릴렉스 마사지와 전신 출장 아로마 마사지로 수도권 전지역 어디서나 품격 있는 힐링을 선사합니다.",
     courses: [
@@ -116,12 +118,12 @@ const shopData: Record<string, {
     features: ["젊고 세련된 감성 테라피", "100% 후불 결제", "24시간 상시 대기"]
   },
   "5": {
-    name: "퀸즈홈테라피",
-    cleanName: "퀸즈홈테라피",
+    name: "퀸즈바른홈케어",
+    cleanName: "퀸즈바른홈케어",
     phone: "0507-1280-3296",
-    badge: "인기도 TOP 5",
+    badge: "안심 케어 만족도 1위",
     image: "/shop5.jpg",
-    desc: "수도권 전지역 신속 도착! 출장 타이 마사지, 출장 아로마 마사지, 출장 릴렉스 마사지를 정직한 정찰제 가격으로 편안하게 받아보세요.",
+    desc: "수도권 전지역 신속 도착! 출장 타이 마사지, 출장 아로마 마사지, 출장 릴렉스 마사지를 정직한 선입금 0원 정찰제 가격으로 편안하게 받아보세요.",
     courses: [
       { name: "컨디션 케어 출장 타이 마사지", time: "60분", price: "60,000원", desc: "지친 몸의 피로를 시원한 스트레칭으로 해소하는 정통 출장 타이 마사지" },
       { name: "스페셜 릴렉스 출장 아로마 마사지", time: "60분", price: "70,000원", desc: "향긋한 아로마 오일과 부드러운 손길로 진행되는 전신 출장 아로마 마사지" },
@@ -131,18 +133,18 @@ const shopData: Record<string, {
   }
 };
 
-// 🌟 70종 고유 순환 패턴 (상세 샵 타이틀 70종 & 지역 뒤 바로 출장 마사지 배치)
+// 🌟 70종 고유 순환 패턴 (바른케어 후불 정찰제 특화)
 const SHOP_SEO_PATTERNS = [
   {
-    titleSuffix: "출장 웰니스 마사지 안내",
-    desc: (r: string, s: string) => `${r} 출장 마사지 공식 제휴처 ${s}. 타이·아로마·스웨디시 방문 케어 코스와 투명한 정찰제 요금을 온쉼테라피에서 확인하세요.`
+    titleSuffix: "선입금 없는 출장 안심 마사지 안내",
+    desc: (r: string, s: string) => `${r} 출장 마사지 공식 제휴처 ${s}. 100% 현장 후불 타이·아로마·스웨디시 방문 케어 코스와 투명한 정찰제 요금을 바른케어에서 확인하세요.`
   },
   {
-    titleSuffix: "출장 아로마마사지 케어",
+    titleSuffix: "출장 안심 아로마마사지 케어",
     desc: (r: string, s: string) => `${r} 출장 마사지 추천 코스 안내. 최고급 천연 에센셜 오일과 섬세한 이완 테라피로 누적된 일상 피로를 ${s}에서 부드럽게 비워보세요.`
   },
   {
-    titleSuffix: "출장 안심 마사지 가이드",
+    titleSuffix: "출장 안심 마사지 후불 가이드",
     desc: (r: string, s: string) => `${r} 출장 마사지 100% 안심 가이드. 선입금 없는 현장 후불 정찰제와 검증된 전문 테라피스트 ${s}의 프리미엄 바디 릴렉싱을 안내합니다.`
   },
   {
@@ -167,7 +169,7 @@ const SHOP_SEO_PATTERNS = [
   },
   {
     titleSuffix: "출장 안심 마사지 바디 밸런스",
-    desc: (r: string, s: string) => `${r} 출장 마사지 전문 비교 플랫폼. 위생 관리와 고객 만족도가 검증된 파트너 샵 ${s} 정보를 정직하게 제공합니다.`
+    desc: (r: string, s: string) => `${r} 출장 마사지 전문 비교 플랫폼. 위생 관리와 고객 만족도가 검증된 선입금 없는 파트너 샵 ${s} 정보를 정직하게 제공합니다.`
   },
   {
     titleSuffix: "출장 웰니스 마사지 감성 케어",
@@ -424,14 +426,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const districtName = safeDecode(resolvedParams.district);
   const dongName = safeDecode(resolvedParams.dong);
 
-  // 🌟 지역 + 샵이름 + ID 해시 합으로 70개 패턴 중 하나를 고유하게 결정 (중복 방지)
-  const charSum = (currentRegion + shop.cleanName + targetId + "onshim_salt").split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  const charSum = (currentRegion + shop.cleanName + targetId + "baruncare_salt").split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
   const patternIndex = Math.abs(charSum) % SHOP_SEO_PATTERNS.length;
   const pattern = SHOP_SEO_PATTERNS[patternIndex];
 
-  // 타이틀 예시: "서울 강남구 역삼1동 한국미녀테라피 출장 웰니스 마사지 안내 | 온쉼테라피" (네이버 30자 내외 최적화)
-  const finalTitle = `${currentRegion} ${shop.cleanName} ${pattern.titleSuffix} | 온쉼테라피`;
-  // 디스크립션: 지역구 뒤 바로 "출장 마사지" 배치
+  // 🌟 '바른케어'가 뒤쪽에 배치된 최종 타이틀
+  const finalTitle = `${currentRegion} ${shop.cleanName} ${pattern.titleSuffix} | 바른케어`;
   const finalDescription = pattern.desc(currentRegion, shop.cleanName);
 
   const canonicalPath = dongName
@@ -449,10 +449,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       `${districtName} 출장 마사지`,
       dongName ? `${dongName} 출장 마사지` : `${districtName} 마사지`,
       `${shop.cleanName}`,
-      "출장 웰니스 마사지",
-      "출장 아로마마사지",
+      "선입금 없는 출장 마사지",
       "출장 안심 마사지",
-      "온쉼테라피"
+      "바른케어"
     ],
     robots: {
       index: true,
@@ -463,7 +462,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: finalTitle,
       description: finalDescription,
       url: canonicalUrl,
-      siteName: "온쉼테라피",
+      siteName: "바른케어",
       locale: "ko_KR",
       type: "article",
       images: [
@@ -488,7 +487,7 @@ export default async function ShopDetailPage({ params }: PageProps) {
   const dongName = safeDecode(resolvedParams.dong);
   const regionFullName = getRegionFullName(resolvedParams.region);
 
-  const charSum = (currentRegion + shop.cleanName + targetId + "onshim_salt").split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  const charSum = (currentRegion + shop.cleanName + targetId + "baruncare_salt").split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
   const patternIndex = Math.abs(charSum) % SHOP_SEO_PATTERNS.length;
   const pattern = SHOP_SEO_PATTERNS[patternIndex];
 
@@ -498,18 +497,17 @@ export default async function ShopDetailPage({ params }: PageProps) {
 
   const currentUrl = `${SITE_URL}${canonicalPath}`;
 
-  // 뒤로가기 URL
   const backUrl = dongName
     ? `/${resolvedParams.region}/${encodeURIComponent(districtName)}/${encodeURIComponent(dongName)}`
     : `/${resolvedParams.region}/${encodeURIComponent(districtName)}`;
 
-  // 🌟 [포근 레퍼런스 기준 4대 복합 JSON-LD] HealthAndBeautyBusiness, FAQPage, BreadcrumbList, Article
+  // 🌟 네이버 및 구글 4대 복합 JSON-LD
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       // 1. 업체 및 서비스 정보
       {
-        "@type": "HealthAndBeautyBusiness",
+        "@type": ["HealthAndBeautyBusiness", "LocalBusiness"],
         "@id": `${currentUrl}/#business`,
         name: `${shop.cleanName} (${currentRegion})`,
         description: pattern.desc(currentRegion, shop.cleanName),
@@ -518,6 +516,7 @@ export default async function ShopDetailPage({ params }: PageProps) {
         image: `${SITE_URL}${shop.image}`,
         priceRange: "60,000원~180,000원",
         currenciesAccepted: "KRW",
+        paymentAccepted: "Cash, Credit Card",
         address: {
           "@type": "PostalAddress",
           streetAddress: dongName || districtName,
@@ -531,7 +530,7 @@ export default async function ShopDetailPage({ params }: PageProps) {
         },
         hasOfferCatalog: {
           "@type": "OfferCatalog",
-          name: "출장 웰니스 마사지 프로그램",
+          name: "출장 안심 마사지 프로그램",
           itemListElement: shop.courses.map((c) => ({
             "@type": "Offer",
             itemOffered: {
@@ -545,7 +544,7 @@ export default async function ShopDetailPage({ params }: PageProps) {
           })),
         },
       },
-      // 2. 검색 결과 아코디언 질의응답 노출용 FAQPage 스키마
+      // 2. FAQPage 스키마
       {
         "@type": "FAQPage",
         "@id": `${currentUrl}/#faq`,
@@ -563,7 +562,7 @@ export default async function ShopDetailPage({ params }: PageProps) {
             name: "선입금이나 추가 요금이 있나요?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "온쉼테라피 공식 제휴점은 100% 현장 후불 정찰제로 운영되며 일체의 예약 선입금을 요구하지 않습니다.",
+              text: "바른케어 공식 제휴점은 100% 현장 후불 정찰제로 운영되며 일체의 예약 선입금을 요구하지 않습니다.",
             },
           },
           {
@@ -576,7 +575,7 @@ export default async function ShopDetailPage({ params }: PageProps) {
           },
         ],
       },
-      // 3. 브레드크럼 계층 경로 BreadcrumbList 스키마
+      // 3. BreadcrumbList 스키마
       {
         "@type": "BreadcrumbList",
         "@id": `${currentUrl}/#breadcrumb`,
@@ -589,7 +588,7 @@ export default async function ShopDetailPage({ params }: PageProps) {
           { "@type": "ListItem", position: dongName ? 4 : 3, name: shop.cleanName, item: currentUrl },
         ],
       },
-      // 4. 최신 문서 인덱싱 지원 Article 스키마
+      // 4. Article 스키마
       {
         "@type": "Article",
         "@id": `${currentUrl}/#article`,
@@ -604,11 +603,11 @@ export default async function ShopDetailPage({ params }: PageProps) {
         dateModified: "2026-10-14T09:00:00+09:00",
         author: {
           "@type": "Organization",
-          name: "온쉼테라피",
+          name: "바른케어",
         },
         publisher: {
           "@type": "Organization",
-          name: "온쉼테라피",
+          name: "바른케어",
           logo: {
             "@type": "ImageObject",
             url: `${SITE_URL}/og-image.png`,
@@ -631,17 +630,17 @@ export default async function ShopDetailPage({ params }: PageProps) {
         <div className="max-w-4xl mx-auto flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2.5 group">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center font-black text-black text-lg shadow-[0_0_12px_rgba(245,158,11,0.4)] group-hover:scale-105 transition-transform">
-              온
+              바
             </div>
             <div className="flex flex-col">
               <span className="text-lg font-black tracking-wider bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 bg-clip-text text-transparent">
-                온쉼테라피
+                바른케어
               </span>
-              <span className="text-[9px] text-gray-400 tracking-tighter">ONSHIM PARTNER</span>
+              <span className="text-[9px] text-gray-400 tracking-tighter">BARUNCARE PARTNER</span>
             </div>
           </Link>
-          
-          <Link 
+
+          <Link
             href={backUrl}
             className="text-xs font-bold text-amber-400 bg-amber-500/10 px-3 py-1.5 rounded-xl border border-amber-500/30 hover:bg-amber-500 hover:text-black transition-all"
           >
@@ -670,12 +669,12 @@ export default async function ShopDetailPage({ params }: PageProps) {
         {/* 대표 비주얼 카드 */}
         <section className="bg-[#121214] border border-amber-500/30 rounded-3xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
           <div className="relative h-64 md:h-80 w-full overflow-hidden bg-neutral-900">
-            <img 
-              src={shop.image} 
-              alt={`${currentRegion} 출장 마사지 제휴점 - ${shop.cleanName}`} 
+            <img
+              src={shop.image}
+              alt={`${currentRegion} 출장 마사지 제휴점 - ${shop.cleanName}`}
               width={800}
               height={600}
-              className="w-full h-full object-cover filter brightness-[0.7]" 
+              className="w-full h-full object-cover filter brightness-[0.7]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#121214] via-transparent to-black/30"></div>
             <span className="absolute top-4 left-4 bg-amber-500 text-black text-xs font-black px-3.5 py-1.5 rounded-full shadow-lg">
@@ -685,10 +684,9 @@ export default async function ShopDetailPage({ params }: PageProps) {
 
           <div className="p-6 md:p-8 space-y-4 -mt-8 relative z-10">
             <div className="inline-block bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-xl text-amber-400 text-xs font-bold">
-              📍 {currentRegion} 출장 웰니스 마사지 (24시 방문 안내)
+              📍 {currentRegion} 출장 안심 마사지 (100% 현장 후불제)
             </div>
 
-            {/* 유일한 H1 태그 */}
             <h1 className="text-2xl md:text-3xl font-black text-white">
               {currentRegion} 출장 마사지 안내 - <span className="text-amber-400">{shop.cleanName}</span>
             </h1>
@@ -741,11 +739,11 @@ export default async function ShopDetailPage({ params }: PageProps) {
         {/* 안심 이용 안내 */}
         <section className="bg-black/80 p-5 rounded-2xl border border-white/10">
           <h3 className="text-amber-400 font-bold text-sm mb-2 flex items-center gap-1.5">
-            <span>📌</span> {currentRegion} 안심 이용 안내
+            <span>📌</span> {currentRegion} 안심 이용 수칙
           </h3>
           <ul className="text-xs text-gray-300 space-y-1.5 list-disc list-inside">
-            <li>모든 제휴 업체는 <strong>100% 현장 후불제</strong>로만 운영되며, 사전 선입금이나 예약금을 절대 요구하지 않습니다.</li>
-            <li>원하시는 시간 20~30분 전에 문의해 주시면 출장 타이, 아로마, 릴렉스 마사지 전문 테라피스트가 신속하게 방문합니다.</li>
+            <li>모든 제휴 샵은 <strong>100% 현장 후불제</strong>로만 운영되며, 사전 선입금이나 예약금을 절대 요구하지 않습니다.</li>
+            <li>원하시는 시간 20~30분 전에 문의해 주시면 전문 테라피스트가 신속하게 방문합니다.</li>
           </ul>
         </section>
 
@@ -779,14 +777,14 @@ export default async function ShopDetailPage({ params }: PageProps) {
       {/* 하단 고정 전화 / 문자 바 */}
       <div className="fixed bottom-0 left-0 right-0 z-50 bg-[#08080a]/95 backdrop-blur-xl border-t border-amber-500/30 p-3 md:p-4 shadow-[0_-10px_25px_rgba(0,0,0,0.8)]">
         <div className="max-w-4xl mx-auto grid grid-cols-2 gap-3">
-          <a 
+          <a
             href={`tel:${shop.phone}`}
             className="flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:to-yellow-300 text-black font-black py-3.5 rounded-2xl text-xs md:text-sm shadow-[0_0_20px_rgba(245,158,11,0.3)] transition-transform active:scale-95"
           >
             <span className="text-lg">📞</span> 전화로 즉시예약
           </a>
-          <a 
-            href={`sms:${shop.phone}?body=${encodeURIComponent(`[${currentRegion}]${shop.cleanName} 출장 웰니스 마사지 예약 문의드립니다. (온쉼테라피 보고 연락드렸어요)`)}`}
+          <a
+            href={`sms:${shop.phone}?body=${encodeURIComponent(`[${currentRegion}]${shop.cleanName} 출장 안심 마사지 예약 문의드립니다. (바른케어 보고 연락드렸어요)`)}`}
             className="flex items-center justify-center gap-2 bg-neutral-900 hover:bg-neutral-800 text-white font-black py-3.5 rounded-2xl text-xs md:text-sm border border-white/10 hover:border-amber-500/40 transition-transform active:scale-95"
           >
             <span className="text-lg">💬</span> 간편 문자상담
