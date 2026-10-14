@@ -160,9 +160,9 @@ export default function Page() {
       </header>
 
       {/* 3. 실제 메인 클라이언트 UI */}
-      <main>
-        <MainClientUI />
-      </main>
+     <main>
+  <MainClientUI>{null}</MainClientUI>
+</main>
     </>
   );
 }
