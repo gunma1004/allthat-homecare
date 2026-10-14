@@ -1,3 +1,4 @@
+// app/page.tsx
 import { Metadata } from "next";
 import MainClientUI from "./MainClientUI";
 
@@ -64,14 +65,12 @@ export default function Page() {
   };
 
   return (
-    <>
+    <main className="min-h-screen bg-[#070709]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <main>
-        <MainClientUI>{null}</MainClientUI>
-      </main>
-    </>
+      <MainClientUI />
+    </main>
   );
 }
