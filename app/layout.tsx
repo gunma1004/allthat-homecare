@@ -1,4 +1,3 @@
-// app/layout.tsx
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
@@ -14,7 +13,6 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    // 🌟 바른케어가 뒤쪽에 오도록 배치
     default: '선입금 없는 서울 출장 안심 마사지 디렉토리 | 바른케어',
     template: '%s | 바른케어',
   },
@@ -32,6 +30,12 @@ export const metadata: Metadata = {
   authors: [{ name: '바른케어', url: SITE_URL }],
   creator: '바른케어',
   publisher: '바른케어',
+  // 🌟 네이버 서치어드바이저 사이트 소유확인 메타태그
+  verification: {
+    other: {
+      'naver-site-verification': 'e24a53d5f7eecaaaa936c978d4ce2398dce29f79',
+    },
+  },
   openGraph: {
     type: 'website',
     locale: 'ko_KR',
