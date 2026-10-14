@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import ClientTextMixer from "./ClientTextMixer";
+import { notFound } from "next/navigation";
 
 const SITE_URL = "https://baruncare-seoul.netlify.app";
 
