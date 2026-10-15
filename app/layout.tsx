@@ -1,3 +1,4 @@
+// app/layout.tsx
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
@@ -13,24 +14,23 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: '선입금 없는 서울 출장 안심 마사지 디렉토리 | 바른케어',
+    default: '바른케어 | 서울 프리미엄 출장 웰니스 마사지',
     template: '%s | 바른케어',
   },
   description:
-    '100% 현장 후불 정찰제로 안전하게 이용하는 바른케어입니다. 서울 전 지역 선입금 없는 출장 마사지, 스웨디시, 아로마 힐링 케어 및 제휴점 코스 정보를 확인하세요.',
+    '도심 속 편안한 휴식을 선사하는 바른케어입니다. 서울 전 지역 프리미엄 홈케어 출장 마사지 및 맞춤형 웰니스 테라피 서비스를 제공합니다.',
   keywords: [
     '바른케어',
-    '서울출장마사지',
-    '선입금없는출장마사지',
-    '출장안심마사지',
-    '스웨디시',
-    '아로마테라피',
-    '홈타이',
+    '출장마사지',
+    '출장웰니스',
+    '스웨디시테라피',
+    '아로마마사지',
+    '홈케어마사지',
+    '서울출장테라피',
   ],
   authors: [{ name: '바른케어', url: SITE_URL }],
   creator: '바른케어',
   publisher: '바른케어',
-  // 🌟 네이버 서치어드바이저 사이트 소유확인 메타태그
   verification: {
     other: {
       'naver-site-verification': 'e24a53d5f7eecaaaa936c978d4ce2398dce29f79',
@@ -41,15 +41,15 @@ export const metadata: Metadata = {
     locale: 'ko_KR',
     url: SITE_URL,
     siteName: '바른케어',
-    title: '바른케어 | 선입금 없는 서울 출장 안심 마사지 디렉토리',
+    title: '바른케어 | 서울 프리미엄 출장 웰니스 테라피',
     description:
-      '100% 후불 정찰제로 안전하게 이용하는 바른케어입니다. 서울 전 지역 출장 마사지 정찰제 코스를 한눈에 비교해 보세요.',
+      '도심 속 편안한 휴식을 선사하는 바른케어입니다. 전문 테라피스트의 프라이빗한 1:1 맞춤형 홈케어 서비스를 만나보세요.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: '바른케어 서울 출장 안심 마사지',
+        alt: '바른케어 - 서울 프리미엄 출장 웰니스 테라피',
       },
     ],
   },
@@ -66,7 +66,7 @@ const jsonLd = {
       '@id': `${SITE_URL}/#website`,
       url: SITE_URL,
       name: '바른케어',
-      description: '선입금 없는 서울 출장 안심 마사지 디렉토리 플랫폼',
+      description: '서울 전 지역 출장 웰니스 마사지 및 프리미엄 테라피 안내 플랫폼',
       publisher: {
         '@id': `${SITE_URL}/#organization`,
       },
@@ -82,7 +82,7 @@ const jsonLd = {
         url: `${SITE_URL}/og-image.png`,
       },
       image: `${SITE_URL}/banner.jpg`,
-      description: '선입금 없는 100% 현장 후불 정찰제 서울 출장 마사지 안내',
+      description: '서울 전역 1:1 맞춤 출장 스웨디시, 아로마, 웰니스 힐링 케어 안내',
       telephone: '0507-1280-3344',
       priceRange: '60,000원~180,000원',
       currenciesAccepted: 'KRW',

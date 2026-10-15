@@ -1,24 +1,21 @@
+// app/page.tsx
 import { Metadata } from "next";
 import MainClientUI from "./MainClientUI";
 
 const SITE_URL = "https://baruncare-seoul.netlify.app";
 
 export const metadata: Metadata = {
-  // 🌟 '바른케어'가 뒤쪽에 배치된 타이틀
-  title: "선입금 없는 서울·경기·인천 출장 안심 마사지 예약 플랫폼 | 바른케어",
+  title: "바른케어 | 서울·경기·인천 프리미엄 출장 웰니스 테라피",
   description:
-    "100% 현장 후불 정찰제 바른케어! 서울·경기·인천 전 지역 선입금 없는 안심 출장 마사지, 스웨디시 정찰제 코스를 투명하게 확인하세요..",
+    "도심 속 편안한 휴식을 선사하는 바른케어입니다. 서울, 경기, 인천 전 지역 프리미엄 홈케어 출장 마사지 및 투명한 정찰제 테라피 서비스를 제공합니다.",
   keywords: [
-    "출장마사지",
-    "서울출장마사지",
-    "경기출장마사지",
-    "인천출장마사지",
-    "선입금없는출장마사지",
-    "출장안심마사지",
-    "스웨디시",
-    "아로마테라피",
-    "바디케어",
     "바른케어",
+    "출장마사지",
+    "출장웰니스",
+    "스웨디시테라피",
+    "아로마마사지",
+    "홈케어마사지",
+    "수도권출장테라피",
   ],
   alternates: {
     canonical: SITE_URL,
@@ -35,9 +32,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "선입금 없는 서울·경기·인천 출장 안심 마사지 예약 플랫폼 | 바른케어",
+    title: "바른케어 | 서울·경기·인천 프리미엄 출장 웰니스 테라피",
     description:
-      "100% 현장 후불 정찰제 바른케어! 서울·경기·인천 전 지역 선입금 없는 안심 출장 마사지, 스웨디시 정찰제 코스를 투명하게 확인하세요.",
+      "도심 속 편안한 휴식을 선사하는 바른케어입니다. 전문 테라피스트의 프라이빗한 1:1 맞춤형 홈케어 서비스를 만나보세요.",
     url: SITE_URL,
     siteName: "바른케어",
     locale: "ko_KR",
@@ -47,14 +44,13 @@ export const metadata: Metadata = {
         url: `${SITE_URL}/banner.jpg`,
         width: 1200,
         height: 630,
-        alt: "바른케어 수도권 출장 안심 마사지 메인 배너",
+        alt: "바른케어 - 프리미엄 출장 웰니스 테라피",
       },
     ],
   },
 };
 
 export default function Page() {
-  // 🌟 네이버 및 구글 검색엔진 최적화 4대 복합 스키마
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -63,7 +59,7 @@ export default function Page() {
         "@id": `${SITE_URL}/#website`,
         url: SITE_URL,
         name: "바른케어",
-        description: "선입금 없는 서울, 경기, 인천 출장 안심 마사지 및 테라피 안내 플랫폼",
+        description: "서울, 경기, 인천 전 지역 출장 웰니스 마사지 및 프리미엄 테라피 안내 플랫폼",
         inLanguage: "ko-KR",
         publisher: {
           "@id": `${SITE_URL}/#organization`,
@@ -79,6 +75,7 @@ export default function Page() {
           url: `${SITE_URL}/og-image.png`,
         },
         image: `${SITE_URL}/banner.jpg`,
+        description: "수도권 전역 1:1 맞춤 출장 스웨디시, 아로마, 웰니스 힐링 케어 안내",
         telephone: "0507-1280-3344",
         priceRange: "60,000원~180,000원",
         currenciesAccepted: "KRW",
@@ -129,10 +126,10 @@ export default function Page() {
         mainEntity: [
           {
             "@type": "Question",
-            name: "선입금이나 예약금을 요구하나요?",
+            name: "예약 및 상담은 어떻게 진행되나요?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "바른케어의 모든 공식 제휴 업체는 100% 현장 후불 정찰제로 운영되며 사전 선입금을 절대 요구하지 않습니다.",
+              text: "바른케어의 제휴 업체의 전화연결 버튼을 통해 샵과 직접 소통하며 원하시는 일정과 코스를 조율하실 수 있습니다.",
             },
           },
           {
@@ -158,9 +155,9 @@ export default function Page() {
 
       {/* 2. 네이버 수집 봇(Yeti)용 SSR 핵심 시맨틱 텍스트 */}
       <header className="sr-only">
-        <h1>선입금 없는 서울·인천·경기 출장 안심 마사지 & 테라피 예약 플랫폼 바른케어</h1>
+        <h1>서울·인천·경기 출장 웰니스 테라피 예약 플랫폼 바른케어</h1>
         <p>
-          바른케어는 서울 강남·마포·영등포, 경기 수원·성남·고양, 인천 송도·부평 등 수도권 전 지역의 전문 출장 마사지, 스웨디시, 아로마 릴렉싱 케어 제휴 정보를 제공합니다. 예약 선입금 사기 걱정 없는 100% 후불 정찰제로 안심하고 이용하세요.
+          바른케어는 서울, 경기, 인천 수도권 전 지역의 전문 출장 마사지, 스웨디시, 웰니스 힐링 케어 제휴 정보를 제공합니다. 투명한 정찰제로 안심하고 이용하세요.
         </p>
       </header>
 

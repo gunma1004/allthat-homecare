@@ -109,7 +109,7 @@ const initialShops = [
   {
     id: 1,
     name: "바른안심테라피",
-    desc: "서울·경기·인천 전지역 신속 안내! 선입금 없는 100% 현장 후불제 & 프리미엄 안심 바디 케어",
+    desc: "서울·경기·인천 전지역 신속 안내, 정성 가득한 프리미엄 감성 바디 테라피 & 1:1 맞춤 케어",
     phone: "0507-1280-3140",
     price: "90,000원부터~",
     image: "/shop1.jpg",
@@ -230,7 +230,7 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
             <div className="absolute inset-0 z-0">
               <img
                 src="/banner.jpg"
-                alt="선입금 없는 서울·경기·인천 출장 안심 마사지 디렉토리 바른케어 메인 배너"
+                alt="바른케어 서울·경기·인천 출장 웰니스 마사지 플랫폼 메인 배너"
                 width={1200}
                 height={630}
                 className="w-full h-full object-cover filter brightness-[0.4] scale-105"
@@ -240,16 +240,16 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
 
             <div className="relative z-10 space-y-3">
               <span className="inline-block px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold text-xs tracking-wider">
-                100% 현장 후불 정찰제 보장
+                도심 속 프라이빗 웰니스 큐레이션
               </span>
               <h1 className="text-2xl md:text-4xl font-black text-white tracking-tight drop-shadow-lg">
-                선입금 없는 서울·경기·인천{" "}
+                서울·경기·인천{" "}
                 <span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">
-                  출장 안심 마사지 | 바른케어
+                  출장 웰니스 테라피 | 바른케어
                 </span>
               </h1>
               <p className="text-gray-200 text-xs md:text-sm font-medium max-w-lg mx-auto leading-relaxed drop-shadow">
-                예약 선입금 사기 걱정 없는 100% 후불 정찰제! 검증된 전문 관리사의 1:1 맞춤 출장 마사지 정보를 바른케어에서 투명하게 확인하세요.
+                엄선된 전문 테라피스트들의 1:1 맞춤 홈케어 서비스를 바른케어에서 투명하고 편리하게 확인하세요.
               </p>
             </div>
           </div>
@@ -262,7 +262,7 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
               CERTIFIED PARTNERS
             </p>
             <h2 className="text-xl md:text-2xl font-black text-white mt-1">
-              🏆 선입금 없는 안심 후불제 추천 샵 | 바른케어
+              🏆 바른케어 베스트 추천 제휴 샵
             </h2>
           </div>
 
@@ -310,7 +310,7 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
           <div className="bg-gradient-to-b from-[#16161b] to-[#0e0e12] border border-amber-500/30 p-6 rounded-3xl max-w-xl mx-auto shadow-2xl text-left relative overflow-hidden">
             <div className="flex items-center justify-between mb-4">
               <label className="text-xs text-amber-400 font-black uppercase tracking-wider flex items-center gap-1.5">
-                📍 내 주변 안심 출장 마사지 찾기
+                📍 내 주변 맞춤 출장 테라피 찾기
               </label>
               <span className="text-[11px] text-gray-400 bg-black/40 px-2.5 py-1 rounded-lg border border-white/5">
                 서울·경기·인천 전역
@@ -381,7 +381,7 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
                   href={getSearchUrl()}
                   className="w-full block text-center bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:to-yellow-300 text-black font-black py-4 rounded-2xl text-sm transition-all shadow-[0_0_25px_rgba(245,158,11,0.35)] mt-3 cursor-pointer transform active:scale-[0.98]"
                 >
-                  🔍 선택한 지역 안심 후불제 샵 확인하기
+                  🔍 선택한 지역 출장 테라피 정보 확인하기
                 </Link>
               ) : (
                 <button
@@ -401,10 +401,10 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
           <div className="border-b border-white/10 pb-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
               <h3 className="text-sm font-bold text-amber-400 flex items-center gap-1.5">
-                <span>🗺️</span> 수도권 전 지역 안심 출장 마사지 바로가기
+                <span>🗺️</span> 수도권 전 지역 출장 테라피 바로가기
               </h3>
               <p className="text-[11px] text-gray-400 mt-1">
-                원하시는 시·군·구를 클릭하시면 해당 지역의 후불 정찰제 출장 마사지 목록으로 바로 이동합니다.
+                원하시는 시·군·구를 클릭하시면 해당 지역의 전문 출장 웰니스 목록으로 바로 이동합니다.
               </p>
             </div>
 
@@ -455,22 +455,22 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
               BARUNCARE SAFETY & WELLNESS THEORY
             </span>
             <h2 className="text-xl sm:text-2xl font-black text-white">
-              선입금 없는 안전한 바디 테라피 이용과 신체 밸런스 회복 가이드 | 바른케어
+              안전한 바디 테라피 이용과 신체 밸런스 회복 가이드 | 바른케어
             </h2>
             <p className="text-gray-400 text-xs mt-1.5">
-              후불 정찰제의 필요성, 자율신경계 이완 원리, 프로그램별 차이점 및 안전 이용 수칙
+              정찰제 시스템의 필요성, 자율신경계 이완 원리, 프로그램별 차이점 및 안전 이용 수칙
             </p>
           </div>
 
           <div className="space-y-3.5">
             <h3 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-              <span className="text-amber-400 font-black">1.</span> 선입금 없는 후불 정찰제가 필수적인 이유
+              <span className="text-amber-400 font-black">1.</span> 투명한 정찰제 운영과 안전한 홈케어의 가치
             </h3>
             <p>
-              출장형 홈 바디케어 서비스를 이용할 때 가장 주의해야 할 요소는 비정상적인 예약금이나 선입금 요구입니다. 정상적인 제휴 네트워크는 고객의 자택이나 숙소에 관리사가 실제로 도착한 후 정해진 정찰제 요금에 따라 결제를 진행합니다.
+              출장형 홈 바디케어 서비스를 이용할 때는 투명한 정찰제 요금 체계와 신뢰할 수 있는 제휴 파트너 정보를 확인하는 것이 중요합니다. 정상적인 제휴 네트워크는 고객의 자택이나 숙소 방문 시 사전에 공지된 정찰제 요금에 따라 안전하게 서비스를 제공합니다.
             </p>
             <p>
-              바른케어는 사칭 사기나 불투명한 추가 요금 피해를 방지하기 위해 100% 현장 후불 결제 원칙을 엄격하게 준수하는 공인 제휴점만을 엄선하여 안내합니다.
+              바른케어는 불투명한 현장 추가금이나 불필요한 마찰을 방지하기 위해 정찰제 원칙을 엄격하게 준수하는 공인 제휴점만을 엄선하여 안내합니다.
             </p>
           </div>
 
@@ -539,7 +539,7 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
               SERVICE GUIDE
             </span>
             <h3 className="text-xl font-black text-white mt-1">
-              선입금 0원 안심 이용 절차 | 바른케어
+              바른케어 안심 이용 절차
             </h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
@@ -560,8 +560,8 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
             </div>
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 text-center">
               <span className="text-xs text-amber-400 font-bold">STEP 4</span>
-              <h4 className="font-bold text-white mt-1">현장 결제</h4>
-              <p className="text-xs text-gray-400 mt-1">선입금 없이 관리사 도착 후 안심 결제합니다.</p>
+              <h4 className="font-bold text-white mt-1">맞춤 케어</h4>
+              <p className="text-xs text-gray-400 mt-1">전문 테라피스트의 편안한 홈케어를 누립니다.</p>
             </div>
           </div>
         </section>
@@ -583,7 +583,7 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
                 <span className="text-[11px] text-gray-500">서울 강남 이용자</span>
               </div>
               <p className="text-xs text-gray-300 leading-relaxed">
-                &quot;선입금 없이 관리사분이 직접 오신 뒤 결제하는 방식이라 안심하고 이용했습니다. 실력도 정말 훌륭하시네요.&quot;
+                &quot;시간 약속도 철저히 지켜주시고 관리사분이 매우 정성스럽게 케어해 주셔서 피로가 싹 풀렸습니다.&quot;
               </p>
             </div>
             <div className="bg-[#101014] p-5 rounded-2xl border border-white/5 space-y-2">
@@ -592,7 +592,7 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
                 <span className="text-[11px] text-gray-500">경기 수원 이용자</span>
               </div>
               <p className="text-xs text-gray-300 leading-relaxed">
-                &quot;바른케어에 안내된 요금 그대로 추가금 없이 투명하게 진행되어 만족스러웠습니다. 다음에도 꼭 이용할 예정입니다.&quot;
+                &quot;바른케어에 안내된 요금 그대로 투명하게 진행되어 만족스러웠습니다. 다음에도 꼭 이용할 예정입니다.&quot;
               </p>
             </div>
           </div>
@@ -608,8 +608,8 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
           </div>
           <div className="space-y-3">
             <FaqItem
-              question="예약금이나 선입금을 요구하는 경우가 있나요?"
-              answer="바른케어의 제휴점은 100% 현장 후불 정찰제로 운영됩니다. 어떠한 형태의 사전 선입금이나 예약금도 일절 요구하지 않으니 안심하세요."
+              question="예약 및 상담은 어떻게 진행되나요?"
+              answer="바른케어에 등록된 제휴 업체의 전화연결 버튼을 통해 샵과 직접 소통하며 원하시는 일정과 코스를 조율하실 수 있습니다."
             />
             <FaqItem
               question="수도권 전 지역 출장 이용이 가능한가요?"
@@ -632,7 +632,7 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
           </div>
 
           <p className="text-gray-400 font-medium">
-            바른케어는 선입금 없는 건전하고 안전한 프리미엄 바디 테라피 제휴 정보를 제공하는 웰니스 안내 플랫폼입니다.
+            바른케어는 건전하고 쾌적한 프리미엄 바디 테라피 제휴 정보를 제공하는 웰니스 안내 플랫폼입니다.
           </p>
           <p className="text-[11px] text-gray-600">
             COPYRIGHT &copy; BARUNCARE ALL RIGHTS RESERVED.
