@@ -576,7 +576,7 @@ export default async function RegionalDetailPage({ params }: PageProps) {
         </div>
 
         {/* 제휴 샵 목록 UI (ClientTextMixer) */}
-        <ClientTextMixer region={region} district={districtName} />
+       
 
         {/* 코스/요금표 카드 영역 */}
         <section id="course_info" className="space-y-4">

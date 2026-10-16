@@ -420,7 +420,7 @@ export default async function RegionalDetailPage({ params }: PageProps) {
         </section>
 
         {/* 제휴 샵 목록 UI */}
-        <ClientTextMixer region={region} district={districtName} />
+        
 
         {/* 네이버 C-Rank / D.I.A. 상위 노출용 심층 정보성 아티클 */}
         <article className="bg-[#0e0e12] p-6 sm:p-10 rounded-3xl border border-white/10 space-y-8 text-gray-300 leading-relaxed text-xs sm:text-sm">
