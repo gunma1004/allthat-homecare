@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   verification: {
     other: {
       // 네이버 서치어드바이저 사이트 등록 후 발급받은 실제 키 값으로 교체하세요.
-      'naver-site-verification': '여기에_올댓홈케어_네이버_검증키_입력',
+      'naver-site-verification': '8ba4d22371a9323f3f813c92454dd8fc6420a5ad',
     },
   },
   openGraph: {
