@@ -203,4 +203,317 @@ export default function MainClientUI({ children }: { children?: React.ReactNode 
     setShops(shuffled);
   }, []);
 
-  const handleRegionChange
+  const handleRegionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedRegion(e.target.value);
+    setSelectedDistrict("");
+    setSelectedDong("");
+  };
+
+  const handleDistrictChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedDistrict(e.target.value);
+    setSelectedDong("");
+  };
+
+  const getSearchUrl = () => {
+    if (!selectedDistrict) return "/";
+    const districtObj = regionData[selectedRegion]?.districts[selectedDistrict];
+    const districtName = districtObj ? districtObj.name : selectedDistrict;
+
+    return selectedDong
+      ? `/${selectedRegion}/${encodeURIComponent(districtName)}/${encodeURIComponent(selectedDong)}`
+      : `/${selectedRegion}/${encodeURIComponent(districtName)}`;
+  };
+
+  const currentDistricts = regionData[selectedRegion]?.districts || {};
+  const currentDongs =
+    selectedDistrict && currentDistricts[selectedDistrict]
+      ? currentDistricts[selectedDistrict].dongs
+      : [];
+
+  const displayShops = mounted ? shops : initialShops;
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqData.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+
+  return (
+    <div className="bg-[#070709] text-gray-100 min-h-screen flex flex-col font-sans selection:bg-amber-500 selection:text-black">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
+      {children}
+      <div className="max-w-4xl mx-auto px-4 py-8 w-full flex-1 space-y-12">
+        {/* 상단 메인 배너 */}
+        <section className="text-center my-2">
+          <div className="overflow-hidden rounded-3xl border border-amber-500/30 shadow-[0_0_40px_rgba(245,158,11,0.12)] relative h-60 md:h-72 flex items-center justify-center p-6 bg-gradient-to-b from-[#141418] to-[#0a0a0d]">
+            <div className="absolute inset-0 z-0">
+              <img
+                src="/banner.jpg"
+                alt="올댓홈케어 서울·인천·경기 도심휴식 마사지 및 홈케어 메인 배너"
+                width={1200}
+                height={630}
+                className="w-full h-full object-cover filter brightness-[0.4] scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+            </div>
+
+            <div className="relative z-10 space-y-3">
+              <span className="inline-block px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold text-xs tracking-wider">
+                도심 속 프라이빗 웰니스 큐레이션
+              </span>
+              <h1 className="text-2xl md:text-4xl font-black text-white tracking-tight drop-shadow-lg">
+                서울·인천·경기{" "}
+                <span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">
+                  도심휴식 마사지 · 홈케어 | 올댓홈케어
+                </span>
+              </h1>
+              <p className="text-gray-200 text-xs md:text-sm font-medium max-w-lg mx-auto leading-relaxed drop-shadow">
+                서울 출장마사지·스웨디시 업체를 올댓에서 확인하세요. 시·군·구별 코스, 요금, 운영 시간을 정리했습니다.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 메인 추천 제휴 샵 */}
+        <section className="space-y-6">
+          <div className="text-center mb-4">
+            <p className="text-xs text-amber-400 font-bold tracking-widest uppercase">
+              CERTIFIED PARTNERS
+            </p>
+            <h2 className="text-xl md:text-2xl font-black text-white mt-1">
+              🏆 올댓홈케어 추천 제휴 샵
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {displayShops.map((lShop) => (
+              <div
+                key={lShop.id}
+                className="bg-[#111114] border border-amber-500/20 rounded-2xl p-4 flex gap-4 items-center shadow-md"
+              >
+                <img
+                  src={lShop.image}
+                  alt={`${lShop.name} - ${lShop.desc}`}
+                  width={96}
+                  height={96}
+                  loading="lazy"
+                  className="w-20 h-20 md:w-24 md:h-24 rounded-xl object-cover border border-white/10 flex-shrink-0"
+                />
+
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-extrabold text-sm md:text-base text-white truncate">
+                    {lShop.name}
+                  </h3>
+                  <p className="text-[11px] text-gray-400 mt-1 line-clamp-2 leading-snug">
+                    {lShop.desc}
+                  </p>
+                  <div className="mt-2.5 flex items-center justify-between">
+                    <span className="text-xs font-black text-amber-400">
+                      {lShop.price}
+                    </span>
+                    <a
+                      href={`tel:${lShop.phone.replace(/-/g, "")}`}
+                      className="bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs px-3.5 py-1.5 rounded-xl shadow transition-colors active:scale-95 flex items-center gap-1"
+                    >
+                      <span>📞</span> 전화연결
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 수도권 지역 검색 박스 */}
+        <section className="pt-6 border-t border-white/10">
+          <div className="bg-gradient-to-b from-[#16161b] to-[#0e0e12] border border-amber-500/30 p-6 rounded-3xl max-w-xl mx-auto shadow-2xl text-left relative overflow-hidden">
+            <div className="flex items-center justify-between mb-4">
+              <label className="text-xs text-amber-400 font-black uppercase tracking-wider flex items-center gap-1.5">
+                📍 내 주변 맞춤 출장 테라피 찾기
+              </label>
+              <span className="text-[11px] text-gray-400 bg-black/40 px-2.5 py-1 rounded-lg border border-white/5">
+                서울·경기·인천 전역
+              </span>
+            </div>
+
+            <div className="space-y-3.5">
+              <div>
+                <span className="text-[11px] text-gray-400 block mb-1 font-semibold">
+                  1단계: 광역 시·도 선택
+                </span>
+                <select
+                  value={selectedRegion}
+                  onChange={handleRegionChange}
+                  className="bg-black/80 text-sm text-white w-full outline-none cursor-pointer font-bold p-3.5 rounded-xl border border-amber-500/30 focus:border-amber-400 transition-colors shadow-inner"
+                >
+                  {Object.keys(regionData).map((key) => (
+                    <option key={key} value={key} className="bg-[#1c1c1f] text-white">
+                      {regionData[key].name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <span className="text-[11px] text-gray-400 block mb-1 font-semibold">
+                  2단계: 구·시·군 선택
+                </span>
+                <select
+                  value={selectedDistrict}
+                  onChange={handleDistrictChange}
+                  className="bg-black/80 text-sm text-white w-full outline-none cursor-pointer font-bold p-3.5 rounded-xl border border-amber-500/30 focus:border-amber-400 transition-colors shadow-inner"
+                >
+                  <option value="" className="bg-[#1c1c1f] text-gray-400">
+                    구 / 시 / 군을 선택해주세요
+                  </option>
+                  {Object.keys(currentDistricts).map((dKey) => (
+                    <option key={dKey} value={dKey} className="bg-[#1c1c1f] text-white">
+                      {currentDistricts[dKey].name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <span className="text-[11px] text-gray-400 block mb-1 font-semibold">
+                  3단계: 동 선택 (세부 필터)
+                </span>
+                <select
+                  value={selectedDong}
+                  onChange={(e) => setSelectedDong(e.target.value)}
+                  disabled={!selectedDistrict}
+                  className="bg-black/80 text-sm text-white w-full outline-none cursor-pointer font-medium p-3.5 rounded-xl border border-amber-500/30 disabled:opacity-30 transition-colors shadow-inner"
+                >
+                  <option value="" className="bg-[#1c1c1f] text-gray-400">
+                    동 전체 보기
+                  </option>
+                  {currentDongs.map((dong, idx) => (
+                    <option key={idx} value={dong} className="bg-[#1c1c1f] text-white">
+                      {dong}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {selectedDistrict ? (
+                <Link
+                  href={getSearchUrl()}
+                  className="w-full block text-center bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:to-yellow-300 text-black font-black py-4 rounded-2xl text-sm transition-all shadow-[0_0_25px_rgba(245,158,11,0.35)] mt-3 cursor-pointer transform active:scale-[0.98]"
+                >
+                  🔍 선택한 지역 출장 테라피 정보 확인하기
+                </Link>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => alert("원하시는 지역(구/시/군)을 먼저 선택해주세요!")}
+                  className="w-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 opacity-60 text-black font-black py-4 rounded-2xl text-sm mt-3 cursor-not-allowed"
+                >
+                  🔍 지역(구/시/군)을 선택해주세요
+                </button>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* 수도권 전 지역 출장 마사지 바로가기 링크 트리 */}
+        <section className="bg-[#0b0b0e] border border-white/5 p-6 rounded-3xl space-y-5">
+          <div className="border-b border-white/10 pb-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div>
+              <h3 className="text-sm font-bold text-amber-400 flex items-center gap-1.5">
+                <span>🗺️</span> 수도권 전 지역 출장 테라피 바로가기
+              </h3>
+              <p className="text-[11px] text-gray-400 mt-1">
+                원하시는 시·군·구를 클릭하시면 해당 지역의 전문 출장 웰니스 목록으로 바로 이동합니다.
+              </p>
+            </div>
+
+            <div className="flex gap-1.5 bg-black/40 p-1 rounded-xl border border-white/10 self-start sm:self-auto">
+              {Object.keys(regionData).map((rKey) => (
+                <button
+                  key={rKey}
+                  type="button"
+                  onClick={() => setActiveTab(rKey)}
+                  className={`text-xs px-3 py-1.5 rounded-lg font-bold transition-all ${
+                    activeTab === rKey
+                      ? "bg-amber-500 text-black shadow"
+                      : "text-gray-400 hover:text-white"
+                  }`}
+                >
+                  {regionData[rKey].name.slice(0, 2)}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="pt-1">
+            {Object.entries(regionData).map(([rKey, rVal]) => (
+              <div
+                key={rKey}
+                className={activeTab === rKey ? "block" : "hidden"}
+              >
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+                  {Object.entries(rVal.districts).map(([dKey, dVal]) => (
+                    <Link
+                      key={dKey}
+                      href={`/${rKey}/${encodeURIComponent(dVal.name)}`}
+                      className="text-xs bg-neutral-900/80 hover:bg-neutral-800 text-gray-300 hover:text-amber-400 hover:border-amber-500/40 px-3 py-2 rounded-xl border border-white/5 transition-all text-center truncate block"
+                    >
+                      {dVal.name} 출장 마사지
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 자주 묻는 질문 (FAQ) */}
+        <section className="space-y-4">
+          <div className="text-center">
+            <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">
+              FAQ
+            </span>
+            <h3 className="text-xl font-black text-white mt-1">자주 묻는 질문 | 올댓홈케어</h3>
+          </div>
+          <div className="space-y-3">
+            {faqData.map((item, idx) => (
+              <FaqItem key={idx} question={item.question} answer={item.answer} />
+            ))}
+          </div>
+        </section>
+      </div>
+
+      {/* 푸터 */}
+      <footer className="bg-[#040406] border-t border-white/10 py-10 text-center text-gray-500 text-xs mt-auto">
+        <div className="max-w-4xl mx-auto px-4 space-y-4">
+          <div>
+            <a
+              href="tel:0507-1280-3344"
+              className="inline-flex items-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 text-amber-400 font-bold px-4 py-2 rounded-xl border border-amber-500/30 hover:border-amber-400 transition-all text-xs shadow-md"
+            >
+              <span>🤝</span> 올댓홈케어 입점 및 제휴 문의
+            </a>
+          </div>
+
+          <p className="text-gray-400 font-medium">
+            올댓홈케어는 서울·인천·경기 전 지역의 출장 마사지 및 홈케어 코스, 요금 정보를 중개·안내하는 플랫폼입니다.
+          </p>
+          <p className="text-[11px] text-gray-600">
+            COPYRIGHT &copy; ALL THAT HOMECARE. ALL RIGHTS RESERVED.
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+}
