@@ -1,7 +1,7 @@
 // app/robots.ts
 import { MetadataRoute } from 'next';
 
-const BASE_URL = 'https://baruncare-seoul.netlify.app';
+const BASE_URL = 'https://allthat-homecare.netlify.app';
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -12,15 +12,21 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
         disallow: ['/api/', '/admin/'],
       },
-      // 2. 네이버 검색 봇 (Yeti) 명시적 허용
+      // 2. 네이버 검색 로봇 (Yeti) 명시적 허용
       {
         userAgent: 'Yeti',
         allow: '/',
         disallow: ['/api/', '/admin/'],
       },
-      // 3. 구글 검색 봇 (Googlebot) 명시적 허용
+      // 3. 구글 검색 로봇 (Googlebot) 명시적 허용
       {
         userAgent: 'Googlebot',
+        allow: '/',
+        disallow: ['/api/', '/admin/'],
+      },
+      // 4. 다음/카카오 검색 로봇 (Daumoa) 명시적 허용
+      {
+        userAgent: 'Daumoa',
         allow: '/',
         disallow: ['/api/', '/admin/'],
       },

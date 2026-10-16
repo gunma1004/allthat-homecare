@@ -2,20 +2,21 @@
 import { Metadata } from "next";
 import MainClientUI from "./MainClientUI";
 
-const SITE_URL = "https://baruncare-seoul.netlify.app";
+const SITE_URL = "https://allthat-homecare.netlify.app";
 
 export const metadata: Metadata = {
-  title: "바른케어 | 서울·경기·인천 프리미엄 출장 웰니스 테라피",
+  title: "서울·인천·경기 도심휴식 마사지 · 홈케어 | 올댓홈케어",
   description:
-    "도심 속 편안한 휴식을 선사하는 바른케어입니다. 서울, 경기, 인천 전 지역 프리미엄 홈케어 출장 마사지 및 투명한 정찰제 테라피 서비스를 제공합니다.",
+    "서울 출장마사지·스웨디시 업체를 올댓에서 확인하세요. 시·군·구별로 나눠 코스와 이용 요금, 운영 시간을 정리했습니다. 예약은 각 업체에 직접 하시면 됩니다.",
   keywords: [
-    "바른케어",
-    "출장마사지",
-    "출장웰니스",
-    "스웨디시테라피",
-    "아로마마사지",
+    "올댓홈케어",
+    "서울출장마사지",
+    "인천출장마사지",
+    "경기출장마사지",
     "홈케어마사지",
-    "수도권출장테라피",
+    "스웨디시",
+    "아로마마사지",
+    "도심휴식마사지",
   ],
   alternates: {
     canonical: SITE_URL,
@@ -32,11 +33,11 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "바른케어 | 서울·경기·인천 프리미엄 출장 웰니스 테라피",
+    title: "서울·인천·경기 도심휴식 마사지 · 홈케어 | 올댓홈케어",
     description:
-      "도심 속 편안한 휴식을 선사하는 바른케어입니다. 전문 테라피스트의 프라이빗한 1:1 맞춤형 홈케어 서비스를 만나보세요.",
+      "서울 출장마사지·스웨디시 업체를 올댓에서 확인하세요. 시·군·구별로 나눠 코스와 이용 요금, 운영 시간을 정리했습니다. 예약은 각 업체에 직접 하시면 됩니다.",
     url: SITE_URL,
-    siteName: "바른케어",
+    siteName: "올댓홈케어",
     locale: "ko_KR",
     type: "website",
     images: [
@@ -44,7 +45,7 @@ export const metadata: Metadata = {
         url: `${SITE_URL}/banner.jpg`,
         width: 1200,
         height: 630,
-        alt: "바른케어 - 프리미엄 출장 웰니스 테라피",
+        alt: "올댓홈케어 - 서울·인천·경기 도심휴식 마사지 및 홈케어 안내",
       },
     ],
   },
@@ -58,28 +59,27 @@ export default function Page() {
         "@type": "WebSite",
         "@id": `${SITE_URL}/#website`,
         url: SITE_URL,
-        name: "바른케어",
-        description: "서울, 경기, 인천 전 지역 출장 웰니스 마사지 및 프리미엄 테라피 안내 플랫폼",
+        name: "올댓홈케어",
+        alternateName: "All That Homecare",
+        description:
+          "서울, 인천, 경기 전 지역 출장마사지, 스웨디시, 홈케어 업체 코스 및 요금 정보 안내 디렉터리 플랫폼",
         inLanguage: "ko-KR",
         publisher: {
           "@id": `${SITE_URL}/#organization`,
         },
       },
       {
-        "@type": ["HealthAndBeautyBusiness", "Organization"],
+        "@type": "Organization",
         "@id": `${SITE_URL}/#organization`,
-        name: "바른케어",
+        name: "올댓홈케어",
         url: SITE_URL,
         logo: {
           "@type": "ImageObject",
           url: `${SITE_URL}/og-image.png`,
         },
         image: `${SITE_URL}/banner.jpg`,
-        description: "수도권 전역 1:1 맞춤 출장 스웨디시, 아로마, 웰니스 힐링 케어 안내",
-        telephone: "0507-1280-3344",
-        priceRange: "60,000원~180,000원",
-        currenciesAccepted: "KRW",
-        paymentAccepted: "Cash, Credit Card",
+        description:
+          "서울·인천·경기도 시·군·구별 출장 홈케어 및 스웨디시 제휴 업체 정보 안내",
         areaServed: [
           {
             "@type": "AdministrativeArea",
@@ -94,16 +94,10 @@ export default function Page() {
             name: "인천광역시",
           },
         ],
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: "서울특별시",
-          addressRegion: "수도권",
-          addressCountry: "KR",
-        },
         contactPoint: {
           "@type": "ContactPoint",
           telephone: "0507-1280-3344",
-          contactType: "customer service",
+          contactType: "customer support",
           areaServed: "KR",
           availableLanguage: ["Korean"],
         },
@@ -129,7 +123,7 @@ export default function Page() {
             name: "예약 및 상담은 어떻게 진행되나요?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "바른케어의 제휴 업체의 전화연결 버튼을 통해 샵과 직접 소통하며 원하시는 일정과 코스를 조율하실 수 있습니다.",
+              text: "올댓홈케어에 등록된 제휴 업체의 전화연결 버튼을 통해 각 업체와 직접 소통하시며 코스 및 방문 일정을 조율하시면 됩니다.",
             },
           },
           {
@@ -137,7 +131,7 @@ export default function Page() {
             name: "수도권 전 지역 출장 이용이 가능한가요?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "네, 서울 25개 구, 경기도 31개 시·군, 인천 전역의 주요 권역별로 등록된 제휴 샵 정보를 편리하게 확인하실 수 있습니다.",
+              text: "서울 25개 구, 인천광역시, 경기도 주요 시·군·구별 제휴 네트워크가 갖추어져 있어 계신 위치에 맞춰 편리하게 안내받으실 수 있습니다.",
             },
           },
         ],
@@ -147,7 +141,7 @@ export default function Page() {
 
   return (
     <main className="min-h-screen bg-[#070709]">
-      {/* 1. 검색엔진 구조화 데이터 */}
+      {/* 1. 검색엔진 구조화 데이터 (JSON-LD) */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -155,13 +149,13 @@ export default function Page() {
 
       {/* 2. 네이버 수집 봇(Yeti)용 SSR 핵심 시맨틱 텍스트 */}
       <header className="sr-only">
-        <h1>서울·인천·경기 출장 웰니스 테라피 예약 플랫폼 바른케어</h1>
+        <h1>서울·인천·경기 도심휴식 마사지 · 홈케어 | 올댓홈케어</h1>
         <p>
-          바른케어는 서울, 경기, 인천 수도권 전 지역의 전문 출장 마사지, 스웨디시, 웰니스 힐링 케어 제휴 정보를 제공합니다. 투명한 정찰제로 안심하고 이용하세요.
+          서울 출장마사지·스웨디시 업체를 올댓에서 확인하세요. 시·군·구별로 나눠 코스와 이용 요금, 운영 시간을 정리했습니다. 예약은 각 업체에 직접 하시면 됩니다.
         </p>
       </header>
 
-      {/* 3. 메인 인터랙션 UI 컴포넌트 */}
+      {/* 3. 클라이언트 메인 UI 컴포넌트 */}
       <MainClientUI />
     </main>
   );

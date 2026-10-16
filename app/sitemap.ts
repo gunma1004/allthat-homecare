@@ -1,11 +1,13 @@
 // app/sitemap.ts
 import { MetadataRoute } from 'next';
 
-const BASE_URL = 'https://baruncare-seoul.netlify.app';
+const BASE_URL = 'https://allthat-homecare.netlify.app';
 
-// 사이트맵의 lastModified는 매 요청마다 new Date()를 찍지 않고,
-// 사이트 배포 또는 실제 콘텐츠 업데이트 시점의 날짜로 고정해야 네이버 봇이 신뢰합니다.
+// 사이트 배포 또는 실제 콘텐츠 업데이트 시점의 날짜로 고정
 const LAST_MODIFIED_DATE = new Date('2026-10-14T00:00:00+09:00');
+
+// 등록된 매장 ID 목록 (새 매장 추가 시 ID 확장)
+const SHOP_IDS = ['1', '2', '3', '4', '5'];
 
 const regionData: Record<
   string,
@@ -109,7 +111,7 @@ const regionData: Record<
 };
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // 1. 메인 홈 (가장 높은 수집 우선순위)
+  // 1. 루트 메인 홈 (가장 높은 수집 우선순위)
   const mainRoute: MetadataRoute.Sitemap = [
     {
       url: BASE_URL,
@@ -119,25 +121,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // 2. 상단 고정 카테고리 페이지
-  const categoryRoutes: MetadataRoute.Sitemap = [
-    'services',
-    'prices',
-    'travel',
-    'places',
-    'reviews',
-  ].map((route) => ({
-    url: `${BASE_URL}/${route}`,
-    lastModified: LAST_MODIFIED_DATE,
-    changeFrequency: 'weekly',
-    priority: 0.8,
-  }));
-
-  // 3. 지역(시/도 메인, 구/시/군, 세부 동) 라우트
+  // 2. 지역별(시/도 메인, 구/시/군, 세부 동, 개별 매장 상세) 라우트
   const regionRoutes: MetadataRoute.Sitemap = [];
 
   for (const [regionKey, regionVal] of Object.entries(regionData)) {
-    // 시/도 메인 경로 (예: /seoul/서울특별시)
+    // 3대 광역 권역 메인 (예: /seoul/서울특별시)
     regionRoutes.push({
       url: `${BASE_URL}/${regionKey}/${encodeURIComponent(regionVal.name)}`,
       lastModified: LAST_MODIFIED_DATE,
@@ -156,6 +144,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.8,
       });
 
+      // 구 단위 매장 상세 페이지 (예: /seoul/강남구/shop/1)
+      for (const shopId of SHOP_IDS) {
+        regionRoutes.push({
+          url: `${BASE_URL}/${regionKey}/${encodeURIComponent(districtName)}/shop/${shopId}`,
+          lastModified: LAST_MODIFIED_DATE,
+          changeFrequency: 'weekly',
+          priority: 0.7,
+        });
+      }
+
       // 세부 동 단위 경로 (예: /seoul/강남구/역삼1동)
       for (const dongName of districtVal.dongs) {
         regionRoutes.push({
@@ -164,9 +162,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           changeFrequency: 'monthly',
           priority: 0.6,
         });
+
+        // 동 단위 매장 상세 페이지 (예: /seoul/강남구/역삼1동/shop/1)
+        for (const shopId of SHOP_IDS) {
+          regionRoutes.push({
+            url: `${BASE_URL}/${regionKey}/${encodeURIComponent(districtName)}/${encodeURIComponent(dongName)}/shop/${shopId}`,
+            lastModified: LAST_MODIFIED_DATE,
+            changeFrequency: 'weekly',
+            priority: 0.6,
+          });
+        }
       }
     }
   }
 
-  return [...mainRoute, ...categoryRoutes, ...regionRoutes];
+  return [...mainRoute, ...regionRoutes];
 }

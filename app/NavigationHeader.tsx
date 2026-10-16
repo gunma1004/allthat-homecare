@@ -11,88 +11,43 @@ export default function NavigationHeader() {
       <div className="max-w-5xl mx-auto flex items-center justify-between">
         {/* 로고 영역 */}
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center font-black text-black text-lg shadow-[0_0_12px_rgba(245,158,11,0.4)] group-hover:scale-105 transition-transform flex-shrink-0">
-            바
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center font-black text-black text-base shadow-[0_0_12px_rgba(245,158,11,0.4)] group-hover:scale-105 transition-transform flex-shrink-0">
+            올
           </div>
           <div className="flex flex-col">
             <span className="text-lg font-black tracking-wider bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 bg-clip-text text-transparent">
-              바른케어
+              올댓홈케어
             </span>
-            <span className="text-[9px] text-gray-400 tracking-tighter hidden sm:block">
-              BARUNCARE
+            <span className="text-[9px] text-gray-400 tracking-tighter hidden sm:block uppercase">
+              ALL THAT HOMECARE
             </span>
           </div>
         </Link>
 
-        {/* 데스크톱 카테고리 메뉴 목록 */}
+        {/* 데스크톱 단독 권역 메뉴 (네이버/구글 크롤러 직관 링크 수집) */}
         <nav
-          aria-label="주요 메뉴"
-          className="hidden md:flex items-center gap-6 text-xs font-bold text-gray-300"
+          aria-label="주요 지역 바로가기"
+          className="hidden md:flex items-center gap-2 text-xs font-bold text-gray-300"
         >
           <Link
-            href="/services"
-            className="hover:text-amber-400 transition-colors flex items-center gap-1"
+            href="/seoul/서울특별시"
+            className="px-3.5 py-2 rounded-xl border border-white/5 bg-neutral-900/60 hover:border-amber-500/40 hover:text-amber-400 hover:bg-neutral-800 transition-all flex items-center gap-1.5"
           >
-            프로그램
+            <span>📍</span> 서울 홈케어
           </Link>
 
           <Link
-            href="/prices"
-            className="hover:text-amber-400 transition-colors flex items-center gap-1"
+            href="/gyeonggi/경기도"
+            className="px-3.5 py-2 rounded-xl border border-white/5 bg-neutral-900/60 hover:border-amber-500/40 hover:text-amber-400 hover:bg-neutral-800 transition-all flex items-center gap-1.5"
           >
-            코스비용
+            <span>📍</span> 경기 홈케어
           </Link>
 
           <Link
-            href="/travel"
-            className="hover:text-amber-400 transition-colors flex items-center gap-1"
+            href="/incheon/인천광역시"
+            className="px-3.5 py-2 rounded-xl border border-white/5 bg-neutral-900/60 hover:border-amber-500/40 hover:text-amber-400 hover:bg-neutral-800 transition-all flex items-center gap-1.5"
           >
-            지역여행
-          </Link>
-
-          <Link
-            href="/places"
-            className="hover:text-amber-400 transition-colors flex items-center gap-1"
-          >
-            맛집·숙소
-          </Link>
-
-          {/* 지역안내 (순수 CSS 호버 드롭다운: 검색 로봇 100% 링크 수집 보장) */}
-          <div className="relative group py-2">
-            <span className="hover:text-amber-400 transition-colors flex items-center gap-1 text-xs font-bold text-gray-300 cursor-pointer">
-              지역안내
-              <span className="text-[10px] text-amber-400 transition-transform group-hover:rotate-180">
-                ▼
-              </span>
-            </span>
-
-            <div className="absolute top-full left-0 w-36 bg-[#121215] border border-amber-500/30 rounded-2xl shadow-2xl py-2 space-y-1 text-xs opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto transition-all duration-200 z-50">
-              <Link
-                href="/seoul/서울특별시"
-                className="block px-4 py-2 hover:bg-amber-500/10 hover:text-amber-400 transition-colors"
-              >
-                📍 서울 권역
-              </Link>
-              <Link
-                href="/gyeonggi/경기도"
-                className="block px-4 py-2 hover:bg-amber-500/10 hover:text-amber-400 transition-colors"
-              >
-                📍 경기 권역
-              </Link>
-              <Link
-                href="/incheon/인천광역시"
-                className="block px-4 py-2 hover:bg-amber-500/10 hover:text-amber-400 transition-colors"
-              >
-                📍 인천 권역
-              </Link>
-            </div>
-          </div>
-
-          <Link
-            href="/reviews"
-            className="text-amber-400 font-extrabold hover:text-yellow-300 transition-colors flex items-center gap-1 bg-amber-500/10 px-3 py-1.5 rounded-xl border border-amber-500/30"
-          >
-            <span>💬</span> 이용후기
+            <span>📍</span> 인천 홈케어
           </Link>
         </nav>
 
@@ -102,7 +57,7 @@ export default function NavigationHeader() {
             href="tel:0507-1280-3344"
             className="bg-gradient-to-r from-amber-500 to-yellow-400 text-black font-extrabold text-xs px-3.5 py-2 rounded-xl shadow transition-all active:scale-95 hover:brightness-105"
           >
-            📞 빠른 문의
+            📞 제휴·입점 문의
           </a>
 
           {/* 모바일 햄버거 토글 버튼 */}
@@ -139,71 +94,29 @@ export default function NavigationHeader() {
         </div>
       </div>
 
-      {/* 모바일 메뉴 */}
+      {/* 모바일 전용 지역 메뉴 */}
       {isMobileMenuOpen && (
         <div className="md:hidden border-t border-white/10 mt-3 pt-3 space-y-2 text-xs font-bold text-gray-300">
           <Link
-            href="/services"
+            href="/seoul/서울특별시"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-lg hover:bg-neutral-900 hover:text-amber-400"
+            className="block px-3.5 py-2.5 rounded-xl bg-neutral-900/80 hover:bg-neutral-800 text-gray-200 hover:text-amber-400 border border-white/5 transition-all"
           >
-            프로그램
+            📍 서울 출장 마사지·홈케어
           </Link>
           <Link
-            href="/prices"
+            href="/gyeonggi/경기도"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-lg hover:bg-neutral-900 hover:text-amber-400"
+            className="block px-3.5 py-2.5 rounded-xl bg-neutral-900/80 hover:bg-neutral-800 text-gray-200 hover:text-amber-400 border border-white/5 transition-all"
           >
-            코스비용
+            📍 경기 출장 마사지·홈케어
           </Link>
           <Link
-            href="/travel"
+            href="/incheon/인천광역시"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-lg hover:bg-neutral-900 hover:text-amber-400"
+            className="block px-3.5 py-2.5 rounded-xl bg-neutral-900/80 hover:bg-neutral-800 text-gray-200 hover:text-amber-400 border border-white/5 transition-all"
           >
-            지역여행
-          </Link>
-          <Link
-            href="/places"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-lg hover:bg-neutral-900 hover:text-amber-400"
-          >
-            맛집·숙소
-          </Link>
-          <div className="px-3 py-2 bg-neutral-900/60 rounded-xl space-y-1">
-            <span className="text-[11px] text-amber-400 block font-bold">
-              지역별 안심 출장케어
-            </span>
-            <div className="flex gap-2 pt-1">
-              <Link
-                href="/seoul/서울특별시"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="text-[11px] bg-black/50 px-2.5 py-1 rounded-md text-gray-300"
-              >
-                서울
-              </Link>
-              <Link
-                href="/gyeonggi/경기도"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="text-[11px] bg-black/50 px-2.5 py-1 rounded-md text-gray-300"
-              >
-                경기
-              </Link>
-              <Link
-                href="/incheon/인천광역시"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="text-[11px] bg-black/50 px-2.5 py-1 rounded-md text-gray-300"
-              >
-                인천
-              </Link>
-            </div>
-          </div>
-          <Link
-            href="/reviews"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-lg text-amber-400 hover:bg-amber-500/10"
-          >
-            💬 이용후기
+            📍 인천 출장 마사지·홈케어
           </Link>
         </div>
       )}

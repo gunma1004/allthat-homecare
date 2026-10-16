@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import ClientTextMixer from "./ClientTextMixer";
 
-const SITE_URL = "https://baruncare-seoul.netlify.app";
+const SITE_URL = "https://allthat-homecare.netlify.app";
 
 interface PageProps {
   params: Promise<{
@@ -39,127 +39,127 @@ function getRegionFullName(region: string): string {
   }
 }
 
-// 🌟 네이버 C-Rank / D.I.A. 중복 수집 누락 방지용 30종 순환 패턴 (바른케어 후불 정찰제 특화)
+// 🌟 네이버 C-Rank / D.I.A. 중복 수집 누락 방지용 30종 순환 패턴 (올댓홈케어 특화)
 const SEO_PATTERNS = [
   {
-    titleSuffix: "선입금 없는 출장 안심 마사지",
-    desc: (d: string) => `${d} 출장 마사지 100% 현장 후불제 안내. 예약 선입금 사기 걱정 없는 투명한 정찰제 요금표와 전문 테라피스트 방문 코스를 바른케어에서 확인하세요.`
+    titleSuffix: "출장마사지 · 스웨디시 업체 요금 코스 안내",
+    desc: (d: string) => `${d} 출장마사지·스웨디시 업체를 올댓홈케어에서 확인하세요. 시·군·구별 코스와 이용 요금, 운영 시간을 일목요연하게 정리했습니다.`
   },
   {
-    titleSuffix: "출장 안심 아로마마사지 케어",
-    desc: (d: string) => `${d} 출장 마사지 추천 코스 안내. 최고급 천연 에센셜 오일과 부드러운 릴렉싱 케어를 선입금 0원 정찰제로 바른케어에서 편안하게 경험하세요.`
+    titleSuffix: "도심휴식 출장 홈케어 아로마 테라피",
+    desc: (d: string) => `${d} 출장마사지 및 아로마 테라피 추천 목록. 최고급 천연 에센셜 오일 케어와 쾌적한 힐링 코스를 올댓홈케어에서 편안하게 비교해 보세요.`
   },
   {
-    titleSuffix: "출장 안심 마사지 후불제 가이드",
-    desc: (d: string) => `${d} 출장 마사지 100% 안심 가이드. 관리사 현장 도착 후 결제하는 안전한 시스템과 검증된 1:1 맞춤 바디 릴렉싱을 안내합니다.`
+    titleSuffix: "홈케어 마사지 코스 요금표 및 운영시간",
+    desc: (d: string) => `${d} 출장마사지 코스와 이용 요금, 운영 시간을 한눈에 정리했습니다. 원하시는 매장에 직접 연락하여 편리하게 예약하실 수 있습니다.`
   },
   {
-    titleSuffix: "출장 웰니스 마사지 힐링 안내",
-    desc: (d: string) => `${d} 출장 마사지 큐레이션 플랫폼. 지친 신체 밸런스를 되찾아주는 프라이빗 테라피 프로그램과 실시간 연결을 바른케어에서 만나보세요.`
+    titleSuffix: "도심휴식 마사지 & 웰니스 테라피 큐레이션",
+    desc: (d: string) => `${d} 마사지·홈케어 엄선 큐레이션. 지친 신체 밸런스를 되찾아주는 프라이빗 프로그램 정보와 업체별 세부 정보를 올댓홈케어에서 확인하세요.`
   },
   {
-    titleSuffix: "출장 스웨디시 & 아로마마사지",
-    desc: (d: string) => `${d} 출장 마사지 VIP 스웨디시 안내. 림프 순환을 돕는 섬세한 터칭 기법과 쾌적한 힐링 케어 정찰제 요금을 한눈에 비교해 보세요.`
+    titleSuffix: "출장 스웨디시 & 감성 힐링 케어 추천",
+    desc: (d: string) => `${d} 출장 스웨디시·아로마 전문점 안내. 림프 순환을 돕는 부드러운 터칭 프로그램과 투명한 코스별 요금을 바로 비교해 보세요.`
   },
   {
-    titleSuffix: "출장 안심 마사지 정찰제 플랫폼",
-    desc: (d: string) => `${d} 출장 마사지 투명한 표준 요금 안내. 번거로운 이동 없이 편안한 프라이빗 공간에서 만나는 선입금 없는 고품격 맞춤 바디 케어입니다.`
+    titleSuffix: "프라이빗 홈케어 마사지 업체별 상세 비교",
+    desc: (d: string) => `${d} 출장마사지 표준 요금 및 코스 안내. 이동의 번거로움 없이 편안한 나만의 공간에서 누리는 고품격 홈 바디 케어 정보를 제공합니다.`
   },
   {
-    titleSuffix: "출장 웰니스 마사지 피로회복",
-    desc: (d: string) => `${d} 출장 마사지 집중 컨디셔닝 케어. 굳어있던 목, 어깨와 전신 근육을 시원하게 풀어주는 전문 힐링 프로그램을 제공합니다.`
+    titleSuffix: "도심휴식 힐링 마사지 피로회복 솔루션",
+    desc: (d: string) => `${d} 출장마사지 집중 컨디셔닝 케어. 굳어있던 목, 어깨와 전신 근육을 부드럽게 이완해주는 전문 힐링 프로그램을 올댓에서 확인하세요.`
   },
   {
-    titleSuffix: "출장 아로마마사지 릴렉싱",
-    desc: (d: string) => `${d} 출장 마사지 힐링 솔루션. 심신 안정에 도움을 주는 천연 아로마 향과 편안한 1:1 맞춤 관리를 바른케어에서 경험하세요.`
+    titleSuffix: "출장 아로마마사지 심신 안정 릴렉싱",
+    desc: (d: string) => `${d} 출장마사지 릴렉싱 케어. 심신 안정에 도움을 주는 천연 아로마 향과 편안한 1:1 맞춤 관리 정보를 올댓홈케어에서 제공합니다.`
   },
   {
-    titleSuffix: "출장 안심 마사지 바디 밸런스",
-    desc: (d: string) => `${d} 출장 마사지 전문 비교 플랫폼. 위생 관리와 고객 만족도가 검증된 선입금 없는 공식 파트너 샵 정보만을 정직하게 제공합니다.`
+    titleSuffix: "스웨디시 · 홈케어 투명한 요금표 정리",
+    desc: (d: string) => `${d} 출장마사지 전문 비교 플랫폼. 청결한 관리 환경과 고객 평가가 우수한 제휴 샵의 코스, 이용 요금, 운영 시간 정보를 전해드립니다.`
   },
   {
-    titleSuffix: "출장 웰니스 마사지 감성 케어",
-    desc: (d: string) => `${d} 출장 마사지 프리미엄 감성 코스. 온전한 휴식을 선사하는 섬세한 바디 터칭 테라피로 일상의 활력을 되찾아보세요.`
+    titleSuffix: "도심휴식 프리미엄 바디 밸런스 케어",
+    desc: (d: string) => `${d} 출장마사지 프리미엄 감성 코스. 온전한 휴식을 선사하는 섬세한 바디 테라피로 일상의 활력을 되찾아보세요.`
   },
   {
-    titleSuffix: "출장 아로마마사지 림프 순환",
-    desc: (d: string) => `${d} 출장 마사지 림프 순환 집중 안내. 정체된 신체 흐름을 원활하게 돕고 전신 부종을 가라앉히는 맞춤 아로마 솔루션입니다.`
+    titleSuffix: "출장 아로마마사지 림프 순환 집중 케어",
+    desc: (d: string) => `${d} 출장마사지 림프 순환 프로그램 안내. 정체된 신체 순환을 돕고 전신 피로를 가라앉히는 맞춤 테라피 정보를 정리했습니다.`
   },
   {
-    titleSuffix: "출장 안심 마사지 추천 코스",
-    desc: (d: string) => `${d} 출장 마사지 신속 매칭 가이드. 투명한 요금표와 실시간 전화 상담으로 원하는 시간대에 편리하게 이용하실 수 있습니다.`
+    titleSuffix: "출장마사지 제휴 매장 추천 리스트",
+    desc: (d: string) => `${d} 출장마사지 업체 정보 가이드. 투명한 요금표와 영업시간을 확인하신 후 각 업체로 직접 연락하여 편리하게 일정을 잡으실 수 있습니다.`
   },
   {
-    titleSuffix: "출장 웰니스 마사지 전신 스트레칭",
-    desc: (d: string) => `${d} 출장 마사지 전통 건식 스트레칭. 무겁고 뻐근한 관절 가동 범위를 넓혀 가뿐한 신체 컨디션을 완성해 드립니다.`
+    titleSuffix: "도심휴식 건식 스트레칭 & 타이 홈케어",
+    desc: (d: string) => `${d} 출장마사지 전통 건식 스트레칭. 무겁고 뻐근한 관절 가동 범위를 넓혀 가뿐한 신체 컨디션을 완성하는 코스 정보를 확인하세요.`
   },
   {
-    titleSuffix: "출장 아로마마사지 보습 & 휴식",
-    desc: (d: string) => `${d} 출장 마사지 식물성 오일 케어. 건조한 피부에 풍부한 영양을 채우고 깊은 숙면을 유도하는 프리미엄 테라피 코스입니다.`
+    titleSuffix: "프리미엄 오일 테라피 보습 & 숙면 유도",
+    desc: (d: string) => `${d} 출장마사지 식물성 에센셜 케어. 지친 피부에 영양을 더하고 깊은 휴식을 선사하는 프리미엄 홈케어 코스 정보를 안내합니다.`
   },
   {
-    titleSuffix: "출장 안심 마사지 1:1 맞춤 솔루션",
-    desc: (d: string) => `${d} 출장 마사지 개인 맞춤형 프로그램. 고객님의 당일 피로도와 체형을 세심하게 고려한 고품격 힐링을 안내합니다.`
+    titleSuffix: "1:1 맞춤 출장마사지 프로그램 안내",
+    desc: (d: string) => `${d} 출장마사지 맞춤형 힐링 가이드. 고객님의 당일 피로도와 신체 상태를 세심하게 배려한 우수 테라피스트 제휴 정보를 만나보세요.`
   },
   {
-    titleSuffix: "출장 웰니스 마사지 프라이빗 케어",
-    desc: (d: string) => `${d} 출장 마사지 홈 & 호텔 프라이빗 케어. 번잡한 외출 없이 프라이빗한 공간에서 누리는 VIP 테라피 서비스를 확인하세요.`
+    titleSuffix: "도심휴식 프라이빗 힐링 공간 큐레이션",
+    desc: (d: string) => `${d} 출장마사지 홈 & 숙소 맞춤 케어. 외출의 번거로움 없이 안락한 프라이빗 공간에서 누리는 VIP 테라피 서비스를 확인하세요.`
   },
   {
-    titleSuffix: "출장 아로마마사지 심신 안정 가이드",
-    desc: (d: string) => `${d} 출장 마사지 힐링 아로마콜로지. 감각을 깨우는 순수 에센셜 블렌딩으로 지친 마음까지 포근하게 보듬어 드립니다.`
+    titleSuffix: "출장 아로마 테라피 심신 안정 가이드",
+    desc: (d: string) => `${d} 출장마사지 힐링 아로마콜로지. 감각을 깨우는 순수 에센셜 블렌딩으로 지친 일상을 포근하게 보듬어 드립니다.`
   },
   {
-    titleSuffix: "출장 안심 마사지 정찰 요금표",
-    desc: (d: string) => `${d} 출장 마사지 거품 없는 합리적인 가격. 추가 비용 걱정 없이 정직하게 이용 가능한 공인 파트너 샵 정보입니다.`
+    titleSuffix: "출장마사지 코스별 이용 요금표 비교",
+    desc: (d: string) => `${d} 출장마사지 거품 없는 표준 요금 안내. 각 제휴 업체의 코스 구성, 시간, 금액을 한자리에서 투명하게 비교해 보세요.`
   },
   {
-    titleSuffix: "출장 웰니스 마사지 속근육 딥티슈",
-    desc: (d: string) => `${d} 출장 마사지 심부 근막 이완 케어. 뭉친 승모근과 만성 요통 부위를 정확한 수기 압으로 풀어주는 속 시원한 코스입니다.`
+    titleSuffix: "도심휴식 심부 근막 딥티슈 집중 케어",
+    desc: (d: string) => `${d} 출장마사지 심부 근막 이완 케어. 뭉친 승모근과 만성 허리 피로를 정확한 수기 압으로 풀어주는 속 시원한 코스 안내입니다.`
   },
   {
-    titleSuffix: "출장 아로마마사지 부종 완화",
-    desc: (d: string) => `${d} 출장 마사지 하체 붓기 및 림프 솔루션. 하루 종일 서 있거나 앉아있어 굳은 다리를 가볍게 만들어 드립니다.`
+    titleSuffix: "출장 아로마마사지 하체 부종 완화 코스",
+    desc: (d: string) => `${d} 출장마사지 하체 피로 및 순환 솔루션. 하루 종일 서 있거나 앉아있어 굳은 다리를 가볍게 케어해 드리는 매장 정보입니다.`
   },
   {
-    titleSuffix: "출장 안심 마사지 공식 제휴처",
-    desc: (d: string) => `${d} 출장 마사지 인증 제휴점 리스트. 철저한 매너와 체계적인 위생 수칙을 준수하는 테라피스트만을 선별했습니다.`
+    titleSuffix: "출장마사지 검증 제휴점 정보 확인",
+    desc: (d: string) => `${d} 출장마사지 정식 제휴점 목록. 정성스러운 매너와 체계적인 위생 수칙을 엄수하는 테라피 정보를 올댓홈케어에서 정리했습니다.`
   },
   {
-    titleSuffix: "출장 웰니스 마사지 힐링 테라피",
-    desc: (d: string) => `${d} 출장 마사지 도심 속 힐링 가이드. 복잡한 생각을 내려놓고 신체 밸런스를 차분히 정돈하는 최고의 휴식을 선사합니다.`
+    titleSuffix: "도심휴식 힐링 바디 테라피 추천",
+    desc: (d: string) => `${d} 출장마사지 힐링 가이드. 복잡한 생각을 내려놓고 신체 밸런스를 차분히 정돈하는 최고의 휴식 프로그램을 만나보세요.`
   },
   {
-    titleSuffix: "출장 아로마마사지 감성 스웨디시",
-    desc: (d: string) => `${d} 출장 마사지 부드러운 스웨디시 케어. 림프선을 따라 심장 방향으로 밀어 올리는 유러피언 정통 테라피를 만나보세요.`
+    titleSuffix: "출장 아로마 감성 스웨디시 프로그램",
+    desc: (d: string) => `${d} 출장마사지 부드러운 스웨디시 케어. 림프선을 따라 심장 방향으로 밀어 올리는 유러피언 정통 테라피 정보를 제공합니다.`
   },
   {
-    titleSuffix: "출장 안심 마사지 클린 케어",
-    desc: (d: string) => `${d} 출장 마사지 안심 위생 프로그램. 청결한 관리 환경과 세심한 1:1 케어로 고객 만족도가 높은 전문점 정보입니다.`
+    titleSuffix: "출장마사지 위생 및 클린 케어 안내",
+    desc: (d: string) => `${d} 출장마사지 청결 위생 프로그램. 쾌적한 관리 환경과 세심한 케어로 고객 만족도가 높은 전문 업체 정보입니다.`
   },
   {
-    titleSuffix: "출장 웰니스 마사지 상체 집중 케어",
-    desc: (d: string) => `${d} 출장 마사지 거북목·어깨 결림 집중 관리. 스마트폰과 PC 사용으로 굳어버린 상체 라인을 편안하게 이완합니다.`
+    titleSuffix: "도심휴식 상체 집중 이완 마사지",
+    desc: (d: string) => `${d} 출장마사지 목·어깨 결림 집중 관리. 스마트폰과 PC 사용으로 굳어버린 상체 라인을 편안하게 풀어주는 코스를 확인하세요.`
   },
   {
-    titleSuffix: "출장 아로마마사지 프리미엄 오일",
-    desc: (d: string) => `${d} 출장 마사지 100% 천연 식물성 블렌딩. 피부 자극 없이 부드럽고 촉촉하게 스며드는 프리미엄 테라피를 경험해 보세요.`
+    titleSuffix: "출장 아로마마사지 프리미엄 블렌딩",
+    desc: (d: string) => `${d} 출장마사지 천연 식물성 오일 케어. 피부 자극 없이 부드럽고 촉촉하게 스며드는 프리미엄 테라피 업체를 엄선했습니다.`
   },
   {
-    titleSuffix: "출장 안심 마사지 야간 빠른 연결",
-    desc: (d: string) => `${d} 출장 마사지 늦은 시간 안심 이용 안내. 늦은 저녁이나 주말에도 편안하게 상담받고 일정 조율이 가능합니다.`
+    titleSuffix: "출장마사지 야간 및 주말 운영시간 안내",
+    desc: (d: string) => `${d} 출장마사지 운영시간 정보. 늦은 저녁이나 주말에도 편안하게 상담받고 일정 조율이 가능한 매장 목록을 정리했습니다.`
   },
   {
-    titleSuffix: "출장 웰니스 마사지 활력 회복",
-    desc: (d: string) => `${d} 출장 마사지 바이탈 릴렉스 프로그램. 무거운 피로감을 비우고 가뿐한 에너지를 채워주는 최적의 코스입니다.`
+    titleSuffix: "도심휴식 바이탈 에너지 회복 마사지",
+    desc: (d: string) => `${d} 출장마사지 바이탈 릴렉스 프로그램. 무거운 피로감을 비우고 가뿐한 에너지를 채워주는 최적의 코스 정보입니다.`
   },
   {
-    titleSuffix: "출장 아로마마사지 감성 릴렉스",
-    desc: (d: string) => `${d} 출장 마사지 평온한 휴식의 완성. 차분한 분위기 속에서 누리는 전문 테라피스트의 손길을 바른케어에서 확인하세요.`
+    titleSuffix: "출장 아로마마사지 감성 힐링 완성",
+    desc: (d: string) => `${d} 출장마사지 평온한 휴식의 완성. 차분한 분위기 속에서 누리는 전문 테라피스트의 손길을 올댓홈케어에서 확인하세요.`
   },
   {
-    titleSuffix: "출장 안심 마사지 종합 큐레이션",
-    desc: (d: string) => `${d} 출장 마사지 토탈 웰니스 플랫폼. 스웨디시부터 건식, 아로마까지 취향에 맞는 최고의 프로그램을 한눈에 확인하세요.`
+    titleSuffix: "출장 홈케어 종합 큐레이션 가이드",
+    desc: (d: string) => `${d} 출장마사지 토탈 홈케어 플랫폼. 스웨디시부터 건식, 아로마까지 취향에 맞는 최고의 프로그램을 한눈에 비교해 보세요.`
   }
 ];
 
@@ -184,7 +184,7 @@ function getDynamicDistrictInsight(districtName: string, seed: number) {
       ],
       sec4Title: "4. 안전하고 투명한 웰니스 이용 수칙",
       sec4Text: [
-        `건전하고 투명한 이용 환경을 위해 ${districtName} 고객님께서는 다음 사항을 사전에 확인하시는 것이 좋습니다. 신뢰할 수 있는 공식 등록 파트너는 예약 명목의 불법 선입금을 일절 요구하지 않으며 정찰제 요금 기준을 엄격히 준수합니다.`,
+        `건전하고 투명한 이용 환경을 위해 ${districtName} 고객님께서는 다음 사항을 사전에 확인하시는 것이 좋습니다. 신뢰할 수 있는 공인 파트너는 불투명한 추가금 없이 사전 공지된 정찰제 요금 기준을 정직하게 준수합니다.`,
         `또한 최근 관절 시술을 받았거나 임신, 급성 염증 질환이 있는 경우에는 관리 시작 전 담당 테라피스트에게 컨디션을 명확히 전달하여 안전한 맞춤 압 조절을 진행하시길 권장합니다.`
       ]
     },
@@ -208,7 +208,7 @@ function getDynamicDistrictInsight(districtName: string, seed: number) {
       sec4Title: "4. 올바른 테라피 이용 및 사후 관리 팁",
       sec4Text: [
         `관리를 마친 후에는 체내 노폐물 배출이 활발해지므로 미온수를 충분히 섭취해 주는 것이 바람직합니다. 관리 당일에는 무리한 고강도 운동이나 과도한 음주를 삼가고 따뜻한 휴식을 취해야 근육의 미세 이완 효과가 오래 보존됩니다.`,
-        `${districtName} 바른케어는 고객 여러분께서 믿고 선택하실 수 있도록 선입금 없는 100% 현장 후불 정찰제를 준수하는 검증된 매장 정보만을 엄선하여 실시간 제공합니다.`
+        `${districtName} 올댓홈케어는 고객 여러분께서 신뢰하고 선택하실 수 있도록 정찰제와 운영 시간을 정직하게 공개하는 검증된 매장 정보만을 엄선하여 실시간 제공합니다.`
       ]
     }
   ];
@@ -224,8 +224,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const patternIndex = Math.abs(charSum) % SEO_PATTERNS.length;
   const pattern = SEO_PATTERNS[patternIndex];
 
-  // 🌟 '바른케어'가 뒤쪽에 배치된 최종 타이틀
-  const finalTitle = `${districtName} ${pattern.titleSuffix} | 바른케어`;
+  const finalTitle = `${districtName} ${pattern.titleSuffix} | 올댓홈케어`;
   const finalDescription = pattern.desc(districtName);
   const canonicalUrl = `${SITE_URL}/${region}/${encodeURIComponent(districtName)}`;
 
@@ -236,11 +235,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     keywords: [
       `${districtName} 출장 마사지`,
       `${districtName}출장마사지`,
-      `${districtName} 선입금 없는 출장 마사지`,
-      `${districtName} 출장 안심 마사지`,
+      `${districtName} 출장 홈케어`,
       `${districtName} 스웨디시`,
       `${districtName} 아로마마사지`,
-      "바른케어"
+      "올댓홈케어"
     ],
     robots: {
       index: true,
@@ -251,7 +249,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: finalTitle,
       description: finalDescription,
       url: canonicalUrl,
-      siteName: "바른케어",
+      siteName: "올댓홈케어",
       locale: "ko_KR",
       type: "article",
       images: [
@@ -259,7 +257,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
           url: `${SITE_URL}/banner.jpg`,
           width: 1200,
           height: 630,
-          alt: `${districtName} ${pattern.titleSuffix} 바른케어`,
+          alt: `${districtName} ${pattern.titleSuffix} 올댓홈케어`,
         },
       ],
     },
@@ -277,22 +275,22 @@ export default async function RegionalDetailPage({ params }: PageProps) {
   const article = getDynamicDistrictInsight(districtName, Math.abs(charSum));
   const currentUrl = `${SITE_URL}/${region}/${encodeURIComponent(districtName)}`;
 
-  // 🌟 네이버 서치어드바이저 및 구글 공용 고도화 JSON-LD (4대 복합 스키마)
+  // 🌟 네이버 서치어드바이저 및 구글 공용 고도화 JSON-LD (디렉터리 허브 페이지 표준 규격)
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "WebPage",
+        "@type": "CollectionPage",
         "@id": `${currentUrl}/#webpage`,
         url: currentUrl,
-        name: `${districtName} ${pattern.titleSuffix} | 바른케어`,
+        name: `${districtName} ${pattern.titleSuffix} | 올댓홈케어`,
         description: pattern.desc(districtName),
         inLanguage: "ko-KR",
         isPartOf: {
           "@type": "WebSite",
           "@id": `${SITE_URL}/#website`,
           url: SITE_URL,
-          name: "바른케어"
+          name: "올댓홈케어"
         }
       },
       {
@@ -320,26 +318,11 @@ export default async function RegionalDetailPage({ params }: PageProps) {
         ]
       },
       {
-        "@type": ["HealthAndBeautyBusiness", "LocalBusiness"],
-        "@id": `${currentUrl}/#localbusiness`,
-        name: `${districtName} ${pattern.titleSuffix} | 바른케어`,
-        description: pattern.desc(districtName),
-        url: currentUrl,
-        telephone: "0507-1280-3344",
-        image: `${SITE_URL}/banner.jpg`,
-        priceRange: "60,000원~180,000원",
-        currenciesAccepted: "KRW",
-        paymentAccepted: "Cash, Credit Card",
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: districtName,
-          addressRegion: regionFullName,
-          addressCountry: "KR",
-        },
-        areaServed: {
-          "@type": "AdministrativeArea",
-          name: `${regionFullName} ${districtName}`,
-        },
+        "@type": "ItemList",
+        "@id": `${currentUrl}/#itemlist`,
+        name: `${districtName} 출장 마사지 · 홈케어 추천 제휴 목록`,
+        description: `${districtName} 지역의 검증된 출장마사지, 스웨디시, 홈케어 제휴점 리스트`,
+        itemListOrder: "https://schema.org/ItemListUnordered"
       },
       {
         "@type": "FAQPage",
@@ -347,26 +330,26 @@ export default async function RegionalDetailPage({ params }: PageProps) {
         mainEntity: [
           {
             "@type": "Question",
-            name: `${districtName} 출장 마사지 예약 시 선입금이 필요한가요?`,
+            name: `${districtName} 출장마사지 예약은 어떻게 하나요?`,
             acceptedAnswer: {
               "@type": "Answer",
-              text: "아닙니다. 바른케어는 100% 현장 후불 정찰제로 운영됩니다. 테라피스트가 고객님의 위치에 도착한 후 결제를 진행하므로 어떠한 선입금이나 예약금도 요구하지 않습니다.",
+              text: "올댓홈케어 리스트에서 각 업체의 코스와 이용 요금, 운영 시간을 확인하신 후, 안내된 전화연결 버튼을 통해 해당 업체로 직접 예약하시면 됩니다.",
             },
           },
           {
             "@type": "Question",
-            name: `${districtName} 출장 마사지 예약 및 이용 방법은 어떻게 되나요?`,
+            name: `${districtName} 홈케어 이용 요금은 사전에 확인 가능한가요?`,
             acceptedAnswer: {
               "@type": "Answer",
-              text: "리스트에서 원하시는 샵 카드의 전화연결 버튼을 누르시면 해당 업체 매니저와 직접 프로그램 및 방문 시간을 즉시 조율하실 수 있습니다.",
+              text: "네, 올댓홈케어에서는 시·군·구별 제휴 업체의 코스 구성과 요금을 사전에 투명하게 공개하여 번거로운 문의 없이 한눈에 비교하실 수 있습니다.",
             },
           },
           {
             "@type": "Question",
-            name: "바른케어 플랫폼 이용 시 별도 중개 수수료가 있나요?",
+            name: "올댓홈케어 이용 시 별도 중개 수수료가 발생하나요?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "바른케어는 투명한 웰니스 정보 안내 플랫폼으로 이용자에게 어떠한 중개 수수료나 추가 요금도 청구하지 않습니다.",
+              text: "아닙니다. 올댓홈케어는 건전하고 편리한 정보 안내 디렉터리 플랫폼으로 이용자에게 어떠한 중개 수수료도 요구하지 않습니다.",
             },
           },
         ],
@@ -387,7 +370,7 @@ export default async function RegionalDetailPage({ params }: PageProps) {
         <div className="max-w-4xl mx-auto h-16 px-4 flex items-center justify-between">
           <Link href="/" className="font-black text-lg text-white flex items-center gap-1.5">
             <span className="w-2.5 h-5 bg-amber-400 rounded-full inline-block"></span>
-            바른케어
+            올댓홈케어
           </Link>
           <div className="flex items-center gap-2">
             <Link
@@ -400,7 +383,7 @@ export default async function RegionalDetailPage({ params }: PageProps) {
               href="tel:0507-1280-3344"
               className="px-3.5 py-1.5 rounded-full bg-amber-400 text-black font-black text-xs hover:scale-105 transition-transform"
             >
-              📞 안심 문의
+              📞 입점·제휴 문의
             </a>
           </div>
         </div>
@@ -408,7 +391,7 @@ export default async function RegionalDetailPage({ params }: PageProps) {
 
       {/* 3. 본문 영역 */}
       <main className="max-w-4xl mx-auto px-4 py-8 w-full flex-1 space-y-12">
-        {/* 네이버 Yeti 봇용 브레드크럼 시맨틱 HTML (탐색 누락 방지) */}
+        {/* 네이버 Yeti 봇용 브레드크럼 시맨틱 HTML */}
         <nav aria-label="Breadcrumb" className="text-xs text-gray-400 flex items-center gap-1.5">
           <Link href="/" className="hover:text-amber-400 transition-colors">홈</Link>
           <span>&gt;</span>
@@ -423,7 +406,7 @@ export default async function RegionalDetailPage({ params }: PageProps) {
         <section className="relative rounded-3xl overflow-hidden border border-amber-500/30 shadow-[0_0_40px_rgba(245,158,11,0.12)] bg-[#141418]">
           <div className="p-6 md:p-10 space-y-3">
             <span className="text-amber-400 text-xs font-black tracking-widest uppercase mb-1 block">
-              {regionFullName.toUpperCase()} · 100% 현장 후불 정찰제
+              {regionFullName.toUpperCase()} · 도심휴식 마사지 · 홈케어
             </span>
             <h1 className="text-2xl md:text-4xl font-black text-white drop-shadow-md">
               {districtName} {pattern.titleSuffix}
@@ -441,7 +424,7 @@ export default async function RegionalDetailPage({ params }: PageProps) {
         <article className="bg-[#0e0e12] p-6 sm:p-10 rounded-3xl border border-white/10 space-y-8 text-gray-300 leading-relaxed text-xs sm:text-sm">
           <div className="border-b border-white/10 pb-4">
             <span className="text-amber-400 font-extrabold text-xs tracking-widest block uppercase mb-1">
-              WELLNESS & BODY CARE INSIGHT
+              ALL THAT HOMECARE WELLNESS INSIGHT
             </span>
             <h2 className="text-xl sm:text-2xl font-black text-white">
               {article.subtitle}
@@ -488,7 +471,7 @@ export default async function RegionalDetailPage({ params }: PageProps) {
           </section>
 
           <div className="pt-4 border-t border-white/5 text-[11px] text-gray-500">
-            * 본 가이드는 {districtName} 출장 마사지 이용 고객 여러분의 올바른 신체 건강 상식과 투명한 테라피 서비스 이용을 돕기 위해 작성된 정보성 칼럼입니다.
+            * 본 가이드는 {districtName} 출장 마사지 및 홈케어 이용 고객 여러분의 건강한 휴식과 투명한 테라피 정보 비교를 돕기 위해 작성된 정보성 칼럼입니다.
           </div>
         </article>
 
@@ -496,28 +479,28 @@ export default async function RegionalDetailPage({ params }: PageProps) {
         <section className="bg-[#0f0f13] p-6 md:p-8 rounded-3xl border border-amber-500/20 space-y-6">
           <div className="text-center">
             <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">SERVICE PROCESS</span>
-            <h2 className="text-xl font-black text-white mt-1">{districtName} 안심 이용 순서</h2>
+            <h2 className="text-xl font-black text-white mt-1">{districtName} 간편 이용 절차</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 text-center">
               <span className="text-xs text-amber-400 font-bold">STEP 1</span>
               <h3 className="font-bold text-white mt-1">지역 확인</h3>
-              <p className="text-xs text-gray-400 mt-1">{districtName} 출장 마사지 제휴 샵 목록을 확인합니다.</p>
+              <p className="text-xs text-gray-400 mt-1">{districtName} 제휴 샵 목록을 확인합니다.</p>
             </div>
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 text-center">
               <span className="text-xs text-amber-400 font-bold">STEP 2</span>
-              <h3 className="font-bold text-white mt-1">코스 비교</h3>
-              <p className="text-xs text-gray-400 mt-1">스웨디시, 건식, 아로마 프로그램을 비교합니다.</p>
+              <h3 className="font-bold text-white mt-1">코스·요금 비교</h3>
+              <p className="text-xs text-gray-400 mt-1">스웨디시, 건식, 아로마 코스와 요금을 비교합니다.</p>
             </div>
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 text-center">
               <span className="text-xs text-amber-400 font-bold">STEP 3</span>
-              <h3 className="font-bold text-white mt-1">직접 소통</h3>
-              <p className="text-xs text-gray-400 mt-1">전화 버튼을 통해 샵과 직접 일정을 상담합니다.</p>
+              <h3 className="font-bold text-white mt-1">직접 예약</h3>
+              <p className="text-xs text-gray-400 mt-1">전화 버튼을 통해 해당 업체에 직접 예약합니다.</p>
             </div>
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 text-center">
               <span className="text-xs text-amber-400 font-bold">STEP 4</span>
-              <h3 className="font-bold text-white mt-1">현장 결제</h3>
-              <p className="text-xs text-gray-400 mt-1">선입금 없이 관리사 도착 후 안심 결제합니다.</p>
+              <h3 className="font-bold text-white mt-1">편안한 케어</h3>
+              <p className="text-xs text-gray-400 mt-1">약속된 장소에서 전문 홈케어 서비스를 누립니다.</p>
             </div>
           </div>
         </section>
@@ -531,47 +514,31 @@ export default async function RegionalDetailPage({ params }: PageProps) {
           <div className="space-y-3">
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 space-y-1.5">
               <div className="font-bold text-sm text-gray-200 flex items-center gap-2">
-                <span className="text-amber-400">Q.</span> {districtName} 출장 마사지 예약 시 선입금이 필요한가요?
+                <span className="text-amber-400">Q.</span> {districtName} 출장마사지 예약은 어떻게 하나요?
               </div>
               <p className="text-xs text-gray-400 pl-6 leading-relaxed">
-                <span className="text-amber-400 font-bold">A.</span> 아닙니다. 바른케어는 100% 현장 후불 정찰제로 운영됩니다. 어떠한 형태의 사전 예약금이나 선입금도 요구하지 않습니다.
+                <span className="text-amber-400 font-bold">A.</span> 올댓홈케어 리스트에서 각 업체의 코스와 이용 요금, 운영 시간을 확인하신 후, 전화연결 버튼을 통해 매장에 직접 예약하시면 됩니다.
               </p>
             </div>
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 space-y-1.5">
               <div className="font-bold text-sm text-gray-200 flex items-center gap-2">
-                <span className="text-amber-400">Q.</span> {districtName} 출장 마사지 예약 및 이용 방법은 어떻게 되나요?
+                <span className="text-amber-400">Q.</span> {districtName} 홈케어 이용 요금은 사전에 확인 가능한가요?
               </div>
               <p className="text-xs text-gray-400 pl-6 leading-relaxed">
-                <span className="text-amber-400 font-bold">A.</span> 리스트에서 원하시는 샵 카드의 전화연결 버튼을 누르시면 해당 업체 매니저와 직접 프로그램 및 시간을 조율하실 수 있습니다.
+                <span className="text-amber-400 font-bold">A.</span> 네, 시·군·구별로 나눠 코스와 이용 요금, 운영 시간을 투명하게 정리해 두었으므로 사전에 코스별 금액을 비교해 보실 수 있습니다.
               </p>
             </div>
             <div className="bg-black/60 p-4 rounded-2xl border border-white/5 space-y-1.5">
               <div className="font-bold text-sm text-gray-200 flex items-center gap-2">
-                <span className="text-amber-400">Q.</span> 바른케어 플랫폼 이용 시 별도 수수료가 있나요?
+                <span className="text-amber-400">Q.</span> 올댓홈케어 플랫폼 이용 시 별도 수수료가 있나요?
               </div>
               <p className="text-xs text-gray-400 pl-6 leading-relaxed">
-                <span className="text-amber-400 font-bold">A.</span> 바른케어는 순수 정보 안내 플랫폼으로 이용자에게 어떠한 중개 수수료도 부과하지 않습니다.
+                <span className="text-amber-400 font-bold">A.</span> 올댓홈케어는 건전한 마사지 및 홈케어 정보를 제공하는 플랫폼으로, 이용 고객님께 별도의 수수료를 부과하지 않습니다.
               </p>
             </div>
           </div>
         </section>
       </main>
 
-      {/* 푸터 */}
-      <footer className="bg-[#040406] border-t border-white/10 py-10 text-center text-gray-500 text-xs mt-auto">
-        <div className="max-w-4xl mx-auto px-4 space-y-4">
-          <div>
-            <a
-              href="tel:0507-1280-3344"
-              className="inline-flex items-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 text-amber-400 font-bold px-4 py-2 rounded-xl border border-amber-500/30 hover:border-amber-400 transition-all text-xs shadow-md"
-            >
-              <span>🤝</span> 바른케어 제휴 문의 (0507-1280-3344)
-            </a>
-          </div>
-          <p className="text-gray-400 font-medium">바른케어는 선입금 없는 건전하고 안전한 프리미엄 바디 웰니스 제휴 정보를 제공합니다.</p>
-          <p className="text-[11px] text-gray-600">COPYRIGHT &copy; BARUNCARE ALL RIGHTS RESERVED.</p>
-        </div>
-      </footer>
-    </div>
-  );
-}
+      {/* 4. 푸터 */}
+      <footer className="bg
