@@ -1,6 +1,4 @@
-"use client";
-
-import { useState, useEffect } from "react";
+// components/DongDetailClient.tsx
 import Link from "next/link";
 
 interface DongDetailClientProps {
@@ -59,25 +57,9 @@ export default function DongDetailClient({
   dongName,
   regionFullName,
 }: DongDetailClientProps) {
-  const [shops, setShops] = useState(initialShops);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    // 🌟 클라이언트 마운트 후에만 안전하게 셔플을 실행하여 서버/클라이언트 하이드레이션 불일치 차단
-    setMounted(true);
-    const shuffled = [...initialShops];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    setShops(shuffled);
-  }, []);
-
   const fullLocation = `${regionFullName} ${districtName} ${dongName}`;
   const shortLocation = `${districtName} ${dongName}`;
-  // 🌟 구/동 뒤에 '출장 마사지' 키워드 결합
   const baseKeyword = `${shortLocation} 출장 마사지`;
-  const displayShops = mounted ? shops : initialShops;
 
   return (
     <div className="space-y-8">
@@ -94,7 +76,7 @@ export default function DongDetailClient({
         </p>
       </section>
 
-      {/* 2. 샵 리스트 섹션 */}
+      {/* 2. 샵 리스트 섹션 (SSR 온전한 텍스트 보장) */}
       <section className="space-y-4">
         <div className="flex justify-between items-center">
           <h3 className="text-sm font-black text-amber-400 tracking-wider uppercase">
@@ -104,59 +86,50 @@ export default function DongDetailClient({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {displayShops.map((shop) => {
-            const shopDetailUrl = `/${region}/${encodeURIComponent(districtName)}/${encodeURIComponent(dongName)}/shop/${shop.id}`;
+          {initialShops.map((shop) => (
+            <div
+              key={shop.id}
+              id={`shop-${shop.id}`}
+              className="bg-[#111114] border border-amber-500/20 hover:border-amber-500/60 rounded-2xl p-4 flex gap-4 items-center shadow-lg transition-all group"
+            >
+              {/* 썸네일 이미지 (404 링크 제거) */}
+              <div className="w-20 h-20 md:w-24 md:h-24 rounded-xl overflow-hidden shrink-0 border border-white/10 block">
+                <img
+                  src={shop.image}
+                  alt={`${baseKeyword} - ${shop.name}`}
+                  width={96}
+                  height={96}
+                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                />
+              </div>
 
-            return (
-              <div
-                key={shop.id}
-                className="bg-[#111114] border border-amber-500/20 hover:border-amber-500/60 rounded-2xl p-4 flex gap-4 items-center shadow-lg transition-all group"
-              >
-                {/* 썸네일 이미지 링크 */}
-                <Link
-                  href={shopDetailUrl}
-                  className="w-20 h-20 md:w-24 md:h-24 rounded-xl overflow-hidden shrink-0 border border-white/10 block"
-                  aria-label={`${shop.name} 코스 및 상세 정보 보기`}
-                >
-                  <img
-                    src={shop.image}
-                    alt={`${baseKeyword} - ${shop.name}`}
-                    width={96}
-                    height={96}
-                    loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                  />
-                </Link>
+              {/* 텍스트 정보 */}
+              <div className="flex-1 min-w-0">
+                <h4 className="font-extrabold text-sm md:text-base text-white truncate group-hover:text-amber-400 transition-colors">
+                  {shop.name} <span className="text-xs font-normal text-gray-400">({dongName})</span>
+                </h4>
 
-                {/* 텍스트 및 상세 링크 */}
-                <div className="flex-1 min-w-0">
-                  <Link href={shopDetailUrl} className="block">
-                    <h4 className="font-extrabold text-sm md:text-base text-white truncate group-hover:text-amber-400 transition-colors">
-                      {shop.name} <span className="text-xs font-normal text-gray-400">({dongName})</span>
-                    </h4>
-                  </Link>
+                <p className="text-[11px] text-gray-400 mt-1 line-clamp-2 leading-snug">
+                  {shop.desc}
+                </p>
 
-                  <p className="text-[11px] text-gray-400 mt-1 line-clamp-2 leading-snug">
-                    {shop.desc}
-                  </p>
+                <div className="mt-2.5 flex items-center justify-between">
+                  <span className="text-xs font-black text-amber-400">
+                    {shop.price}
+                  </span>
 
-                  <div className="mt-2.5 flex items-center justify-between">
-                    <span className="text-xs font-black text-amber-400">
-                      {shop.price}
-                    </span>
-
-                    {/* 업체 직통 전화 연결 버튼 */}
-                    <a
-                      href={`tel:${shop.phone.replace(/-/g, "")}`}
-                      className="bg-gradient-to-r from-amber-500 to-yellow-400 text-black font-black text-xs px-3.5 py-1.5 rounded-xl shadow hover:brightness-105 active:scale-95 transition-all"
-                    >
-                      전화연결
-                    </a>
-                  </div>
+                  {/* 업체 직통 전화 연결 버튼 */}
+                  <a
+                    href={`tel:${shop.phone.replace(/-/g, "")}`}
+                    className="bg-gradient-to-r from-amber-500 to-yellow-400 text-black font-black text-xs px-3.5 py-1.5 rounded-xl shadow hover:brightness-105 active:scale-95 transition-all"
+                  >
+                    전화연결
+                  </a>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </section>
 

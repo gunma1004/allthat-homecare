@@ -32,10 +32,13 @@ export const metadata: Metadata = {
   authors: [{ name: '올댓홈케어', url: SITE_URL }],
   creator: '올댓홈케어',
   publisher: '올댓홈케어',
-  verification: {
-    other: {
-      // 네이버 서치어드바이저 사이트 등록 후 발급받은 실제 키 값으로 교체하세요.
-      'naver-site-verification': '8ba4d22371a9323f3f813c92454dd8fc6420a5ad',
+  // 네이버 및 구글 수집 허용 명시
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
     },
   },
   openGraph: {
@@ -55,8 +58,9 @@ export const metadata: Metadata = {
       },
     ],
   },
+  // layout에서는 alternates.canonical을 비워두고, 각 page.tsx에서 자기 주소를 relative path('/')로 지정해야 서브페이지 누락이 방지됩니다.
   alternates: {
-    canonical: SITE_URL,
+    canonical: './',
   },
 };
 
@@ -77,7 +81,7 @@ const jsonLd = {
       inLanguage: 'ko-KR',
     },
     {
-      '@type': ['Organization'],
+      '@type': 'Organization',
       '@id': `${SITE_URL}/#organization`,
       name: '올댓홈케어',
       url: SITE_URL,
@@ -89,18 +93,9 @@ const jsonLd = {
       description:
         '서울, 인천, 경기도 시·군·구별 출장 홈케어 및 스웨디시 제휴 업체 정보 안내',
       areaServed: [
-        {
-          '@type': 'AdministrativeArea',
-          name: '서울특별시',
-        },
-        {
-          '@type': 'AdministrativeArea',
-          name: '인천광역시',
-        },
-        {
-          '@type': 'AdministrativeArea',
-          name: '경기도',
-        },
+        { '@type': 'AdministrativeArea', name: '서울특별시' },
+        { '@type': 'AdministrativeArea', name: '인천광역시' },
+        { '@type': 'AdministrativeArea', name: '경기도' },
       ],
     },
   ],
@@ -114,6 +109,11 @@ export default function RootLayout({
   return (
     <html lang="ko" suppressHydrationWarning>
       <head>
+        {/* 네이버 서치어드바이저 소유확인 태그를 직접 명시하여 파싱 누락 방지 */}
+        <meta
+          name="naver-site-verification"
+          content="8ba4d22371a9323f3f813c92454dd8fc6420a5ad"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -1,6 +1,8 @@
+// app/[region]/[district]/page.tsx
 import { Metadata } from "next";
 import Link from "next/link";
-import ClientTextMixer from "./ClientTextMixer";
+import { notFound } from "next/navigation";
+import { regionData } from "@/data/regions"; // 독립된 지역 데이터 파일에서 임포트
 
 const SITE_URL = "https://allthat-homecare.netlify.app";
 
@@ -39,7 +41,23 @@ function getRegionFullName(region: string): string {
   }
 }
 
-// 🌟 모든 패턴에 '출장'과 '마사지'가 반드시 포함된 70종 고유 순환 패턴
+// 🌟 [필수] 수도권 70여 개 시·군·구를 빌드 시점에 100% 정적 HTML로 생성 (Yeti 타임아웃 누락 방지)
+export async function generateStaticParams() {
+  const paths: { region: string; district: string }[] = [];
+
+  for (const [regionKey, regionVal] of Object.entries(regionData)) {
+    for (const districtVal of Object.values(regionVal.districts)) {
+      paths.push({
+        region: regionKey,
+        district: districtVal.name,
+      });
+    }
+  }
+
+  return paths;
+}
+
+// 🌟 70종 고유 순환 패턴
 const SEO_PATTERNS = [
   {
     titleSuffix: "출장 정찰제 마사지 코스 요금표",
@@ -323,6 +341,15 @@ const SEO_PATTERNS = [
   }
 ];
 
+// 하위 페이지별 고유 매장 텍스트 (SSR로 즉각 노출하여 네이버 저품질/유사문서 방지)
+const defaultShops = [
+  { id: 1, name: "바른안심테라피", desc: "신속 방문 안내, 1:1 맞춤 케어 & 프리미엄 바디 릴렉싱", phone: "0507-1280-3140", price: "90,000원부터~" },
+  { id: 2, name: "오늘밤바른케어", desc: "천연 아로마 오일 블렌딩, 지친 일상을 깨우는 고품격 프라이빗 테라피", phone: "0507-1280-3199", price: "60,000원부터~" },
+  { id: 3, name: "주주안심홈타이", desc: "숙련된 테라피스트의 정통 건식 & 림프 순환 케어", phone: "0507-1280-3197", price: "60,000원부터~" },
+  { id: 4, name: "골든바른테라피", desc: "VIP 집중 피로회복 솔루션, 어디서나 편안하게 만나는 맞춤 힐링", phone: "0507-1280-3360", price: "60,000원부터~" },
+  { id: 5, name: "퀸즈바른홈케어", desc: "검증된 전문 매니저의 힐링 테라피 & 프리미엄 바디 밸런스 프로그램", phone: "0507-1280-3296", price: "60,000원부터~" },
+];
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { region, district } = await params;
   const districtName = safeDecode(district);
@@ -335,6 +362,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const finalTitle = `${locationKeyword} ${pattern.titleSuffix} | 올댓홈케어`;
   const finalDescription = pattern.desc(districtName);
 
+  // 퍼센트 인코딩 일치
   const canonicalUrl = `${SITE_URL}/${region}/${encodeURIComponent(districtName)}`;
 
   return {
@@ -378,15 +406,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function RegionalDetailPage({ params }: PageProps) {
   const { region, district } = await params;
   const districtName = safeDecode(district);
-  const regionFullName = getRegionFullName(region);
+  const currentRegion = regionData[region];
 
+  if (!currentRegion) {
+    notFound();
+  }
+
+  const regionFullName = getRegionFullName(region);
   const charSum = (districtName + region).split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
   const patternIndex = Math.abs(charSum) % SEO_PATTERNS.length;
   const pattern = SEO_PATTERNS[patternIndex];
   const currentUrl = `${SITE_URL}/${region}/${encodeURIComponent(districtName)}`;
   const locationKeyword = `${districtName} 출장 마사지`;
 
-  // 🌟 네이버 서치어드바이저 및 구글 공용 디렉터리형 구조화 데이터
+  // 🌟 구조화 데이터에서 상위 권역 URL을 404 없이 '/${region}'으로 정확히 매핑
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -418,7 +451,7 @@ export default async function RegionalDetailPage({ params }: PageProps) {
             "@type": "ListItem",
             position: 2,
             name: `${regionFullName} 출장 마사지`,
-            item: `${SITE_URL}/${region}/${encodeURIComponent(regionFullName)}`
+            item: `${SITE_URL}/${region}` // 🌟 올바른 상위 라우트 주소
           },
           {
             "@type": "ListItem",
@@ -432,7 +465,7 @@ export default async function RegionalDetailPage({ params }: PageProps) {
         "@type": "ItemList",
         "@id": `${currentUrl}/#itemlist`,
         name: `${locationKeyword} 추천 제휴 매장 목록`,
-        description: `${districtName} 출장 정찰제 마사지, 출장 아로마 마사지, 출장 웰니스 마사지 제휴점 리스트`,
+        description: `${districtName} 출장 정찰제 마사지 제휴점 리스트`,
         itemListOrder: "https://schema.org/ItemListUnordered"
       },
       {
@@ -472,31 +505,6 @@ export default async function RegionalDetailPage({ params }: PageProps) {
             }
           }
         ]
-      },
-      {
-        "@type": "Article",
-        "@id": `${currentUrl}/#article`,
-        mainEntityOfPage: {
-          "@type": "WebPage",
-          "@id": currentUrl
-        },
-        headline: `${locationKeyword} ${pattern.titleSuffix} | 올댓홈케어`,
-        description: pattern.desc(districtName),
-        image: `${SITE_URL}/banner.jpg`,
-        datePublished: "2026-10-14T09:00:00+09:00",
-        dateModified: "2026-10-14T09:00:00+09:00",
-        author: {
-          "@type": "Organization",
-          name: "올댓홈케어"
-        },
-        publisher: {
-          "@type": "Organization",
-          name: "올댓홈케어",
-          logo: {
-            "@type": "ImageObject",
-            url: `${SITE_URL}/og-image.png`
-          }
-        }
       }
     ]
   };
@@ -535,18 +543,18 @@ export default async function RegionalDetailPage({ params }: PageProps) {
 
       {/* 3. 본문 영역 */}
       <main className="max-w-4xl mx-auto px-4 py-6 w-full flex-1 space-y-8">
-        {/* 상단 브레드크럼 탐색 바 */}
+        {/* 상단 브레드크럼: 404 없이 상위 권역으로 올바르게 연결 */}
         <nav aria-label="Breadcrumb" className="text-xs text-gray-400 flex items-center gap-2">
           <Link href="/" className="hover:text-amber-400">홈</Link>
           <span>&gt;</span>
-          <Link href={`/${region}/${encodeURIComponent(regionFullName)}`} className="hover:text-amber-400">
+          <Link href={`/${region}`} className="hover:text-amber-400">
             {regionFullName} 출장 마사지
           </Link>
           <span>&gt;</span>
           <span className="text-amber-400 font-bold">{locationKeyword}</span>
         </nav>
 
-        {/* 상단 메인 히어로 배너 (단일 H1) */}
+        {/* 상단 메인 히어로 배너 (H1) */}
         <section className="relative rounded-3xl overflow-hidden border border-amber-500/30 shadow-[0_0_40px_rgba(245,158,11,0.12)] bg-[#141418] p-6 md:p-8 space-y-2">
           <span className="text-amber-400 text-xs font-black tracking-widest uppercase block">
             {regionFullName} · {districtName} 도심휴식 마사지 · 홈케어
@@ -574,8 +582,40 @@ export default async function RegionalDetailPage({ params }: PageProps) {
           </ul>
         </div>
 
-        {/* 제휴 샵 목록 UI (ClientTextMixer) */}
-        <ClientTextMixer region={region} district={districtName} />
+        {/* 🌟 추천 제휴 샵 목록: SSR로 즉시 텍스트 제공 (검색 봇이 읽을 수 있는 실체 콘텐츠) */}
+        <section className="space-y-4">
+          <h2 className="text-base font-black text-white flex items-center gap-2">
+            <span className="w-1.5 h-4 bg-amber-400 rounded-full inline-block"></span>
+            {districtName} 제휴 매장 추천 큐레이션
+          </h2>
+          <div className="grid gap-3">
+            {defaultShops.map((shop) => (
+              <div
+                key={shop.id}
+                className="bg-[#111114] border border-white/10 rounded-2xl p-4 flex justify-between items-center shadow-sm hover:border-amber-500/30 transition"
+              >
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-bold text-sm text-white">{shop.name}</h3>
+                    <span className="text-[10px] bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded font-bold">
+                      {districtName} 신속 방문
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-400 mt-1">{shop.desc}</p>
+                </div>
+                <div className="text-right flex items-center gap-3">
+                  <span className="text-amber-400 font-black text-sm">{shop.price}</span>
+                  <a
+                    href={`tel:${shop.phone.replace(/-/g, "")}`}
+                    className="bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs px-3 py-1.5 rounded-xl transition"
+                  >
+                    📞 예약
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
 
         {/* 코스/요금표 카드 영역 */}
         <section id="course_info" className="space-y-4">
@@ -619,7 +659,7 @@ export default async function RegionalDetailPage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* 정보 안내 박스 */}
+        {/* 이용 안내 박스 */}
         <section id="company_info" className="bg-[#0e0e12] border border-white/10 rounded-2xl p-5 space-y-3 text-xs">
           <h2 className="text-sm font-bold text-white mb-2">{districtName} 출장 마사지 이용 안내</h2>
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-6 py-2 border-b border-white/5">
@@ -640,7 +680,7 @@ export default async function RegionalDetailPage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* 네이버 C-Rank / D.I.A. 상위 노출용 심층 칼럼 */}
+        {/* 칼럼 정보 */}
         <article className="bg-[#0e0e12] p-6 rounded-3xl border border-white/10 space-y-4 text-gray-300 leading-relaxed text-xs sm:text-sm">
           <div className="border-b border-white/10 pb-3">
             <span className="text-amber-400 font-bold text-xs uppercase block mb-1">
@@ -658,7 +698,7 @@ export default async function RegionalDetailPage({ params }: PageProps) {
           </p>
         </article>
 
-        {/* 자주 묻는 질문 FAQ 섹션 */}
+        {/* FAQ 아코디언 */}
         <section id="faq_info" className="space-y-3">
           <h2 className="text-base font-black text-white flex items-center gap-2">
             <span className="w-1.5 h-4 bg-amber-400 rounded-full inline-block"></span>
@@ -680,24 +720,6 @@ export default async function RegionalDetailPage({ params }: PageProps) {
             </div>
             <p className="text-xs text-gray-400 pl-7 leading-relaxed">
               네, 올댓홈케어에 등록된 모든 제휴 업체는 사전에 공개된 투명한 정찰제 요금을 준수하므로 사전에 코스별 금액을 확인하실 수 있습니다.
-            </p>
-          </div>
-          <div className="bg-[#111114] rounded-2xl p-4 border border-white/5 space-y-1.5">
-            <div className="font-bold text-xs sm:text-sm text-gray-200 flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs font-black">Q</span>
-              시술 도구와 타월 등 소모품은 어떻게 관리되나요?
-            </div>
-            <p className="text-xs text-gray-400 pl-7 leading-relaxed">
-              모든 타월과 시트는 1회 사용 시 즉시 세탁 및 교체되며, 위생 규정을 철저히 지키고 있습니다.
-            </p>
-          </div>
-          <div className="bg-[#111114] rounded-2xl p-4 border border-white/5 space-y-1.5">
-            <div className="font-bold text-xs sm:text-sm text-gray-200 flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs font-black">Q</span>
-              결제 방법은 어떻게 되나요?
-            </div>
-            <p className="text-xs text-gray-400 pl-7 leading-relaxed">
-              각 제휴 매장별 정책에 따라 현금, 카드 결제 및 계좌이체가 지원되며 사전 추가 요금은 발생하지 않습니다.
             </p>
           </div>
         </section>
@@ -725,9 +747,9 @@ export default async function RegionalDetailPage({ params }: PageProps) {
           <div>
             <a
               href="tel:0507-1280-3344"
-              className="inline-flex items-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 text-amber-400 font-bold px-4 py-2 rounded-xl border border-amber-500/30 hover:border-amber-400 transition-all text-xs shadow-md"
+              className="inline-flex items-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 text-amber-400 font-bold px-4 py-2 rounded-xl border border-amber-500/30 text-xs shadow-md"
             >
-              <span>🤝</span> 올댓홈케어 제휴 문의 (0507-1280-3344)
+              🤝 올댓홈케어 제휴 문의 (0507-1280-3344)
             </a>
           </div>
           <p className="text-gray-400 font-medium">

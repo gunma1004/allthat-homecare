@@ -2,7 +2,8 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { regionData } from '../MainClientUI';
+// 1. 순환 참조 및 Client-Server 충돌 방지를 위해 별도 데이터 파일에서 임포트
+import { regionData } from '@/data/regions';
 
 const SITE_URL = 'https://allthat-homecare.netlify.app';
 
@@ -12,19 +13,11 @@ interface RegionPageProps {
   }>;
 }
 
-function safeDecode(str: string): string {
-  if (!str) return '';
-  let decoded = str;
-  try {
-    decoded = decodeURIComponent(decodeURIComponent(str));
-  } catch {
-    try {
-      decoded = decodeURIComponent(str);
-    } catch {
-      decoded = str;
-    }
-  }
-  return decoded.trim();
+// 2. [필수] 정적 빌드(SSG)를 보장하여 Netlify 콜드스타트 타임아웃 및 네이버 수집 실패 방지
+export async function generateStaticParams() {
+  return Object.keys(regionData).map((region) => ({
+    region,
+  }));
 }
 
 function getRegionFullName(region: string): string {
@@ -40,7 +33,6 @@ function getRegionFullName(region: string): string {
   }
 }
 
-// 🌟 네이버 C-Rank / D.I.A. 대응: 권역 뒤에 '출장 마사지' 필수 결합 및 '출장', '마사지' 키워드 포함
 const REGION_SEO_PATTERNS = [
   {
     titleSuffix: '출장 정찰제 마사지 코스 요금표',
@@ -138,7 +130,6 @@ export default async function RegionLandingPage({ params }: RegionPageProps) {
   const charSum = (regionFullName + region).split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
   const pattern = REGION_SEO_PATTERNS[Math.abs(charSum) % REGION_SEO_PATTERNS.length];
 
-  // 🌟 네이버 서치어드바이저 및 구글 공용 허브 구조화 데이터
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -221,13 +212,12 @@ export default async function RegionLandingPage({ params }: RegionPageProps) {
 
   return (
     <div className="bg-[#070709] text-gray-100 min-h-screen flex flex-col font-sans pb-28 md:pb-12 selection:bg-amber-500 selection:text-black">
-      {/* 1. 구조화 데이터 주입 */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* 2. 상단 헤더 */}
+      {/* 상단 헤더 */}
       <header className="sticky top-0 z-50 bg-[#070709]/95 backdrop-blur-md border-b border-amber-500/20 px-4 py-3 shadow-[0_4px_20px_rgba(245,158,11,0.08)]">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 group">
@@ -288,7 +278,7 @@ export default async function RegionLandingPage({ params }: RegionPageProps) {
         </div>
       </header>
 
-      {/* 3. 본문 메인 영역 */}
+      {/* 본문 메인 */}
       <main className="max-w-5xl mx-auto px-4 py-8 w-full flex-1 space-y-12">
         {/* 네이버 Yeti 봇용 브레드크럼 */}
         <nav aria-label="Breadcrumb" className="text-xs text-gray-400 flex items-center gap-2">
@@ -297,7 +287,7 @@ export default async function RegionLandingPage({ params }: RegionPageProps) {
           <span className="text-amber-400 font-bold">{locationKeyword}</span>
         </nav>
 
-        {/* 레퍼런스 스타일 히어로 섹션 */}
+        {/* 히어로 섹션 */}
         <section className="relative rounded-3xl overflow-hidden border border-amber-500/30 shadow-[0_0_40px_rgba(245,158,11,0.12)] bg-gradient-to-b from-[#141418] to-[#0a0a0d] p-6 md:p-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
             <div className="md:col-span-7 space-y-4">
@@ -352,7 +342,7 @@ export default async function RegionLandingPage({ params }: RegionPageProps) {
           </div>
         </section>
 
-        {/* 3대 광역 허브 스위처 카드 */}
+        {/* 광역 권역 스위처 */}
         <section className="space-y-4">
           <div className="border-b border-white/10 pb-3 flex items-center justify-between">
             <h2 className="text-base sm:text-lg font-black text-white flex items-center gap-2">
@@ -404,7 +394,7 @@ export default async function RegionLandingPage({ params }: RegionPageProps) {
           </div>
         </section>
 
-        {/* 시·군·구 세부 지역 선택 (레퍼런스 place-grid 형태) */}
+        {/* 시·군·구 세부 지역 링크 트리 (네이버 수집 로봇 크롤링 보장) */}
         <section id="districts" className="space-y-4">
           <div className="border-b border-white/10 pb-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
             <h2 className="text-base sm:text-lg font-black text-white flex items-center gap-2">
@@ -430,7 +420,7 @@ export default async function RegionLandingPage({ params }: RegionPageProps) {
           </div>
         </section>
 
-        {/* 대표 코스 및 요금표 섹션 (레퍼런스 course-grid 형태) */}
+        {/* 코스 & 요금표 */}
         <section id="courses" className="space-y-5">
           <div className="border-b border-white/10 pb-3">
             <span className="text-amber-400 text-xs font-black tracking-widest uppercase block mb-1">
@@ -445,7 +435,6 @@ export default async function RegionLandingPage({ params }: RegionPageProps) {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-            {/* 타이 마사지 */}
             <article className="bg-[#111114] border border-white/10 rounded-2xl p-5 space-y-3 flex flex-col justify-between">
               <div>
                 <div className="flex justify-between items-center text-xs font-bold text-amber-400 mb-1">
@@ -473,7 +462,6 @@ export default async function RegionLandingPage({ params }: RegionPageProps) {
               </ul>
             </article>
 
-            {/* 아로마 마사지 */}
             <article className="bg-[#111114] border border-white/10 rounded-2xl p-5 space-y-3 flex flex-col justify-between">
               <div>
                 <div className="flex justify-between items-center text-xs font-bold text-amber-400 mb-1">
@@ -501,7 +489,6 @@ export default async function RegionLandingPage({ params }: RegionPageProps) {
               </ul>
             </article>
 
-            {/* 스웨디시 마사지 */}
             <article className="bg-[#111114] border border-white/10 rounded-2xl p-5 space-y-3 flex flex-col justify-between">
               <div>
                 <div className="flex justify-between items-center text-xs font-bold text-amber-400 mb-1">
@@ -529,7 +516,6 @@ export default async function RegionLandingPage({ params }: RegionPageProps) {
               </ul>
             </article>
 
-            {/* 스페셜 마사지 */}
             <article className="bg-[#111114] border border-white/10 rounded-2xl p-5 space-y-3 flex flex-col justify-between">
               <div>
                 <div className="flex justify-between items-center text-xs font-bold text-amber-400 mb-1">
@@ -559,7 +545,7 @@ export default async function RegionLandingPage({ params }: RegionPageProps) {
           </div>
         </section>
 
-        {/* 3대 안심 원칙 (레퍼런스 principles 형태) */}
+        {/* 3대 원칙 */}
         <section className="bg-[#0b0b0e] border border-white/5 p-6 md:p-8 rounded-3xl">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="space-y-2">
@@ -586,7 +572,7 @@ export default async function RegionLandingPage({ params }: RegionPageProps) {
           </div>
         </section>
 
-        {/* 권역 특화 정보성 가이드 (네이버 C-Rank / D.I.A. 상위 랭킹용) */}
+        {/* 정보성 가이드 */}
         <article className="bg-[#0e0e12] p-6 sm:p-8 rounded-3xl border border-white/10 space-y-4 text-gray-300 leading-relaxed text-xs sm:text-sm">
           <div className="border-b border-white/10 pb-3">
             <span className="text-amber-400 font-bold text-xs uppercase block mb-1">
@@ -604,7 +590,7 @@ export default async function RegionLandingPage({ params }: RegionPageProps) {
           </p>
         </article>
 
-        {/* 하단 클로징 CTA 카드 (레퍼런스 closing 형태) */}
+        {/* 하단 CTA */}
         <section className="bg-gradient-to-r from-[#18181f] via-[#121216] to-[#18181f] border border-amber-500/30 p-6 md:p-8 rounded-3xl shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-5">
           <div className="space-y-1.5">
             <span className="text-amber-400 text-xs font-black tracking-widest uppercase">
@@ -626,7 +612,7 @@ export default async function RegionLandingPage({ params }: RegionPageProps) {
         </section>
       </main>
 
-      {/* 모바일 하단 플로팅 바 (레퍼런스 floating-cta 형태) */}
+      {/* 모바일 하단 플로팅 바 */}
       <aside className="fixed bottom-0 left-0 right-0 z-50 bg-[#070709]/95 border-t border-amber-500/30 p-3 shadow-2xl backdrop-blur-md md:hidden">
         <div className="max-w-md mx-auto flex items-center justify-between gap-3">
           <div className="flex-1 min-w-0">
@@ -642,7 +628,7 @@ export default async function RegionLandingPage({ params }: RegionPageProps) {
         </div>
       </aside>
 
-      {/* 4. 푸터 */}
+      {/* 푸터 */}
       <footer className="bg-[#040406] border-t border-white/10 py-8 text-center text-gray-500 text-xs mt-auto">
         <div className="max-w-4xl mx-auto px-4 space-y-3">
           <div>

@@ -1,6 +1,4 @@
-"use client";
-
-import { useMemo } from "react";
+// components/ClientTextMixer.tsx (또는 ShopListSection.tsx)
 import Link from "next/link";
 
 interface ShopItem {
@@ -21,7 +19,6 @@ interface ClientTextMixerProps {
 
 const SITE_URL = "https://allthat-homecare.netlify.app";
 
-// 🌟 올댓홈케어 전용 도심휴식 · 코스 & 요금 10대 키워드 순환 패턴
 const WELLNESS_PATTERNS = [
   "출장마사지·스웨디시 코스 요금 및 운영시간 안내",
   "도심휴식 출장 홈케어 아로마 바디 순환 프로그램",
@@ -86,46 +83,47 @@ export default function ClientTextMixer({
 }: ClientTextMixerProps) {
   const locationText = dongName ? `${district} ${dongName}`.trim() : `${district}`.trim();
 
-  const introText = useMemo(() => {
-    if (!locationText) return `출장마사지·스웨디시 코스 요금 및 운영시간 안내`;
-    const index =
-      Math.abs(
+  // 순수 문자열 연산으로 introText 계산 (useMemo 제거로 RSC 지원)
+  const patternIndex = locationText
+    ? Math.abs(
         locationText
           .split("")
           .reduce((acc, char) => acc + char.charCodeAt(0), 0)
-      ) % WELLNESS_PATTERNS.length;
-    return `${locationText} ${WELLNESS_PATTERNS[index]}`;
-  }, [locationText]);
+      ) % WELLNESS_PATTERNS.length
+    : 0;
 
-  // 🌟 네이버 서치어드바이저 및 구글 검색엔진용 ItemList 정형 데이터
+  const introText = locationText
+    ? `${locationText} ${WELLNESS_PATTERNS[patternIndex]}`
+    : "출장마사지·스웨디시 코스 요금 및 운영시간 안내";
+
+  // 현재 페이지 URL (가상 404 경로 대신 현재 확정된 페이지 URL을 가리킴)
+  const pageUrl = dongName
+    ? `${SITE_URL}/${region}/${encodeURIComponent(district)}/${encodeURIComponent(dongName)}`
+    : `${SITE_URL}/${region}/${encodeURIComponent(district)}`;
+
+  // ItemList 구조화 데이터
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: `${locationText} 출장 마사지 · 홈케어 추천 제휴점`,
-    itemListElement: shops.map((shop, idx) => {
-      const shopUrl = dongName
-        ? `${SITE_URL}/${region}/${encodeURIComponent(district)}/${encodeURIComponent(dongName)}/shop/${shop.id}`
-        : `${SITE_URL}/${region}/${encodeURIComponent(district)}/shop/${shop.id}`;
-
-      return {
-        "@type": "ListItem",
-        position: idx + 1,
-        item: {
-          "@type": "HealthAndBeautyBusiness",
-          name: `${locationText} ${shop.name}`,
-          url: shopUrl,
-          description: shop.desc,
-          telephone: shop.phone,
-          priceRange: shop.price,
-          image: `${SITE_URL}${shop.image}`
-        }
-      };
-    })
+    itemListElement: shops.map((shop, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      item: {
+        "@type": "HealthAndBeautyBusiness",
+        name: `${locationText} ${shop.name}`,
+        url: `${pageUrl}#shop-${shop.id}`,
+        description: shop.desc,
+        telephone: shop.phone,
+        priceRange: shop.price,
+        image: `${SITE_URL}${shop.image}`
+      }
+    }))
   };
 
   return (
     <div className="space-y-8">
-      {/* 검색엔진용 ItemList 정형 데이터 */}
+      {/* 검색엔진용 ItemList 구조화 데이터 */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
@@ -151,59 +149,48 @@ export default function ClientTextMixer({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {shops.map((shop) => {
-            const shopDetailUrl = dongName
-              ? `/${region}/${encodeURIComponent(district)}/${encodeURIComponent(dongName)}/shop/${shop.id}`
-              : `/${region}/${encodeURIComponent(district)}/shop/${shop.id}`;
+          {shops.map((shop) => (
+            <div
+              key={shop.id}
+              id={`shop-${shop.id}`}
+              className="bg-gradient-to-br from-[#161619] to-[#101013] border border-amber-500/25 hover:border-amber-400 rounded-2xl p-4 flex gap-4 items-center shadow-lg transition-all"
+            >
+              {/* 썸네일 이미지 */}
+              <div className="w-20 h-20 md:w-24 md:h-24 rounded-xl overflow-hidden shrink-0 border border-amber-500/30">
+                <img
+                  src={shop.image}
+                  alt={`${locationText} 출장 마사지 - ${shop.name}`}
+                  width={96}
+                  height={96}
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+              </div>
 
-            return (
-              <div
-                key={shop.id}
-                className="bg-gradient-to-br from-[#161619] to-[#101013] border border-amber-500/25 hover:border-amber-400 rounded-2xl p-4 flex gap-4 items-center shadow-lg transition-all group"
-              >
-                {/* 썸네일 이미지 링크 */}
-                <Link
-                  href={shopDetailUrl}
-                  className="w-20 h-20 md:w-24 md:h-24 rounded-xl overflow-hidden shrink-0 border border-amber-500/30 block"
-                  aria-label={`${shop.name} 코스 및 상세 정보 보기`}
-                >
-                  <img
-                    src={shop.image}
-                    alt={`${locationText} 출장 마사지 - ${shop.name}`}
-                    width={96}
-                    height={96}
-                    loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                  />
-                </Link>
+              {/* 텍스트 및 상세 링크 */}
+              <div className="flex-1 min-w-0">
+                <h3 className="font-extrabold text-sm md:text-base text-white truncate">
+                  {shop.name}
+                </h3>
 
-                {/* 텍스트 및 상세 링크 */}
-                <div className="flex-1 min-w-0">
-                  <Link href={shopDetailUrl} className="block">
-                    <h3 className="font-extrabold text-sm md:text-base text-white truncate group-hover:text-amber-400 transition-colors">
-                      {shop.name}
-                    </h3>
-                  </Link>
+                <p className="text-[11px] text-gray-300 mt-1 line-clamp-2 leading-relaxed">
+                  {shop.desc}
+                </p>
 
-                  <p className="text-[11px] text-gray-300 mt-1 line-clamp-2 leading-relaxed">
-                    {shop.desc}
-                  </p>
+                <div className="mt-2.5 flex items-center justify-between">
+                  <span className="text-xs font-black text-amber-300">{shop.price}</span>
 
-                  <div className="mt-2.5 flex items-center justify-between">
-                    <span className="text-xs font-black text-amber-300">{shop.price}</span>
-
-                    {/* 업체 직통 전화 연결 버튼 */}
-                    <a
-                      href={`tel:${shop.phone.replace(/-/g, "")}`}
-                      className="bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-black font-black text-xs px-3.5 py-1.5 rounded-xl shadow transition-all active:scale-95"
-                    >
-                      전화연결
-                    </a>
-                  </div>
+                  {/* 업체 직통 전화 연결 버튼 */}
+                  <a
+                    href={`tel:${shop.phone.replace(/-/g, "")}`}
+                    className="bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-black font-black text-xs px-3.5 py-1.5 rounded-xl shadow transition-all active:scale-95"
+                  >
+                    전화연결
+                  </a>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </section>
     </div>
