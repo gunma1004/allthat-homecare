@@ -260,7 +260,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     alternates: { canonical: canonicalUrl },
     keywords: [
       `${districtName} 출장 마사지`,
-      `${districtName}출장마사지`,
       `${districtName} 출장 정찰제 마사지`,
       `${districtName} 출장 아로마 마사지`,
       `${districtName} 출장 웰니스 마사지`,

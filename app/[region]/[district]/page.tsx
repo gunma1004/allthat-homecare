@@ -358,8 +358,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const patternIndex = Math.abs(charSum) % SEO_PATTERNS.length;
   const pattern = SEO_PATTERNS[patternIndex];
 
-  const locationKeyword = `${districtName} 출장 마사지`;
-  const finalTitle = `${locationKeyword} ${pattern.titleSuffix} | 올댓홈케어`;
+  const finalTitle = `${districtName} ${pattern.titleSuffix} | 올댓홈케어`;
   const finalDescription = pattern.desc(districtName);
 
   // 퍼센트 인코딩 일치
@@ -372,7 +371,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     keywords: [
       `${districtName} 출장 마사지`,
       `${districtName}출장마사지`,
-      `${locationKeyword}`,
+      `${finalTitle}`,
       `${districtName} 출장 정찰제 마사지`,
       `${districtName} 출장 아로마 마사지`,
       `${districtName} 출장 웰니스 마사지`,
@@ -396,7 +395,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
           url: `${SITE_URL}/banner.jpg`,
           width: 1200,
           height: 630,
-          alt: `${locationKeyword} - 올댓홈케어`,
+          alt: `${finalTitle} - 올댓홈케어`,
         },
       ],
     },
@@ -560,8 +559,8 @@ export default async function RegionalDetailPage({ params }: PageProps) {
             {regionFullName} · {districtName} 도심휴식 마사지 · 홈케어
           </span>
           <h1 className="text-2xl md:text-3xl font-black text-white">
-            {districtName} 출장 마사지 {pattern.titleSuffix}
-          </h1>
+  {districtName} {pattern.titleSuffix}
+</h1>
           <p className="text-xs md:text-sm text-gray-300 leading-relaxed">
             {pattern.desc(districtName)}
           </p>
