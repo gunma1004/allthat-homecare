@@ -187,25 +187,25 @@ export default function Page() {
       />
 
       <main className="max-w-4xl mx-auto px-4 py-8 w-full flex-1 space-y-12">
-        {/* 2. 실제 시각적으로 노출되는 상단 H1 메인 배너 (sr-only 삭제) */}
-        <section className="text-center my-2">
-          <div className="overflow-hidden rounded-3xl border border-amber-500/30 shadow-[0_0_40px_rgba(245,158,11,0.12)] relative h-60 md:h-72 flex items-center justify-center p-6 bg-gradient-to-b from-[#141418] to-[#0a0a0d]">
-            <div className="relative z-10 space-y-3">
-              <span className="inline-block px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold text-xs tracking-wider">
-                도심 속 프라이빗 웰니스 큐레이션
-              </span>
-              <h1 className="text-2xl md:text-4xl font-black text-white tracking-tight drop-shadow-lg">
-                서울·인천·경기{" "}
-                <span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">
-                  도심휴식 마사지 · 홈케어 | 올댓홈케어
-                </span>
-              </h1>
-              <p className="text-gray-200 text-xs md:text-sm font-medium max-w-lg mx-auto leading-relaxed drop-shadow">
-                서울 출장마사지·스웨디시 업체를 올댓홈케어에서 비교하세요. 시·군·구별 코스, 정찰제 요금, 운영 시간을 확인하고 각 업체에 바로 예약할 수 있습니다.
-              </p>
-            </div>
-          </div>
-        </section>
+  {/* 단 하나의 메인 대제목 H1 */}
+  <section className="text-center my-2">
+    <div className="overflow-hidden rounded-3xl border border-amber-500/30 shadow-[0_0_40px_rgba(245,158,11,0.12)] relative h-60 md:h-72 flex items-center justify-center p-6 bg-gradient-to-b from-[#141418] to-[#0a0a0d]">
+      <div className="relative z-10 space-y-3">
+        <span className="inline-block px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold text-xs tracking-wider">
+          도심 속 프라이빗 웰니스 큐레이션
+        </span>
+        <h1 className="text-2xl md:text-4xl font-black text-white tracking-tight drop-shadow-lg">
+          서울·인천·경기{" "}
+          <span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">
+            도심휴식 마사지 · 홈케어 | 올댓홈케어
+          </span>
+        </h1>
+        <p className="text-gray-200 text-xs md:text-sm font-medium max-w-lg mx-auto leading-relaxed drop-shadow">
+          서울 출장마사지·스웨디시 업체를 올댓홈케어에서 비교하세요. 시·군·구별 코스, 정찰제 요금, 운영 시간을 확인하고 각 업체에 바로 예약할 수 있습니다.
+        </p>
+      </div>
+    </div>
+  </section>
 
         {/* 3. 추천 제휴 샵 목록: SSR로 즉시 본문 텍스트 제공 */}
         <section className="space-y-6">
